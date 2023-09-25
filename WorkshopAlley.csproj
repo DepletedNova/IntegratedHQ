@@ -143,7 +143,7 @@
     <Compile Include="Franchise\Appliances\Office\TimedSeededBoard.cs" />
     <Compile Include="Franchise\Components\Food Selector.cs" />
     <Compile Include="Franchise\Systems\ClearExcessLayoutData.cs" />
-    <Compile Include="Franchise\Systems\CycleUpgradeView.cs" />
+    <Compile Include="Franchise\Systems\CycleModdedViewProgress.cs" />
     <Compile Include="Franchise\Systems\DebugMarkers.cs" />
     <Compile Include="Franchise\Systems\CycleFranchiseKitchenTutorial.cs" />
     <Compile Include="Franchise\Systems\ManageModdedFranchiseKitchenIndicators.cs" />

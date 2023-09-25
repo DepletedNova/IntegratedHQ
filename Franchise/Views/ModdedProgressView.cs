@@ -35,7 +35,29 @@ namespace KitchenHQ.Franchise
                 Setup();
             }
 
+            // Disable all
+            foreach (var setting in SettingPages)
+                setting.SetActive(false);
+            foreach (var dish in DishPages)
+                dish.SetActive(false);
 
+            if (GDOContainer.ModdedDishes.IsNullOrEmpty() && GDOContainer.ModdedSettings.IsNullOrEmpty())
+            {
+                UpdateText(string.Format("<size=1.5>{0}</size>", Localisation["IHQ:ProgressEmptyPage"]));
+                return;
+            }
+
+            List<GameObject> pages = Data.IsDish ? DishPages : SettingPages;
+            pages[Data.Page].SetActive(true);
+            UpdateText(string.Format("{0}\n<size=1.5>{1}</size>",
+                Data.IsDish ? GDOContainer.ModdedDishes.Count : GDOContainer.ModdedSettings.Count,
+                Localisation[data.IsDish ? "IHQ:ProgressDishPage" : "IHQ:ProgressSettingsPage"]));
+        }
+
+        private void UpdateText(string text)
+        {
+            if (Label != null)
+                Label.text = text;
         }
 
         private bool IsInitialized = false;
@@ -46,7 +68,7 @@ namespace KitchenHQ.Franchise
                 var dishes = GDOContainer.ModdedDishes.Values.ToList();
                 for (int i = 0; i < dishes.Count; i++)
                 {
-                    var page = (int)Mathf.Floor(i / CycleUpgradeView.MaxDishes);
+                    var page = (int)Mathf.Floor(i / CycleModdedViewProgress.MaxDishes);
                     LogDebug($"[APPLIANCE] [PROGRESS] Selecting dish {i} under page {page}");
                     if (page + 1 > DishPages.Count)
                     {
@@ -54,15 +76,15 @@ namespace KitchenHQ.Franchise
                         addedPage.transform.SetParent(gameObject.transform, false);
                         addedPage.transform.localPosition = new(-1.1f, 0.505f, 0f);
                         addedPage.transform.localRotation = Quaternion.identity;
-                        //page.SetActive(false);
+                        addedPage.SetActive(false);
                         DishPages.Add(addedPage);
-                        LogDebug($"[APPLIANCE] [PROGRESS] Creating Page {page}");
+                        LogDebug($"[APPLIANCE] [PROGRESS] Creating Dish Page {page}");
                     }
 
                     var dish = Instantiate(BaseDish);
                     dish.SetActive(true);
                     dish.transform.SetParent(DishPages[page].transform, false);
-                    dish.transform.localPosition = new(2.2f / (CycleUpgradeView.MaxDishes - 1) * (i % CycleUpgradeView.MaxDishes), 0f, 0f);
+                    dish.transform.localPosition = new(2.2f / (CycleModdedViewProgress.MaxDishes - 1) * (i % CycleModdedViewProgress.MaxDishes), 0f, 0f);
                     dish.GetChild("Name").GetComponent<TextMeshPro>().text = dishes[i].Name;
                     dish.GetChild("Dish").GetComponent<MeshRenderer>().material.SetTexture(Image, PrefabSnapshot.GetSnapshot(dishes[i].IconPrefab));
 
@@ -72,7 +94,35 @@ namespace KitchenHQ.Franchise
 
             if (BaseSetting != null)
             {
+                var settings = GDOContainer.ModdedSettings.Values.ToList();
+                for (int i = 0; i < settings.Count; i++)
+                {
+                    var page = (int)Mathf.Floor(i / CycleModdedViewProgress.MaxSettings);
+                    LogDebug($"[APPLIANCE] [PROGRESS] Selecting setting {i} under page {page}");
+                    if (page + 1 > SettingPages.Count)
+                    {
+                        var addedPage = new GameObject($"Setting Page - {page + 1}");
+                        addedPage.transform.SetParent(gameObject.transform, false);
+                        addedPage.transform.localPosition = new(-1.1f, 0.505f, 0f);
+                        addedPage.transform.localRotation = Quaternion.identity;
+                        addedPage.SetActive(false);
+                        SettingPages.Add(addedPage);
+                        LogDebug($"[APPLIANCE] [PROGRESS] Creating Setting Page {page}");
+                    }
 
+                    var setting = Instantiate(BaseSetting);
+                    setting.SetActive(true);
+                    setting.transform.SetParent(SettingPages[page].transform, false);
+                    setting.transform.localPosition = new(2.2f / (CycleModdedViewProgress.MaxSettings - 1) * (i % CycleModdedViewProgress.MaxSettings), 0f, 0f);
+                    setting.GetChild("Name").GetComponent<TextMeshPro>().text = settings[i].Name;
+
+                    var globe = Instantiate(settings[i].Prefab);
+                    globe.transform.SetParent(setting.transform.Find("Container"));
+                    globe.transform.localScale = Vector3.one;
+                    globe.transform.localPosition = Vector3.zero;
+
+                    LogDebug($"[APPLIANCE] [PROGRESS] Added Setting \"{settings[i].Name}\" to Page {page}");
+                }
             }
         }
 

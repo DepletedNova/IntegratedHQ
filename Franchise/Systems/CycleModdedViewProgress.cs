@@ -6,7 +6,7 @@ using Unity.Mathematics;
 
 namespace KitchenHQ.Franchise
 {
-    internal class CycleUpgradeView : ItemInteractionSystem, IModSystem
+    internal class CycleModdedViewProgress : ItemInteractionSystem, IModSystem
     {
         public const int MaxDishes = 5;
         public const int MaxSettings = 5;

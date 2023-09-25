@@ -30,6 +30,11 @@ namespace KitchenHQ.Franchise
                     (Locale.English, "Modded Settings")
                 }
             },
+            { "IHQ:ProgressEmptyPage", new()
+                {
+                    (Locale.English, "No Modded Settings/Dishes")
+                }
+            },
         };
 
         public override void SetupPrefab(GameObject prefab)
@@ -57,7 +62,7 @@ namespace KitchenHQ.Franchise
             dishTMP.enableWordWrapping = true;
             dishTMP.wordWrappingRatios = 0.4f;
             var dishRect = dishLabel.GetComponent<RectTransform>();
-            dishRect.sizeDelta = new(65, 22.5f);
+            dishRect.sizeDelta = new(50, 25f);
             dishRect.localScale = Vector3.one * 0.01f;
 
             // Setting
@@ -72,8 +77,8 @@ namespace KitchenHQ.Franchise
             settingTMP.fontSizeMax = 160;
             settingTMP.enableWordWrapping = true;
             settingTMP.wordWrappingRatios = 0.4f;
-            var settingRect = dishLabel.GetComponent<RectTransform>();
-            settingRect.sizeDelta = new(40, 22.5f);
+            var settingRect = settingLabel.GetComponent<RectTransform>();
+            settingRect.sizeDelta = new(55, 30f);
             settingRect.localScale = Vector3.one * 0.01f;
 
             // View
