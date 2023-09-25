@@ -1,0 +1,184 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C247FD8B-EF32-4ED2-8F3D-6EBA45CAC67E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>KitchenHQ</RootNamespace>
+    <AssemblyName>WorkshopAlley</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <LangVersion>latest</LangVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="0Harmony">
+      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\workshop\content\1599600\2949018507\0Harmony.dll</HintPath>
+    </Reference>
+    <Reference Include="Controllers">
+      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\PlateUp\PlateUp\PlateUp_Data\Managed\Controllers.dll</HintPath>
+    </Reference>
+    <Reference Include="CustomSettingsAndLayouts-Workshop">
+      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\workshop\content\1599600\2990006305\CustomSettingsAndLayouts-Workshop.dll</HintPath>
+    </Reference>
+    <Reference Include="Kitchen.Common">
+      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\PlateUp\PlateUp\PlateUp_Data\Managed\Kitchen.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Kitchen.FranchiseBuilderMode">
+      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\PlateUp\PlateUp\PlateUp_Data\Managed\Kitchen.FranchiseBuilderMode.dll</HintPath>
+    </Reference>
+    <Reference Include="Kitchen.FranchiseMode">
+      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\PlateUp\PlateUp\PlateUp_Data\Managed\Kitchen.FranchiseMode.dll</HintPath>
+    </Reference>
+    <Reference Include="Kitchen.GameData">
+      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\PlateUp\PlateUp\PlateUp_Data\Managed\Kitchen.GameData.dll</HintPath>
+    </Reference>
+    <Reference Include="Kitchen.Layouts">
+      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\PlateUp\PlateUp\PlateUp_Data\Managed\Kitchen.Layouts.dll</HintPath>
+    </Reference>
+    <Reference Include="Kitchen.Persistence, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" />
+    <Reference Include="Kitchen.RestaurantMode">
+      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\PlateUp\PlateUp\PlateUp_Data\Managed\Kitchen.RestaurantMode.dll</HintPath>
+    </Reference>
+    <Reference Include="KitchenLib-Workshop">
+      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\workshop\content\1599600\2898069883\KitchenLib-Workshop.dll</HintPath>
+    </Reference>
+    <Reference Include="KitchenMode">
+      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\PlateUp\PlateUp\PlateUp_Data\Managed\KitchenMode.dll</HintPath>
+    </Reference>
+    <Reference Include="KitchenMods">
+      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\PlateUp\PlateUp\PlateUp_Data\Managed\KitchenMods.dll</HintPath>
+    </Reference>
+    <Reference Include="MessagePack">
+      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\PlateUp\PlateUp\PlateUp_Data\Managed\MessagePack.dll</HintPath>
+    </Reference>
+    <Reference Include="MessagePack.Annotations, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\PlateUp\PlateUp\PlateUp_Data\Managed\MessagePack.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="PreferenceSystem-Workshop">
+      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\workshop\content\1599600\2949018507\PreferenceSystem-Workshop.dll</HintPath>
+    </Reference>
+    <Reference Include="Sirenix.Serialization, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Unity.Entities">
+      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\PlateUp\PlateUp\PlateUp_Data\Managed\Unity.Entities.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Jobs">
+      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\PlateUp\PlateUp\PlateUp_Data\Managed\Unity.Jobs.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Mathematics, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+    <Reference Include="Unity.Serialization">
+      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\PlateUp\PlateUp\PlateUp_Data\Managed\Unity.Serialization.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.TextMeshPro, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\PlateUp\PlateUp\PlateUp_Data\Managed\Unity.TextMeshPro.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\PlateUp\PlateUp\PlateUp_Data\Managed\UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.AssetBundleModule">
+      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\PlateUp\PlateUp\PlateUp_Data\Managed\UnityEngine.AssetBundleModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\PlateUp\PlateUp\PlateUp_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ImageConversionModule">
+      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\PlateUp\PlateUp\PlateUp_Data\Managed\UnityEngine.ImageConversionModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+    <Reference Include="UnityEngine.UIModule">
+      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\PlateUp\PlateUp\PlateUp_Data\Managed\UnityEngine.UIModule.dll</HintPath>
+    </Reference>
+    <Reference Include="XNode, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\PlateUp\PlateUp\PlateUp_Data\Managed\XNode.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Franchise\Appliances\DebugMarker.cs" />
+    <Compile Include="Franchise\Appliances\Office\OfficeArchway.cs" />
+    <Compile Include="Franchise\Appliances\Stats\ModdedProgress.cs" />
+    <Compile Include="Franchise\Components\Upgrade View.cs" />
+    <Compile Include="Franchise\Components\Kitchen Tutorial.cs" />
+    <Compile Include="Franchise\Components\Dish Choice Handling.cs" />
+    <Compile Include="Extensions\WorldExtensions.cs" />
+    <Compile Include="Franchise\Appliances\Garage\WorkshopMarkers.cs" />
+    <Compile Include="Franchise\Appliances\Garage\GarageMarkers.cs" />
+    <Compile Include="Franchise\Appliances\Garage\LoadingBayText.cs" />
+    <Compile Include="Franchise\Appliances\Office\FoodSelector.cs" />
+    <Compile Include="Franchise\Appliances\Office\ModdedFoodsText.cs" />
+    <Compile Include="Franchise\Appliances\Office\OfficeShortWall.cs" />
+    <Compile Include="Franchise\Appliances\Garage\OpenGarageDoor.cs" />
+    <Compile Include="Franchise\Appliances\Garage\ClosedGarageDoor.cs" />
+    <Compile Include="Franchise\Appliances\Office\ThematicSeededBoard.cs" />
+    <Compile Include="Franchise\Appliances\Office\TimedSeededBoard.cs" />
+    <Compile Include="Franchise\Components\Food Selector.cs" />
+    <Compile Include="Franchise\Systems\ClearExcessLayoutData.cs" />
+    <Compile Include="Franchise\Systems\CycleUpgradeView.cs" />
+    <Compile Include="Franchise\Systems\DebugMarkers.cs" />
+    <Compile Include="Franchise\Systems\CycleFranchiseKitchenTutorial.cs" />
+    <Compile Include="Franchise\Systems\ManageModdedFranchiseKitchenIndicators.cs" />
+    <Compile Include="Franchise\Systems\Rooms\Bedrooms.cs" />
+    <Compile Include="Franchise\Systems\Rooms\DishOptions.cs" />
+    <Compile Include="Franchise\Systems\Rooms\ContractRoom.cs" />
+    <Compile Include="Franchise\Systems\Rooms\XPGrants.cs" />
+    <Compile Include="Franchise\Systems\Rooms\Workshop.cs" />
+    <Compile Include="Franchise\Systems\Rooms\Garage.cs" />
+    <Compile Include="Franchise\Systems\Rooms\LayoutOptions.cs" />
+    <Compile Include="Franchise\Systems\Rooms\Office.cs" />
+    <Compile Include="Franchise\Systems\Rooms\Kitchen.cs" />
+    <Compile Include="Franchise\Systems\Rooms\SeededRuns.cs" />
+    <Compile Include="Franchise\Systems\Rooms\Stats.cs" />
+    <Compile Include="Franchise\Systems\Rooms\TutorialTrigger.cs" />
+    <Compile Include="Franchise\Systems\HandleFoodRequests.cs" />
+    <Compile Include="Franchise\Systems\InteractSelectFood.cs" />
+    <Compile Include="Franchise\Views\FoodSelectionView.cs" />
+    <Compile Include="Franchise\Views\ModdedProgressView.cs" />
+    <Compile Include="ModFranchise.cs" />
+    <Compile Include="Main.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utility\Abstract\FranchiseAppliance.cs" />
+    <Compile Include="Utility\Abstract\FranchiseBuildSystem.cs" />
+    <Compile Include="Utility\GDOContainer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="API\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy "$(TargetDir)$(TargetFileName)" "C:\Program Files (x86)\Steam\steamapps\common\PlateUp\PlateUp\Mods\Workshop Alley\content" /y
+copy "C:\PlateUp\Assets\Bundle Generation\Assets\Bundles\workshopalley" "C:\Program Files (x86)\Steam\steamapps\common\PlateUp\PlateUp\Mods\Workshop Alley\content" /y
+cd "C:\Program Files (x86)\Steam\steamapps\common\PlateUp\PlateUp\Mods\Workshop Alley\content"
+del "workshopalley.assets"
+ren "workshopalley" "workshopalley.assets"</PostBuildEvent>
+  </PropertyGroup>
+</Project>
