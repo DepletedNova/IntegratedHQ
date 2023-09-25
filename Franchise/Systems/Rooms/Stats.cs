@@ -24,7 +24,7 @@ namespace KitchenHQ.Franchise
 
             CreateSpeedrunBoard();
 
-            // Modded Table
+            // Modded
             CreateModdedUpgrades();
         }
 
@@ -37,7 +37,7 @@ namespace KitchenHQ.Franchise
             var table = Create(FranchiseReferences.ModdedUpgradesView, pos, Vector3.forward);
             EntityManager.AddComponentData(table, new CModdedUpgradeView
             {
-                IsDish = !GDOContainer.ModdedDishes.IsNullOrEmpty() && GDOContainer.ModdedSettings.IsNullOrEmpty()
+                IsSetting = !GDOContainer.ModdedSettings.IsNullOrEmpty() && GDOContainer.ModdedDishes.IsNullOrEmpty()
             });
 
             EntityManager.AddComponentData(Create(AssetReference.InteractionProxy, pos + Vector3.right, Vector3.forward), new CInteractionProxy

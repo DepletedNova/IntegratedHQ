@@ -1,6 +1,7 @@
 ﻿using Kitchen;
 using KitchenHQ.Utility;
 using KitchenLib.Utils;
+using KitchenMods;
 using MessagePack;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,12 +42,14 @@ namespace KitchenHQ.Franchise
             foreach (var dish in DishPages)
                 dish.SetActive(false);
 
+            // If none available then do not show
             if (GDOContainer.ModdedDishes.IsNullOrEmpty() && GDOContainer.ModdedSettings.IsNullOrEmpty())
             {
                 UpdateText(string.Format("<size=1.5>{0}</size>", Localisation["IHQ:ProgressEmptyPage"]));
                 return;
             }
 
+            // Show appropriate pages
             List<GameObject> pages = Data.IsDish ? DishPages : SettingPages;
             pages[Data.Page].SetActive(true);
             UpdateText(string.Format("{0}\n<size=1.5>{1}</size>",
@@ -86,7 +89,8 @@ namespace KitchenHQ.Franchise
                     dish.transform.SetParent(DishPages[page].transform, false);
                     dish.transform.localPosition = new(2.2f / (CycleModdedViewProgress.MaxDishes - 1) * (i % CycleModdedViewProgress.MaxDishes), 0f, 0f);
                     dish.GetChild("Name").GetComponent<TextMeshPro>().text = dishes[i].Name;
-                    dish.GetChild("Dish").GetComponent<MeshRenderer>().material.SetTexture(Image, PrefabSnapshot.GetSnapshot(dishes[i].IconPrefab));
+                    if (dishes[i].IconPrefab != null)
+                        dish.GetChild("Dish").GetComponent<MeshRenderer>().material.SetTexture(Image, PrefabSnapshot.GetSnapshot(dishes[i].IconPrefab));
 
                     LogDebug($"[APPLIANCE] [PROGRESS] Added Dish \"{dishes[i].Name}\" to Page {page}");
                 }
@@ -116,10 +120,13 @@ namespace KitchenHQ.Franchise
                     setting.transform.localPosition = new(2.2f / (CycleModdedViewProgress.MaxSettings - 1) * (i % CycleModdedViewProgress.MaxSettings), 0f, 0f);
                     setting.GetChild("Name").GetComponent<TextMeshPro>().text = settings[i].Name;
 
-                    var globe = Instantiate(settings[i].Prefab);
-                    globe.transform.SetParent(setting.transform.Find("Container"));
-                    globe.transform.localScale = Vector3.one;
-                    globe.transform.localPosition = Vector3.zero;
+                    if (settings[i].Prefab != null)
+                    {
+                        var globe = Instantiate(settings[i].Prefab);
+                        globe.transform.SetParent(setting.transform.Find("Container"));
+                        globe.transform.localScale = Vector3.one;
+                        globe.transform.localPosition = Vector3.zero;
+                    }
 
                     LogDebug($"[APPLIANCE] [PROGRESS] Added Setting \"{settings[i].Name}\" to Page {page}");
                 }
@@ -137,7 +144,7 @@ namespace KitchenHQ.Franchise
             public bool IsChangedFrom(ViewData check) => check.Page != Page || check.IsDish != IsDish;
         }
 
-        private class UpdateView : IncrementalViewSystemBase<ViewData>
+        private class UpdateView : IncrementalViewSystemBase<ViewData>, IModSystem
         {
             private EntityQuery ProgressViews;
 

@@ -27,8 +27,8 @@ namespace KitchenHQ.Franchise
                 (view.IsDish && GDOContainer.ModdedDishes.Count > MaxDishes || 
                 view.IsSetting && GDOContainer.ModdedSettings.Count > MaxSettings))
             {
-                var pageCount = math.ceil(view.IsDish ? GDOContainer.ModdedDishes.Count / MaxDishes : GDOContainer.ModdedSettings.Count / MaxSettings);
-                view.Page = (int)((view.Page + 1) % math.ceil(view.IsDish ? GDOContainer.ModdedDishes.Count / MaxDishes : GDOContainer.ModdedSettings.Count / MaxSettings));
+                var pageCount = math.ceil(view.IsDish ? GDOContainer.ModdedDishes.Count / MaxDishes : GDOContainer.ModdedSettings.Count / MaxSettings) + 1;
+                view.Page = (int)((view.Page + 1) % pageCount);
                 Set(data.Attempt.Target, view);
 
                 LogDebug($"[APPLIANCE] [PROGRESS] Flipping page to {view.Page}/{pageCount}");
@@ -38,6 +38,7 @@ namespace KitchenHQ.Franchise
             {
                 data.ShouldAct = true;
                 view.IsDish = !view.IsDish;
+                view.Page = 0;
                 Set(data.Attempt.Target, view);
 
                 LogDebug($"[APPLIANCE] [PROGRESS] Swapping type to \"{(view.IsDish ? "Dish" : "Setting")}\"");
