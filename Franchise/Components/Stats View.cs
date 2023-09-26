@@ -11,4 +11,14 @@ namespace KitchenHQ.Franchise
         public bool IsDish;
         public bool IsSetting { get => !IsDish; set => IsDish = !value; }
     }
+
+    public struct CSubscribedModsView : IApplianceProperty, IModComponent
+    {
+        public int ModCount;
+    }
+
+    public struct CCreatedModsView : IApplianceProperty, IModComponent
+    {
+        public ulong UserID;
+    }
 }

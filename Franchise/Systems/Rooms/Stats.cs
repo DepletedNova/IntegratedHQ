@@ -3,7 +3,10 @@ using KitchenData;
 using KitchenHQ.Utility;
 using KitchenLib.Utils;
 using KitchenMods;
+using Steamworks;
+using Steamworks.Ugc;
 using System.Linq;
+using System.Threading.Tasks;
 using Unity.Entities;
 using UnityEngine;
 
@@ -25,7 +28,25 @@ namespace KitchenHQ.Franchise
             CreateSpeedrunBoard();
 
             // Modded
+            EntityManager.AddComponentData(
+                Create(FranchiseReferences.SubscribedModsView, stats + new Vector3(0f, 0f, -4f), Vector3.forward), 
+                new CSubscribedModsView { ModCount = Task.Run(() => WebUtility.GetItemCountFromQuery(Query.Items.WhereUserSubscribed())).GetAwaiter().GetResult() });
             CreateModdedUpgrades();
+            CreateDevModView();
+        }
+
+        private void CreateDevModView()
+        {
+            LogDebug("[BUILD] Checking to build Developer Mod View");
+            var count = Task.Run(() => WebUtility.GetItemCountFromQuery(Query.Items.WhereUserPublished())).GetAwaiter().GetResult();
+            if (count > 0)
+            {
+                LogDebug("[BUILD] Building Developer Mod View");
+                EntityManager.AddComponentData(
+                    Create(FranchiseReferences.CreatedModsView, LobbyPositionAnchors.Stats + new Vector3(-2f, 0f, -4f), Vector3.forward),
+                    new CCreatedModsView { UserID = SteamClient.SteamId });
+            }
+            else LogDebug("[BUILD] Skipping Developer Mod View");
         }
 
         private void CreateModdedUpgrades()

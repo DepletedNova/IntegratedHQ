@@ -122,6 +122,8 @@ namespace KitchenHQ.Layout
 
         // Stats
         public const int ModdedUpgradesView = -597932929;
+        public const int SubscribedModsView = 498895759;
+        public const int CreatedModsView = 1228220591;
 
         // Debug
         public const int Marker = -1909067557;

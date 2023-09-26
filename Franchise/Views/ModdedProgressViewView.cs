@@ -12,7 +12,7 @@ using UnityEngine;
 
 namespace KitchenHQ.Franchise
 {
-    public class ModdedProgressView : UpdatableObjectView<ModdedProgressView.ViewData>
+    public class ModdedProgressViewView : UpdatableObjectView<ModdedProgressViewView.ViewData>
     {
         private static readonly int Image = Shader.PropertyToID("_Image");
 
@@ -139,7 +139,7 @@ namespace KitchenHQ.Franchise
             [Key(0)] public int Page;
             [Key(1)] public bool IsDish;
 
-            public IUpdatableObject GetRelevantSubview(IObjectView view) => view.GetSubView<ModdedProgressView>();
+            public IUpdatableObject GetRelevantSubview(IObjectView view) => view.GetSubView<ModdedProgressViewView>();
 
             public bool IsChangedFrom(ViewData check) => check.Page != Page || check.IsDish != IsDish;
         }

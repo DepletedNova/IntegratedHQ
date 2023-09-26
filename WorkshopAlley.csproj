@@ -41,6 +41,10 @@
     <Reference Include="CustomSettingsAndLayouts-Workshop">
       <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\workshop\content\1599600\2990006305\CustomSettingsAndLayouts-Workshop.dll</HintPath>
     </Reference>
+    <Reference Include="Facepunch.Steamworks.Win64, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\PlateUp\PlateUp\PlateUp_Data\Managed\Facepunch.Steamworks.Win64.dll</HintPath>
+    </Reference>
     <Reference Include="Kitchen.Common">
       <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\PlateUp\PlateUp\PlateUp_Data\Managed\Kitchen.Common.dll</HintPath>
     </Reference>
@@ -82,6 +86,8 @@
     <Reference Include="Sirenix.Serialization, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Design" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -126,8 +132,10 @@
   <ItemGroup>
     <Compile Include="Franchise\Appliances\DebugMarker.cs" />
     <Compile Include="Franchise\Appliances\Office\OfficeArchway.cs" />
-    <Compile Include="Franchise\Appliances\Stats\ModdedProgress.cs" />
-    <Compile Include="Franchise\Components\Upgrade View.cs" />
+    <Compile Include="Franchise\Appliances\Stats\CreatedModsView.cs" />
+    <Compile Include="Franchise\Appliances\Stats\SubscribedModsView.cs" />
+    <Compile Include="Franchise\Appliances\Stats\ModdedProgressView.cs" />
+    <Compile Include="Franchise\Components\Stats View.cs" />
     <Compile Include="Franchise\Components\Kitchen Tutorial.cs" />
     <Compile Include="Franchise\Components\Dish Choice Handling.cs" />
     <Compile Include="Extensions\WorldExtensions.cs" />
@@ -161,14 +169,18 @@
     <Compile Include="Franchise\Systems\Rooms\TutorialTrigger.cs" />
     <Compile Include="Franchise\Systems\HandleFoodRequests.cs" />
     <Compile Include="Franchise\Systems\InteractSelectFood.cs" />
+    <Compile Include="Franchise\Views\CreatedModsViewView.cs" />
     <Compile Include="Franchise\Views\FoodSelectionView.cs" />
-    <Compile Include="Franchise\Views\ModdedProgressView.cs" />
+    <Compile Include="Franchise\Views\ModdedProgressViewView.cs" />
+    <Compile Include="Franchise\Views\SubscribedModsViewView.cs" />
     <Compile Include="ModFranchise.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\Abstract\FranchiseAppliance.cs" />
     <Compile Include="Utility\Abstract\FranchiseBuildSystem.cs" />
+    <Compile Include="Utility\GameObjectUtility.cs" />
     <Compile Include="Utility\GDOContainer.cs" />
+    <Compile Include="Utility\WebUtility.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="API\" />
