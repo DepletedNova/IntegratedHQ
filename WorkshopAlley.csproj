@@ -190,7 +190,9 @@
     <Compile Include="Utility\ModFranchiseComponentGroup.cs" />
     <Compile Include="Utility\WebUtility.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Franchise\Appliances\Mod Room\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy "$(TargetDir)$(TargetFileName)" "C:\Program Files (x86)\Steam\steamapps\common\PlateUp\PlateUp\Mods\Workshop Alley\content" /y

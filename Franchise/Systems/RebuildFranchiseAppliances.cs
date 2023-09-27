@@ -27,6 +27,8 @@ namespace KitchenHQ.Franchise.Systems
 
         protected override void OnUpdate()
         {
+            Clear<SRebuildFranchiseAppliances>();
+
             var GlobalIndex = GetSingleton<SFranchiseApplianceIndex>().Index;
             Dictionary<Vector3, List<(FranchiseAppliance Appliance, Action<Entity, EntityManager> Action)>> set =
                 PrefManager.Get<bool>("LegacyHQEnabled") ? FranchiseAppliance.BaseAppliances : FranchiseAppliance.ModAppliances;
@@ -60,8 +62,6 @@ namespace KitchenHQ.Franchise.Systems
             }
 
             LogDebug($"[REBUILD] [APPLIANCES] Rebuilt appliances under index: {GlobalIndex}");
-
-            Clear<SRebuildFranchiseAppliances>();
         }
     }
 }

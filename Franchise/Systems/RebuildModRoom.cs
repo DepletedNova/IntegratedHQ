@@ -10,9 +10,14 @@ namespace KitchenHQ.Franchise
     [UpdateAfter(typeof(ModFranchiseComponentGroup))]
     public class RebuildModRoom : FranchiseSystem
     {
+        private EntityQuery RoomAppliances;
+
         protected override void Initialise()
         {
             base.Initialise();
+
+            RoomAppliances = GetEntityQuery(new ComponentType[] { typeof(CModRoomAppliance) });
+
             RequireSingletonForUpdate<SModRoom>();
             RequireSingletonForUpdate<SRebuildModRoom>();
         }
@@ -28,6 +33,9 @@ namespace KitchenHQ.Franchise
                 SetSingleton(new SModRoom());
                 return;
             }
+
+            LogDebug($"[REBUILD] [MOD ROOM] Removing old appliances");
+            EntityManager.DestroyEntity(RoomAppliances);
 
             var room = ModRoom.Rooms[index];
             room.BuildRoom(EntityManager, this);
