@@ -13,6 +13,7 @@ using System.Linq;
 using System.Reflection;
 using UnityEngine;
 using KitchenHQ.API;
+using Kitchen;
 
 namespace KitchenHQ
 {
@@ -22,6 +23,31 @@ namespace KitchenHQ
         public const string VERSION = "1.0.0";
 
         public Main() : base(GUID, "Integrated HQ", "Zoey Davis", VERSION, ">=1.0.0", Assembly.GetExecutingAssembly()) { }
+
+        private void ShowExamples()
+        {
+            // API Examples
+            // Must be performed after GameDataConstructor.BuildGameData
+            // Can be put in BaseMod.OnInitialise
+
+            // Example appliances
+            FranchiseAppliance.Register(AssetReference.Counter, new(-2, 0, -6), Vector3.forward, new(-4, 0, -5), Vector3.forward);
+            FranchiseAppliance.Register(AssetReference.DangerHob, new(-2, 0, -6), Vector3.forward, new(-4, 0, -5), Vector3.forward); // Example of swappable Appliances
+
+            FranchiseAppliance.Register(AssetReference.Counter, new(0, 0, -6), Vector3.forward, new(2, 0, -5), Vector3.forward);
+
+            // Example room
+            ModRoom.Create((room, ECB) =>
+            {
+                room.Create(AssetReference.Counter, new(-2, 0, 2), Vector3.forward);
+                room.Create(AssetReference.DangerHob, new(-1, 0, 2), Vector3.forward);
+                room.Create(AssetReference.Counter, new(0, 0, 2), Vector3.forward);
+                room.Create(AssetReference.Counter, new(1, 0, 2), Vector3.forward);
+                var flaming = room.Create(AssetReference.Counter, new(2, 0, 2), Vector3.forward);
+
+                ECB.AddComponent<CIsOnFire>(flaming);
+            });
+        }
 
         private static AssetBundle Bundle;
         public static PreferenceSystemManager PrefManager;
@@ -56,6 +82,8 @@ namespace KitchenHQ
                     .AddOption("DeveloperMode", false, new bool[] { false, true }, new string[] { "Disabled", "Enabled" })
                     .AddLabel("Show room anchors")
                     .AddOption("ShowRoomAnchors", false, new bool[] { false, true }, new string[] { "Disabled", "Enabled" })
+                    .AddLabel("Add Example Appliances & Room")
+                    .AddOption("ShowExampleAppRoom", false, new bool[] { false, true }, new string[] { "Disabled", "Enabled" })
                 .SubmenuDone();
 
             PrefManager.RegisterMenu(PreferenceSystemManager.MenuType.MainMenu);
@@ -125,6 +153,12 @@ namespace KitchenHQ
         #endregion
 
         #region Registry
+        protected override void OnInitialise()
+        {
+            if (PrefManager.Get<bool>("ShowExampleAppRoom"))
+                ShowExamples();
+        }
+
         protected override void OnPostActivate(Mod mod)
         {
             // Bundle loading

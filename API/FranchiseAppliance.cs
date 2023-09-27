@@ -37,6 +37,19 @@ namespace KitchenHQ.API
         public static void Register<T>(Vector3 LegacyPosition, Vector3 LegacyRotation, Vector3 ModPosition, Vector3 ModRotation, Action<Entity, EntityManager> Action = null) where T : CustomAppliance =>
             Register(Create<T>(LegacyPosition, LegacyRotation), Create<T>(ModPosition, ModRotation), Action);
 
+        /// <summary>
+        /// Registers an appliance to be automatically placed in the HQ (allowing for both HQ types as well as
+        /// duplicate appliance positions). Should be used in <c>BaseMod.OnInitialise()</c>
+        /// </summary>
+        /// <param name="id">The ID of the appliance that will be placed</param>
+        /// <param name="LegacyPosition">The position of the appliance for the Legacy HQ type</param>
+        /// <param name="LegacyRotation">The direction the appliance will face the Legacy HQ type</param>
+        /// <param name="ModPosition">The position of the appliance for the Modded HQ type</param>
+        /// <param name="ModRotation">The direction the appliance will face for the Modded HQ type</param>
+        /// <param name="Action">An optional action to perform after the Appliance Entity is placed</param>
+        public static void Register(int id, Vector3 LegacyPosition, Vector3 LegacyRotation, Vector3 ModPosition, Vector3 ModRotation, Action<Entity, EntityManager> Action = null) =>
+            Register(Create(id, LegacyPosition, LegacyRotation), Create(id, ModPosition, ModRotation), Action);
+
         /// <param name="ID">The ID of the appliance that will be placed</param>
         /// <param name="Position">The position of the appliance (Highly suggest using <c>Kitchen.LobbyPositionAnchors</c> and offsetting those)</param>
         /// <param name="Rotation">The direction the appliance will face</param>

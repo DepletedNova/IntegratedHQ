@@ -15,26 +15,23 @@ namespace KitchenHQ.API
 {
     public class ModRoom
     {
-        // Register Room
-        public static ModRoom Register(Action<ModRoom, EntityCommandBuffer> Build)
+        // Register/Create Room
+        public static ModRoom Create(Action<ModRoom, EntityCommandBuffer> Build)
         {
             var room = new ModRoom(Build);
             Rooms.Add(room);
             return room;
         }
 
-        // Materials
+        // Materials (unimplemented)
         public Material FloorMaterial;
         public Material WallMaterial;
 
-        // Creates an Appliance
+        // Creates an Appliance within an ECB
         public Entity Create(int id, Vector3 location, Vector3 facing)
         {
             var pos = ModFranchise.ModRoomAnchor + new Vector3(Mathf.Clamp(location.x, -2f, 2f), 0f, Mathf.Clamp(location.z, -3f, 2f));
             var roundedPos = pos.Rounded();
-
-            if (System.GetPublicOccupant(roundedPos) != Entity.Null)
-                return Entity.Null;
 
             Entity entity = ECB.CreateEntity();
             ECB.AddComponent(entity, new CCreateAppliance { ID = id });
