@@ -3,9 +3,11 @@ using Kitchen;
 using KitchenData;
 using KitchenMods;
 using UnityEngine;
+using Unity.Entities;
 
 namespace KitchenHQ.Franchise
 {
+    [UpdateInGroup(typeof(ModFranchiseComponentGroup))]
     public class CreateModdedTutorialTrigger : FranchiseBuildSystem<CreateTutorialTrigger>, IModSystem
     {
         protected override void Build()

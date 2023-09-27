@@ -1,14 +1,13 @@
-﻿using KitchenHQ.Utility.Abstract;
-using Kitchen;
+﻿using Kitchen;
 using KitchenData;
+using KitchenHQ.Utility;
 using KitchenLib.Utils;
 using System.Collections.Generic;
 using UnityEngine;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace KitchenHQ.Franchise
 {
-    public class ThematicSeededBoard : FranchiseAppliance, ISpecialLocalise
+    public class ThematicSeededBoard : StaticFranchiseAppliance, ISpecialLocalise
     {
         public override string UniqueNameID => "Thematic Seeded Board";
         public override List<(Locale, ApplianceInfo)> InfoList => new()

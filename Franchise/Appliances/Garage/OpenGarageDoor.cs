@@ -1,12 +1,12 @@
-﻿using KitchenHQ.Utility.Abstract;
-using KitchenData;
+﻿using KitchenData;
+using KitchenHQ.Utility;
 using KitchenLib.Utils;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace KitchenHQ.Franchise
 {
-    public class OpenGarageDoor : FranchiseAppliance
+    public class OpenGarageDoor : StaticFranchiseAppliance
     {
         public override string UniqueNameID => "Open Garage Door";
         public override List<(Locale, ApplianceInfo)> InfoList => new()

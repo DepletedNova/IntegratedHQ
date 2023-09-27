@@ -1,12 +1,12 @@
-﻿using KitchenHQ.Utility.Abstract;
-using KitchenData;
+﻿using KitchenData;
+using KitchenHQ.Utility;
 using KitchenLib.Utils;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace KitchenHQ.Franchise
 {
-    public class WorkshopMarkers : FranchiseAppliance
+    public class WorkshopMarkers : StaticFranchiseAppliance
     {
         public override string UniqueNameID => "Workshop Markers";
         public override List<(Locale, ApplianceInfo)> InfoList => new()

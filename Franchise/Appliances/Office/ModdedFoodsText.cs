@@ -1,14 +1,13 @@
-﻿using KitchenHQ.Utility.Abstract;
-using Kitchen;
+﻿using Kitchen;
 using KitchenData;
+using KitchenHQ.Utility;
 using KitchenLib.Utils;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 namespace KitchenHQ.Franchise
 {
-    public class ModdedFoodsText : FranchiseAppliance, ISpecialLocalise
+    public class ModdedFoodsText : StaticFranchiseAppliance, ISpecialLocalise
     {
         public override string UniqueNameID => "Modded Foods Text";
         public override List<(Locale, ApplianceInfo)> InfoList => new()

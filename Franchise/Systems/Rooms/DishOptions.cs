@@ -8,6 +8,7 @@ using UnityEngine;
 
 namespace KitchenHQ.Franchise
 {
+    [UpdateInGroup(typeof(ModFranchiseComponentGroup))]
     public class CreateModdedDishOptions : FranchiseBuildSystem<CreateDishOptions>, IModSystem
     {
 
@@ -24,9 +25,9 @@ namespace KitchenHQ.Franchise
 
             Set(default(HandleFoodRequests.SFoodRequest));
 
-            // Always available
-            if (AssetReference.AlwaysAvailableDish != 0 && Data.TryGet(AssetReference.AlwaysAvailableDish, out Dish alwaysDish, true))
-                CreateFixedFoodSource(office + new Vector3(0f, 0f, -3f), alwaysDish);
+            // Always available -- replace with a reroll
+            /*if (AssetReference.AlwaysAvailableDish != 0 && Data.TryGet(AssetReference.AlwaysAvailableDish, out Dish alwaysDish, true))
+                CreateFixedFoodSource(office + new Vector3(0f, 0f, -3f), alwaysDish);*/
 
             // Slot count
             int slots = ExtraDishes.CalculateEntityCount();

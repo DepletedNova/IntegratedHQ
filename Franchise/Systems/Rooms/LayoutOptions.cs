@@ -9,6 +9,7 @@ using UnityEngine;
 
 namespace KitchenHQ.Franchise
 {
+    [UpdateInGroup(typeof(ModFranchiseComponentGroup))]
     public class CreateModdedLayoutSlots : FranchiseBuildSystem<CreateLayoutSlots>, IModSystem
     {
         private EntityQuery ExtraLayouts;

@@ -1,12 +1,12 @@
-﻿using KitchenHQ.Utility.Abstract;
-using KitchenData;
+﻿using KitchenData;
+using KitchenHQ.Utility;
 using KitchenLib.Utils;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace KitchenHQ.Franchise
 {
-    public class TimedSeededBoard : FranchiseAppliance
+    public class TimedSeededBoard : StaticFranchiseAppliance
     {
         public override string UniqueNameID => "Timed Seeded Board";
         public override List<(Locale, ApplianceInfo)> InfoList => new()

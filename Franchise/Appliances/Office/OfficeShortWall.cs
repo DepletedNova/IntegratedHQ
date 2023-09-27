@@ -1,12 +1,12 @@
-﻿using KitchenHQ.Utility.Abstract;
-using KitchenData;
+﻿using KitchenData;
+using KitchenHQ.Utility;
 using KitchenLib.Utils;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace KitchenHQ.Franchise
 {
-    public class OfficeShortWall : FranchiseAppliance
+    public class OfficeShortWall : StaticFranchiseAppliance
     {
         public override string UniqueNameID => "Short Wall Section";
         public override List<(Locale, ApplianceInfo)> InfoList => new()

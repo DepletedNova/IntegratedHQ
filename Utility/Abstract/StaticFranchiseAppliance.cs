@@ -4,9 +4,9 @@ using KitchenLib.Customs;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace KitchenHQ.Utility.Abstract
+namespace KitchenHQ.Utility
 {
-    public abstract class FranchiseAppliance : CustomAppliance
+    public abstract class StaticFranchiseAppliance : CustomAppliance
     {
         public override bool IsNonInteractive => true;
         public override bool AutoGenerateNavMeshObject => false;

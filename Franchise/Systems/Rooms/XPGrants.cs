@@ -8,6 +8,7 @@ using UnityEngine;
 
 namespace KitchenHQ.Franchise
 {
+    [UpdateInGroup(typeof(ModFranchiseComponentGroup))]
     public class CreateModdedExpGrants : FranchiseBuildSystem<CreateExpGrants>, IModSystem
     {
         private EntityQuery Grants;

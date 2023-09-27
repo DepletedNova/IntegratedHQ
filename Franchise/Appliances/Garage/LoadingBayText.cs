@@ -1,12 +1,12 @@
-﻿using KitchenHQ.Utility.Abstract;
-using KitchenData;
+﻿using KitchenData;
+using KitchenHQ.Utility;
 using KitchenLib.Utils;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace KitchenHQ.Franchise
 {
-    public class LoadingBayText : FranchiseAppliance
+    public class LoadingBayText : StaticFranchiseAppliance
     {
         public override string UniqueNameID => "Loading Bay Text";
         public override List<(Locale, ApplianceInfo)> InfoList => new()

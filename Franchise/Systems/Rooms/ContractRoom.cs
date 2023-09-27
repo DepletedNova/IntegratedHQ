@@ -1,15 +1,14 @@
-﻿using KitchenHQ.Utility;
-using Kitchen;
+﻿using Kitchen;
 using KitchenData;
+using KitchenHQ.Utility;
 using KitchenMods;
-using System;
 using Unity.Collections;
 using Unity.Entities;
-using Unity.Entities.UniversalDelegates;
 using UnityEngine;
 
 namespace KitchenHQ.Franchise
 {
+    [UpdateInGroup(typeof(ModFranchiseComponentGroup))]
     public class CreateModdedContractRoom : FranchiseBuildSystem<CreateContractRoom>, IModSystem
     {
         private EntityQuery Franchises;

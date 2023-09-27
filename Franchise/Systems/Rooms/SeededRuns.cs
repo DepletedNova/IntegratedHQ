@@ -11,6 +11,7 @@ using UnityEngine;
 
 namespace KitchenHQ.Franchise
 {
+    [UpdateInGroup(typeof(ModFranchiseComponentGroup))]
     internal class CreateModdedSeededRuns : FranchiseBuildSystem<CreateSeededRuns>, IModSystem
     {
         protected override void Build()
