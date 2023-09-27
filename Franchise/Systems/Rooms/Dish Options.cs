@@ -33,11 +33,11 @@ namespace KitchenHQ.Franchise
             int slots = ExtraDishes.CalculateEntityCount();
             if (Require(out SPlayerLevel sLevel))
             {
-                LogDebug("[UNLOCK] Adding extra dish slots...");
+                LogDebug("[BUILD] [UNLOCK] Adding extra dish slots...");
                 if (sLevel.Level >= 15)
                 {
                     slots += 3;
-                    LogDebug("[UNLOCK] Level 15: +3");
+                    LogDebug("[BUILD] [UNLOCK] Level 15: +3");
                 }
             }
 

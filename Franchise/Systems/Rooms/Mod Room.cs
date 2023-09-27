@@ -1,5 +1,4 @@
-﻿using KitchenHQ.Franchise.Components;
-using KitchenHQ.Utility;
+﻿using KitchenHQ.Utility;
 using Unity.Entities;
 
 namespace KitchenHQ.Franchise
@@ -15,6 +14,7 @@ namespace KitchenHQ.Franchise
             EntityManager.CreateEntity(typeof(SRebuildModRoom));
 
             // todo: build swapper
+
         }
     }
 }

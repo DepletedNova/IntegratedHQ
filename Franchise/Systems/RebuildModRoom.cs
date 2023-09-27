@@ -1,12 +1,11 @@
 ﻿using Kitchen;
 using KitchenData;
 using KitchenHQ.API;
-using KitchenHQ.Franchise.Components;
 using KitchenHQ.Utility;
 using Unity.Entities;
 using UnityEngine;
 
-namespace KitchenHQ.Franchise.Systems
+namespace KitchenHQ.Franchise
 {
     [UpdateAfter(typeof(ModFranchiseComponentGroup))]
     public class RebuildModRoom : FranchiseSystem
@@ -25,13 +24,15 @@ namespace KitchenHQ.Franchise.Systems
             var index = GetSingleton<SModRoom>().Index;
             if (index >= ModRoom.Rooms.Count)
             {
-                LogError("[ModRoom] Index greater than Room Count");
+                LogError("[REBUILD] [MOD ROOM] Index greater than Room Count");
                 SetSingleton(new SModRoom());
                 return;
             }
 
             var room = ModRoom.Rooms[index];
             room.BuildRoom(EntityManager, this);
+
+            LogDebug($"[REBUILD] [MOD ROOM] Rebuilt under index: {index}");
         }
 
         public void SetPublicOccupant(Vector3 position, Entity e, OccupancyLayer layer = OccupancyLayer.Default) =>

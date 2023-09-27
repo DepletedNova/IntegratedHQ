@@ -157,6 +157,8 @@
     <Compile Include="Franchise\Systems\CycleModdedViewProgress.cs" />
     <Compile Include="Franchise\Systems\DebugMarkers.cs" />
     <Compile Include="Franchise\Systems\CycleFranchiseKitchenTutorial.cs" />
+    <Compile Include="Franchise\Systems\RebuildFranchiseAppliances.cs" />
+    <Compile Include="Franchise\Systems\Rooms\Franchise Appliances.cs" />
     <Compile Include="Franchise\Systems\ManageModdedFranchiseKitchenIndicators.cs" />
     <Compile Include="Franchise\Systems\RebuildModRoom.cs" />
     <Compile Include="Franchise\Systems\Rooms\Bedrooms.cs" />

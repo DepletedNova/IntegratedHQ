@@ -1,8 +1,5 @@
 ﻿using Kitchen;
-using KitchenData;
 using KitchenHQ.Franchise;
-using KitchenHQ.Franchise.Components;
-using KitchenHQ.Franchise.Systems;
 using KitchenLib.Customs;
 using System;
 using System.Collections.Generic;
@@ -63,7 +60,7 @@ namespace KitchenHQ.API
             if (Build == null)
                 return;
 
-            LogDebug("[BUILD] [MOD ROOM] Rebuilding");
+            LogDebug("[REBUILD] [MOD ROOM] Rebuilding");
 
             this.System = System;
             ECB = new(Allocator.Temp);
@@ -76,7 +73,7 @@ namespace KitchenHQ.API
         {
             new ModRoom((room, ECB) =>
             {
-                LogDebug("[BUILD] [MOD ROOM] Building default room");
+                LogDebug("[REBUILD] [MOD ROOM] Building default room");
                 room.Create<SubscribedModsView>(Vector3.zero, Vector3.forward);
             })
         };

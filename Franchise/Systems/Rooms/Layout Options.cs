@@ -27,17 +27,17 @@ namespace KitchenHQ.Franchise
             int slots = ExtraLayouts.CalculateEntityCount();
             if (Require(out SPlayerLevel sLevel))
             {
-                LogDebug("[UNLOCK] Adding extra layout slots...");
+                LogDebug("[BUILD] [UNLOCK] Adding extra layout slots...");
                 if (sLevel.Level >= 10)
                 {
                     slots += 2;
-                    LogDebug("[UNLOCK] Level 10: +2");
+                    LogDebug("[BUILD] [UNLOCK] Level 10: +2");
                 }
 
                 if (sLevel.Level >= 15)
                 {
                     slots += 3;
-                    LogDebug("[UNLOCK] Level 15: +3");
+                    LogDebug("[BUILD] [UNLOCK] Level 15: +3");
                 }
             }
 

@@ -27,7 +27,7 @@ namespace KitchenHQ.Franchise
             {
                 int inversion = i % 2 == 0 ? 1 : -1;
 
-                LogDebug($"[BUILD] Bedroom (Index: {i}; Inverted: {inversion == -1})");
+                LogDebug($"[BUILD] [BEDROOM] (Index: {i}; Inverted: {inversion == -1})");
 
                 var bed = CreateAssigned(i, AssetReference.Bed, bedrooms[i] + new Vector3(inversion * 1.5f, 0f, 1f), Vector3.forward);
                 var proxy = CreateAssigned(i, AssetReference.InteractionProxy, bedrooms[i] + new Vector3(inversion * 1.5f, 0f, 0f), Vector3.forward);
