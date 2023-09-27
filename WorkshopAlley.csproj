@@ -131,13 +131,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="API\FranchiseAppliance.cs" />
-    <Compile Include="API\FranchiseApplianceRegistry.cs" />
-    <Compile Include="API\ModRoomRegistry.cs" />
+    <Compile Include="API\ModRoom.cs" />
     <Compile Include="Franchise\Appliances\DebugMarker.cs" />
     <Compile Include="Franchise\Appliances\Office\OfficeArchway.cs" />
     <Compile Include="Franchise\Appliances\Stats\CreatedModsView.cs" />
     <Compile Include="Franchise\Appliances\Stats\SubscribedModsView.cs" />
     <Compile Include="Franchise\Appliances\Stats\ModdedProgressView.cs" />
+    <Compile Include="Franchise\Components\Mod Room Handling.cs" />
     <Compile Include="Franchise\Components\Stats View.cs" />
     <Compile Include="Franchise\Components\Kitchen Tutorial.cs" />
     <Compile Include="Franchise\Components\Dish Choice Handling.cs" />
@@ -158,9 +158,11 @@
     <Compile Include="Franchise\Systems\DebugMarkers.cs" />
     <Compile Include="Franchise\Systems\CycleFranchiseKitchenTutorial.cs" />
     <Compile Include="Franchise\Systems\ManageModdedFranchiseKitchenIndicators.cs" />
+    <Compile Include="Franchise\Systems\RebuildModRoom.cs" />
     <Compile Include="Franchise\Systems\Rooms\Bedrooms.cs" />
     <Compile Include="Franchise\Systems\Rooms\DishOptions.cs" />
     <Compile Include="Franchise\Systems\Rooms\ContractRoom.cs" />
+    <Compile Include="Franchise\Systems\Rooms\ModRoom.cs" />
     <Compile Include="Franchise\Systems\Rooms\XPGrants.cs" />
     <Compile Include="Franchise\Systems\Rooms\Workshop.cs" />
     <Compile Include="Franchise\Systems\Rooms\Garage.cs" />

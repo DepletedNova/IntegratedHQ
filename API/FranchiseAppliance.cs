@@ -55,7 +55,7 @@ namespace KitchenHQ.API
         /// <param name="Rotation">The direction the appliance will face</param>
         /// <returns></returns>
         public static FranchiseAppliance Create<T>(Vector3 Position, Vector3 Rotation) where T : CustomAppliance =>
-            Create(GetCustomGameDataObject<T>().GameDataObject.ID, Position, Rotation);
+            Create(GetCustomGameDataObject<T>().ID, Position, Rotation);
 
         // Non API
 

@@ -3,6 +3,8 @@ using Kitchen;
 using KitchenData;
 using KitchenMods;
 using UnityEngine;
+using Unity.Entities;
+using Unity.Mathematics;
 
 namespace KitchenHQ.Franchise
 {
@@ -20,22 +22,30 @@ namespace KitchenHQ.Franchise
 
             LogDebug("[BUILD] Debug markers");
 
-            Create(FranchiseReferences.Marker, Vector3.up * 0.5f, Vector3.forward);
+            CreateMarker(Vector3.up * 0.5f);
 
-            Create(FranchiseReferences.Marker, LobbyPositionAnchors.Workshop, Vector3.forward);
-            Create(FranchiseReferences.Marker, LobbyPositionAnchors.Garage, Vector3.forward);
-            Create(FranchiseReferences.Marker, LobbyPositionAnchors.StartMarker, Vector3.forward);
+            CreateMarker(LobbyPositionAnchors.Workshop);
+            CreateMarker(LobbyPositionAnchors.Garage);
+            CreateMarker(LobbyPositionAnchors.StartMarker);
 
-            Create(FranchiseReferences.Marker, LobbyPositionAnchors.Kitchen, Vector3.forward);
-            Create(FranchiseReferences.Marker, LobbyPositionAnchors.Office, Vector3.forward);
-            Create(FranchiseReferences.Marker, LobbyPositionAnchors.Stats, Vector3.forward);
-            Create(FranchiseReferences.Marker, LobbyPositionAnchors.Contracts, Vector3.forward);
+            CreateMarker(LobbyPositionAnchors.Kitchen);
+            CreateMarker(LobbyPositionAnchors.Office);
+            CreateMarker(LobbyPositionAnchors.Stats);
+            CreateMarker(LobbyPositionAnchors.Contracts);
 
             foreach (var bed in LobbyPositionAnchors.Bedrooms)
-                Create(FranchiseReferences.Marker, bed, Vector3.forward);
+                CreateMarker(bed);
 
             if (ReplaceHQ)
-                Create(FranchiseReferences.Marker, ModFranchise.ModRoomAnchor, Vector3.forward);
+                CreateMarker(ModFranchise.ModRoomAnchor);
+        }
+
+        private void CreateMarker(Vector3 position)
+        {
+            Entity entity = EntityManager.CreateEntity(typeof(CCreateAppliance), typeof(CPosition));
+            EntityManager.SetComponentData(entity, new CCreateAppliance { ID = FranchiseReferences.Marker });
+            EntityManager.SetComponentData(entity, new CPosition(position, quaternion.LookRotation(Vector3.forward, new float3(0f, 1f, 0f))));
+            SetOccupant(position, entity, OccupancyLayer.Ceiling);
         }
     }
 }
