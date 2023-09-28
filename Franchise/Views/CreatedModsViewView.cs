@@ -76,7 +76,7 @@ namespace KitchenHQ.Franchise
         [MessagePackObject]
         public struct ViewData : ISpecificViewData, IViewData.ICheckForChanges<ViewData>
         {
-            [Key(0)] public ulong UserID;
+            [Key(1)] public ulong UserID;
 
             public IUpdatableObject GetRelevantSubview(IObjectView view) => view.GetSubView<CreatedModsViewView>();
 

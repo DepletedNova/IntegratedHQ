@@ -22,7 +22,7 @@ namespace KitchenHQ.Franchise
         [MessagePackObject]
         public struct ViewData : ISpecificViewData, IViewData.ICheckForChanges<ViewData>
         {
-            [Key(0)]
+            [Key(1)]
             public bool Pinged;
 
             public IUpdatableObject GetRelevantSubview(IObjectView view) => view.GetSubView<ActivateSwitchView>();

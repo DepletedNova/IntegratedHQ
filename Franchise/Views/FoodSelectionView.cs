@@ -106,8 +106,8 @@ namespace KitchenHQ.Franchise
         [MessagePackObject(false)]
         public struct ViewData : ISpecificViewData, IViewData.ICheckForChanges<ViewData>
         {
-            [Key(0)] public int SelectedType;
-            [Key(1)] public int SelectedID;
+            [Key(1)] public int SelectedType;
+            [Key(2)] public int SelectedID;
 
             public IUpdatableObject GetRelevantSubview(IObjectView view) => view.GetSubView<FoodSelectionView>();
 

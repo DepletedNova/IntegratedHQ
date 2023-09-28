@@ -31,7 +31,7 @@ namespace KitchenHQ.Franchise
         [MessagePackObject]
         public struct ViewData : ISpecificViewData, IViewData.ICheckForChanges<ViewData>
         {
-            [Key(0)] public int Count;
+            [Key(1)] public int Count;
 
             public IUpdatableObject GetRelevantSubview(IObjectView view) => view.GetSubView<SubscribedModsViewView>();
 

@@ -136,8 +136,8 @@ namespace KitchenHQ.Franchise
         [MessagePackObject(false)]
         public struct ViewData : ISpecificViewData, IViewData.ICheckForChanges<ViewData>
         {
-            [Key(0)] public int Page;
-            [Key(1)] public bool IsDish;
+            [Key(1)] public int Page;
+            [Key(2)] public bool IsDish;
 
             public IUpdatableObject GetRelevantSubview(IObjectView view) => view.GetSubView<ModdedProgressViewView>();
 
