@@ -18,7 +18,7 @@ namespace KitchenHQ.API
         /// <param name="LegacyFranchise">The <c>FranchiseAppliance</c> for the Legacy HQ type</param>
         /// <param name="ModFranchise">The <c>FranchiseAppliance</c> for the Modded HQ type</param>
         /// <param name="Action">An optional action to perform after the Appliance Entity is placed</param>
-        public static void Register(FranchiseAppliance LegacyFranchise, FranchiseAppliance ModFranchise, Action<Entity, EntityManager> Action = null)
+        public static void Register(FranchiseAppliance LegacyFranchise, FranchiseAppliance ModFranchise, Action<Entity, EntityCommandBuffer> Action = null)
         {
             SetAppliance(LegacyFranchise, Action, ref BaseAppliances, ref BaseMax);
             SetAppliance(ModFranchise, Action, ref ModAppliances, ref ModMax);
@@ -34,7 +34,7 @@ namespace KitchenHQ.API
         /// <param name="ModPosition">The position of the appliance for the Modded HQ type</param>
         /// <param name="ModRotation">The direction the appliance will face for the Modded HQ type</param>
         /// <param name="Action">An optional action to perform after the Appliance Entity is placed</param>
-        public static void Register<T>(Vector3 LegacyPosition, Vector3 LegacyRotation, Vector3 ModPosition, Vector3 ModRotation, Action<Entity, EntityManager> Action = null) where T : CustomAppliance =>
+        public static void Register<T>(Vector3 LegacyPosition, Vector3 LegacyRotation, Vector3 ModPosition, Vector3 ModRotation, Action<Entity, EntityCommandBuffer> Action = null) where T : CustomAppliance =>
             Register(Create<T>(LegacyPosition, LegacyRotation), Create<T>(ModPosition, ModRotation), Action);
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace KitchenHQ.API
         /// <param name="ModPosition">The position of the appliance for the Modded HQ type</param>
         /// <param name="ModRotation">The direction the appliance will face for the Modded HQ type</param>
         /// <param name="Action">An optional action to perform after the Appliance Entity is placed</param>
-        public static void Register(int id, Vector3 LegacyPosition, Vector3 LegacyRotation, Vector3 ModPosition, Vector3 ModRotation, Action<Entity, EntityManager> Action = null) =>
+        public static void Register(int id, Vector3 LegacyPosition, Vector3 LegacyRotation, Vector3 ModPosition, Vector3 ModRotation, Action<Entity, EntityCommandBuffer> Action = null) =>
             Register(Create(id, LegacyPosition, LegacyRotation), Create(id, ModPosition, ModRotation), Action);
 
         /// <param name="ID">The ID of the appliance that will be placed</param>
@@ -81,13 +81,13 @@ namespace KitchenHQ.API
         public Vector3 Rotation;
 
         // Appliance Dictionaries
-        internal static Dictionary<Vector3, List<(FranchiseAppliance Appliance, Action<Entity, EntityManager> Action)>> BaseAppliances = new();
+        internal static Dictionary<Vector3, List<(FranchiseAppliance Appliance, Action<Entity, EntityCommandBuffer> Action)>> BaseAppliances = new();
         internal static int BaseMax = 1;
-        internal static Dictionary<Vector3, List<(FranchiseAppliance Appliance, Action<Entity, EntityManager> Action)>> ModAppliances = new();
+        internal static Dictionary<Vector3, List<(FranchiseAppliance Appliance, Action<Entity, EntityCommandBuffer> Action)>> ModAppliances = new();
         internal static int ModMax = 1;
 
         // Utility
-        private static void SetAppliance(FranchiseAppliance Appliance, Action<Entity, EntityManager> Action, ref Dictionary<Vector3, List<(FranchiseAppliance, Action<Entity, EntityManager>)>> Appliances, 
+        private static void SetAppliance(FranchiseAppliance Appliance, Action<Entity, EntityCommandBuffer> Action, ref Dictionary<Vector3, List<(FranchiseAppliance, Action<Entity, EntityCommandBuffer>)>> Appliances, 
             ref int Max)
         {
             var pos = Appliance.Position.Rounded();

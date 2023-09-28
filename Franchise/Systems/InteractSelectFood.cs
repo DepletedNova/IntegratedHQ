@@ -14,6 +14,7 @@ namespace KitchenHQ.Franchise
         {
             base.Initialise();
             RequireSingletonForUpdate<SFranchiseMarker>();
+            RequireSingletonForUpdate<HandleFoodRequests.SSelectedFood>();
 
             DishUpgrades = GetEntityQuery(new ComponentType[] { typeof(CDishUpgrade) });
         }
@@ -22,7 +23,7 @@ namespace KitchenHQ.Franchise
 
         protected override bool IsPossible(ref InteractionData data)
         {
-            if (Has<CFoodSelector>(data.Target) && !HasSingleton<HandleFoodRequests.SSelectedFood>())
+            if (Has<CFoodSelector>(data.Target) && !HasSingleton<HandleFoodRequests.SRefreshFood>())
                 return true;
 
             return false;

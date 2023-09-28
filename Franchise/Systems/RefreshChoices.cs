@@ -25,8 +25,11 @@ namespace KitchenHQ.Franchise
                 if (duration.Remaining <= 0 && duration.Active)
                 {
                     LogDebug("[CYCLE] Refreshing Layout Maps & Dish Choices");
+
                     Set(default(HandleLayoutRequests.SLayoutRequest));
-                    Set(default(HandleFoodRequests.SRefreshFood));
+
+                    if (GetSingleton<HandleFoodRequests.SSelectedFood>().ID == 0)
+                        Set(default(HandleFoodRequests.SRefreshFood));
                 }
             }
         }

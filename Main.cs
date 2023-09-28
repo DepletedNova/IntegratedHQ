@@ -33,10 +33,13 @@ namespace KitchenHQ
             // Can be put in BaseMod.OnInitialise
 
             // Example appliances
-            FranchiseAppliance.Register(AssetReference.Counter, new(-2, 0, -6), Vector3.forward, new(-4, 0, -5), Vector3.forward);
-            FranchiseAppliance.Register(AssetReference.DangerHob, new(-2, 0, -6), Vector3.forward, new(-4, 0, -5), Vector3.forward); // Example of swappable Appliances
+            FranchiseAppliance.Register(AssetReference.DangerHob, new(-1, 0, -6), Vector3.forward, new(4, 0, 0), Vector3.forward);
 
-            FranchiseAppliance.Register(AssetReference.Counter, new(0, 0, -6), Vector3.forward, new(2, 0, -5), Vector3.forward);
+            FranchiseAppliance.Register(AssetReference.Counter, new(-1, 0, -6), Vector3.forward, new(4, 0, 0), Vector3.forward, 
+                (Entity, ECB) =>
+            {
+                ECB.AddComponent<CIsOnFire>(Entity);
+            });
 
             // Example room
             ModRoom.Register((room, ECB) =>

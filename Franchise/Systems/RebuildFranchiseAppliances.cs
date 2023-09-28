@@ -30,10 +30,12 @@ namespace KitchenHQ.Franchise.Systems
             Clear<SRebuildFranchiseAppliances>();
 
             var GlobalIndex = GetSingleton<SFranchiseApplianceIndex>().Index;
-            Dictionary<Vector3, List<(FranchiseAppliance Appliance, Action<Entity, EntityManager> Action)>> set =
+            Dictionary<Vector3, List<(FranchiseAppliance Appliance, Action<Entity, EntityCommandBuffer> Action)>> set =
                 PrefManager.Get<bool>("LegacyHQEnabled") ? FranchiseAppliance.BaseAppliances : FranchiseAppliance.ModAppliances;
 
             LogDebug("[REBUILD] [APPLIANCES] Rebuilding");
+
+            var ECB = new EntityCommandBuffer(Allocator.Temp);
 
             var entities = FranchiseAppliances.ToEntityArray(Allocator.Temp);
             for (int i = 0; i < entities.Length; i++)
@@ -59,13 +61,17 @@ namespace KitchenHQ.Franchise.Systems
                 }
 
                 var pair = set[pos][GlobalIndex];
+                
                 var applianceEntity = Create(pair.Appliance.ID, pair.Appliance.Position, pair.Appliance.Rotation);
                 if (pair.Action != null)
-                    pair.Action.Invoke(applianceEntity, EntityManager);
+                    pair.Action.Invoke(applianceEntity, ECB);
 
                 FA.PairedAppliance = applianceEntity;
                 Set(entity, FA);
             }
+
+            ECB.Playback(EntityManager);
+            ECB.Dispose();
 
             LogDebug($"[REBUILD] [APPLIANCES] Rebuilt appliances under index: {GlobalIndex}");
         }

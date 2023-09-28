@@ -17,7 +17,7 @@ namespace KitchenHQ.Franchise
         {
             LogDebug("[BUILD] Franchise Appliances");
 
-            Dictionary<Vector3, List<(FranchiseAppliance Appliance, Action<Entity, EntityManager> Action)>> set =
+            Dictionary<Vector3, List<(FranchiseAppliance Appliance, Action<Entity, EntityCommandBuffer> Action)>> set =
                 ReplaceHQ ? FranchiseAppliance.ModAppliances : FranchiseAppliance.BaseAppliances;
 
             var createSwapper = false;

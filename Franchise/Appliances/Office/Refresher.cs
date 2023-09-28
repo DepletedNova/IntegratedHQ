@@ -20,7 +20,7 @@ namespace KitchenHQ.Franchise
         {
             { "IHQ:Refresher", new()
                 {
-                    (Locale.English, "Refresh Choices")
+                    (Locale.English, "Refresh")
                 }
             },
         };
