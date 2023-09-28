@@ -16,6 +16,9 @@ namespace KitchenHQ.Franchise
 
             LogDebug("[BUILD] Office room");
 
+            // Refresher
+            Create(FranchiseReferences.Refresher, office + new Vector3(0f, 0f, -3f), Vector3.forward);
+
             // Selection
             CreatePlanningBoard(LobbyPositionAnchors.Office);
             Create(AssetReference.SettingSelector, office + new Vector3(-2f, 0f, 0f), Vector3.forward);

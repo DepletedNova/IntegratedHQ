@@ -13,7 +13,7 @@ namespace KitchenHQ.API
     public class ModRoom
     {
         // Register/Create Room
-        public static ModRoom Create(Action<ModRoom, EntityCommandBuffer> Build)
+        public static ModRoom Register(Action<ModRoom, EntityCommandBuffer> Build)
         {
             var room = new ModRoom(Build);
             Rooms.Add(room);

@@ -1,5 +1,7 @@
-﻿using KitchenHQ.Utility;
+﻿using KitchenHQ.API;
+using KitchenHQ.Utility;
 using Unity.Entities;
+using UnityEngine;
 
 namespace KitchenHQ.Franchise
 {
@@ -10,11 +12,11 @@ namespace KitchenHQ.Franchise
         {
             LogDebug("[BUILD] Initialising Mod Room build");
 
-            EntityManager.CreateEntity(typeof(SModRoom));
-            EntityManager.CreateEntity(typeof(SRebuildModRoom));
+            Set<SModRoom>();
+            Set<SRebuildModRoom>();
 
-            // todo: build swapper
-
+            if (ModRoom.Rooms.Count > 1)
+                Create(FranchiseReferences.RoomSwapper, ModFranchise.ModRoomAnchor + new Vector3(-2.9f, 0, -3), Vector3.forward);
         }
     }
 }

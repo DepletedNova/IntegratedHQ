@@ -111,6 +111,10 @@
     <Reference Include="UnityEngine">
       <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\PlateUp\PlateUp\PlateUp_Data\Managed\UnityEngine.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.AnimationModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\IngredientLib\bin\Release\UnityEngine.AnimationModule.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.AssetBundleModule">
       <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\PlateUp\PlateUp\PlateUp_Data\Managed\UnityEngine.AssetBundleModule.dll</HintPath>
     </Reference>
@@ -132,12 +136,16 @@
   <ItemGroup>
     <Compile Include="API\FranchiseAppliance.cs" />
     <Compile Include="API\ModRoom.cs" />
+    <Compile Include="Franchise\Appliances\RoomSwapper.cs" />
     <Compile Include="Franchise\Appliances\DebugMarker.cs" />
+    <Compile Include="Franchise\Appliances\Office\Refresher.cs" />
     <Compile Include="Franchise\Appliances\Office\OfficeArchway.cs" />
+    <Compile Include="Franchise\Appliances\ApplianceSwapper.cs" />
     <Compile Include="Franchise\Appliances\Stats\CreatedModsView.cs" />
     <Compile Include="Franchise\Appliances\Stats\SubscribedModsView.cs" />
     <Compile Include="Franchise\Appliances\Stats\ModdedProgressView.cs" />
     <Compile Include="Franchise\Components\Franchise Appliance Handling.cs" />
+    <Compile Include="Franchise\Components\Swappers.cs" />
     <Compile Include="Franchise\Components\Stats View.cs" />
     <Compile Include="Franchise\Components\Kitchen Tutorial.cs" />
     <Compile Include="Franchise\Components\Dish Choice Handling.cs" />
@@ -153,11 +161,15 @@
     <Compile Include="Franchise\Appliances\Office\ThematicSeededBoard.cs" />
     <Compile Include="Franchise\Appliances\Office\TimedSeededBoard.cs" />
     <Compile Include="Franchise\Components\Food Selector.cs" />
+    <Compile Include="Franchise\Processes\SwitchProcess.cs" />
     <Compile Include="Franchise\Systems\ClearExcessLayoutData.cs" />
     <Compile Include="Franchise\Systems\CycleModdedViewProgress.cs" />
     <Compile Include="Franchise\Systems\DebugMarkers.cs" />
     <Compile Include="Franchise\Systems\CycleFranchiseKitchenTutorial.cs" />
     <Compile Include="Franchise\Systems\RebuildFranchiseAppliances.cs" />
+    <Compile Include="Franchise\Systems\SwapAppliances.cs" />
+    <Compile Include="Franchise\Systems\SwapModRoom.cs" />
+    <Compile Include="Franchise\Systems\RefreshChoices.cs" />
     <Compile Include="Franchise\Systems\Rooms\Franchise Appliances.cs" />
     <Compile Include="Franchise\Systems\ManageModdedFranchiseKitchenIndicators.cs" />
     <Compile Include="Franchise\Systems\RebuildModRoom.cs" />
@@ -176,6 +188,7 @@
     <Compile Include="Franchise\Systems\Rooms\Tutorial Trigger.cs" />
     <Compile Include="Franchise\Systems\HandleFoodRequests.cs" />
     <Compile Include="Franchise\Systems\InteractSelectFood.cs" />
+    <Compile Include="Franchise\Views\ActivateSwitchView.cs" />
     <Compile Include="Franchise\Views\CreatedModsViewView.cs" />
     <Compile Include="Franchise\Views\FoodSelectionView.cs" />
     <Compile Include="Franchise\Views\ModdedProgressViewView.cs" />

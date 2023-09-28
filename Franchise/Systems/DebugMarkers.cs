@@ -43,7 +43,7 @@ namespace KitchenHQ.Franchise
         private void CreateMarker(Vector3 position)
         {
             Entity entity = EntityManager.CreateEntity(typeof(CCreateAppliance), typeof(CPosition));
-            EntityManager.SetComponentData(entity, new CCreateAppliance { ID = FranchiseReferences.Marker });
+            EntityManager.SetComponentData(entity, new CCreateAppliance { ID = FranchiseReferences.DebugMarker });
             EntityManager.SetComponentData(entity, new CPosition(position, quaternion.LookRotation(Vector3.forward, new float3(0f, 1f, 0f))));
             SetOccupant(position, entity, OccupancyLayer.Ceiling);
         }

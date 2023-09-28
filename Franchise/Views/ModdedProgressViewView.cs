@@ -161,10 +161,9 @@ namespace KitchenHQ.Franchise
 
                 for (int i = 0; i < views.Length; i++)
                 {
-                    var view = views[i];
                     var upgrade = upgrades[i];
 
-                    SendUpdate(view, new()
+                    SendUpdate(views[i], new()
                     {
                         IsDish = upgrade.IsDish,
                         Page = upgrade.Page

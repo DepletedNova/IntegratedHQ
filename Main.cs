@@ -14,6 +14,8 @@ using System.Reflection;
 using UnityEngine;
 using KitchenHQ.API;
 using Kitchen;
+using TMPro;
+using static UnityEngine.UI.GridLayoutGroup;
 
 namespace KitchenHQ
 {
@@ -37,15 +39,15 @@ namespace KitchenHQ
             FranchiseAppliance.Register(AssetReference.Counter, new(0, 0, -6), Vector3.forward, new(2, 0, -5), Vector3.forward);
 
             // Example room
-            ModRoom.Create((room, ECB) =>
+            ModRoom.Register((room, ECB) =>
             {
                 room.Create(AssetReference.Counter, new(-2, 0, 2), Vector3.forward);
                 room.Create(AssetReference.DangerHob, new(-1, 0, 2), Vector3.forward);
                 room.Create(AssetReference.Counter, new(0, 0, 2), Vector3.forward);
                 room.Create(AssetReference.Counter, new(1, 0, 2), Vector3.forward);
-                var flaming = room.Create(AssetReference.Counter, new(2, 0, 2), Vector3.forward);
+                var counter = room.Create(AssetReference.Counter, new(2, 0, 2), Vector3.forward);
 
-                ECB.AddComponent<CIsOnFire>(flaming);
+                ECB.AddComponent<CIsOnFire>(counter);
             });
         }
 
@@ -172,6 +174,8 @@ namespace KitchenHQ
 
             AddGameData(); // Adds all GDOs in the Assembly
 
+            AddIcons(); // Creates the icons ingame
+
             Events.BuildGameDataEvent += (s, args) =>
             {
                 BuildGameData(args.gamedata); // Actions to be performed during BGD
@@ -199,6 +203,19 @@ namespace KitchenHQ
                 counter++;
             }
             Log($"Registered {counter} GameDataObjects.");
+        }
+
+        internal void AddIcons()
+        {
+            Bundle.LoadAllAssets<Texture2D>();
+            Bundle.LoadAllAssets<Sprite>();
+
+            var icons = Bundle.LoadAsset<TMP_SpriteAsset>("Icon Asset");
+            TMP_Settings.defaultSpriteAsset.fallbackSpriteAssets.Add(icons);
+            icons.material = Object.Instantiate(TMP_Settings.defaultSpriteAsset.material);
+            icons.material.mainTexture = Bundle.LoadAsset<Texture2D>("Icon Texture");
+
+            Log("Registered icons");
         }
 
         // Generic interface to disallow GDO registering

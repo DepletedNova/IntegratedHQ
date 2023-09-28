@@ -29,22 +29,22 @@ namespace KitchenHQ.Franchise
 
             DishUpgrades = GetEntityQuery(new ComponentType[] { typeof(CDishUpgrade) });
 
-            RequireSingletonForUpdate<SFoodRequest>();
+            RequireSingletonForUpdate<SSelectedFood>();
+            RequireSingletonForUpdate<SRefreshFood>();
             RequireForUpdate(Pedestals);
         }
 
         protected override void OnUpdate()
         {
             // Get request data and then clear it
-            var request = GetSingleton<SFoodRequest>();
+            var request = GetSingleton<SSelectedFood>();
+            Clear<SRefreshFood>();
 
             var requestedID = request.ID;
             var ignoreFilter = request.IgnoreFilter;
             var onlyModded = request.OnlyModded;
 
             LogDebug($"[MAPS] New food maps requested. ID: {requestedID}; Ignore Filter: {ignoreFilter}; Modded Only: {onlyModded}");
-
-            Clear<SFoodRequest>();
 
             // Destroy non-fixed choices
             EntityManager.DestroyEntity(Maps);
@@ -108,11 +108,13 @@ namespace KitchenHQ.Franchise
             pedestals.Dispose();
         }
 
-        public struct SFoodRequest : IModComponent
+        public struct SSelectedFood : IModComponent
         {
             public int ID;
             public bool IgnoreFilter;
             public bool OnlyModded;
         }
+
+        public struct SRefreshFood : IModComponent { }
     }
 }

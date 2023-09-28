@@ -44,6 +44,9 @@ namespace KitchenHQ.Franchise.Systems
                 if (FA.Total <= GlobalIndex)
                     continue;
 
+                if (FA.PairedAppliance != Entity.Null && FA.Total == 1)
+                    continue;
+
                 EntityManager.DestroyEntity(FA.PairedAppliance);
                 var pos = EntityManager.GetComponentData<CPosition>(entity).Position;
 
@@ -59,6 +62,9 @@ namespace KitchenHQ.Franchise.Systems
                 var applianceEntity = Create(pair.Appliance.ID, pair.Appliance.Position, pair.Appliance.Rotation);
                 if (pair.Action != null)
                     pair.Action.Invoke(applianceEntity, EntityManager);
+
+                FA.PairedAppliance = applianceEntity;
+                Set(entity, FA);
             }
 
             LogDebug($"[REBUILD] [APPLIANCES] Rebuilt appliances under index: {GlobalIndex}");

@@ -98,9 +98,8 @@ namespace KitchenHQ.Franchise
                 using var Comps = Query.ToComponentDataArray<CCreatedModsView>(Allocator.Temp);
                 for (int i = 0; i < Views.Length; i++)
                 {
-                    var view = Views[i];
                     var comp = Comps[i];
-                    SendUpdate(view, new()
+                    SendUpdate(Views[i], new()
                     {
                         UserID = comp.UserID
                     });

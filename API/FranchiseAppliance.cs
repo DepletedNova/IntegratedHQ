@@ -20,8 +20,8 @@ namespace KitchenHQ.API
         /// <param name="Action">An optional action to perform after the Appliance Entity is placed</param>
         public static void Register(FranchiseAppliance LegacyFranchise, FranchiseAppliance ModFranchise, Action<Entity, EntityManager> Action = null)
         {
-            SetAppliance(LegacyFranchise, Action, ref BaseAppliances);
-            SetAppliance(ModFranchise, Action, ref ModAppliances);
+            SetAppliance(LegacyFranchise, Action, ref BaseAppliances, ref BaseMax);
+            SetAppliance(ModFranchise, Action, ref ModAppliances, ref ModMax);
         }
 
         /// <summary>
@@ -82,15 +82,19 @@ namespace KitchenHQ.API
 
         // Appliance Dictionaries
         internal static Dictionary<Vector3, List<(FranchiseAppliance Appliance, Action<Entity, EntityManager> Action)>> BaseAppliances = new();
+        internal static int BaseMax = 1;
         internal static Dictionary<Vector3, List<(FranchiseAppliance Appliance, Action<Entity, EntityManager> Action)>> ModAppliances = new();
+        internal static int ModMax = 1;
 
         // Utility
-        private static void SetAppliance(FranchiseAppliance Appliance, Action<Entity, EntityManager> Action, ref Dictionary<Vector3, List<(FranchiseAppliance, Action<Entity, EntityManager>)>> Appliances)
+        private static void SetAppliance(FranchiseAppliance Appliance, Action<Entity, EntityManager> Action, ref Dictionary<Vector3, List<(FranchiseAppliance, Action<Entity, EntityManager>)>> Appliances, 
+            ref int Max)
         {
             var pos = Appliance.Position.Rounded();
             if (!Appliances.ContainsKey(pos))
                 Appliances.Add(pos, new());
             Appliances[pos].Add((Appliance, Action));
+            Max = Mathf.Max(Appliances[pos].Count, Max);
         }
         #endregion
     }

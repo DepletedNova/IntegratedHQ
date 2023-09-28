@@ -27,7 +27,7 @@ namespace KitchenHQ.Franchise
             LogDebug("[BUILD] Seeded maps");
 
             // Seeded runs
-            EntityManager.AddComponent<CSeededRunInfo>(Create(AssetReference.SeededRunIndicator, office + new Vector3(0f, 0f, -4f), Vector3.forward));
+            EntityManager.AddComponent<CSeededRunInfo>(Create(AssetReference.SeededRunIndicator, office + new Vector3(0f, 0f, -5f), Vector3.forward));
 
             // Timed
             Create(FranchiseReferences.TimedBoardVisual, office + new Vector3(-5f, 0f, 0f), Vector3.forward);

@@ -42,12 +42,12 @@ namespace KitchenHQ.Franchise
 
             if (createSwapper)
             {
-                Vector3 swapperPos = ReplaceHQ ? new(3.5f, 0, 2) : new();
-                // todo: build swapper
+                Vector3 swapperPos = ReplaceHQ ? new(3.5f, 0, 2) : new(6, 0, 7);
+                Create(FranchiseReferences.ApplianceSwapper, swapperPos, Vector3.forward);
             }
 
-            EntityManager.CreateEntity(typeof(SFranchiseApplianceIndex));
-            EntityManager.CreateEntity(typeof(SRebuildFranchiseAppliances));
+            Set<SFranchiseApplianceIndex>();
+            Set<SRebuildFranchiseAppliances>();
         }
     }
 }

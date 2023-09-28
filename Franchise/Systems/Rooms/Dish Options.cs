@@ -23,7 +23,8 @@ namespace KitchenHQ.Franchise
         {
             var office = LobbyPositionAnchors.Office;
 
-            Set(default(HandleFoodRequests.SFoodRequest));
+            Set<HandleFoodRequests.SSelectedFood>();
+            Set<HandleFoodRequests.SRefreshFood>();
 
             // Always available -- replace with a reroll
             /*if (AssetReference.AlwaysAvailableDish != 0 && Data.TryGet(AssetReference.AlwaysAvailableDish, out Dish alwaysDish, true))

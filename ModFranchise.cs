@@ -113,20 +113,24 @@ namespace KitchenHQ.Layout
         public const int WorkshopMarker = -1145577711;
 
         // Office
+
         public const int OfficeShortWall = -1011656387;
         public const int ThematicBoardVisual = 870916113;
         public const int TimedBoardVisual = 1742137083;
         public const int ModdedFoodsText = -511278401;
         public const int FoodSelector = 1488723450;
         public const int Arch = 2037686303;
+        public const int Refresher = 658296198;
 
         // Stats
         public const int ModdedUpgradesView = -597932929;
         public const int SubscribedModsView = 498895759;
         public const int CreatedModsView = 1228220591;
 
-        // Debug
-        public const int Marker = -1909067557;
+        // Generic
+        public const int RoomSwapper = -1366052815;
+        public const int ApplianceSwapper = 1637849031;
+        public const int DebugMarker = -1909067557;
     }
     #endregion
 }

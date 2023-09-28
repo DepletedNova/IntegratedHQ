@@ -22,7 +22,7 @@ namespace KitchenHQ.Franchise
 
         protected override bool IsPossible(ref InteractionData data)
         {
-            if (Has<CFoodSelector>(data.Target) && !HasSingleton<HandleFoodRequests.SFoodRequest>())
+            if (Has<CFoodSelector>(data.Target) && !HasSingleton<HandleFoodRequests.SSelectedFood>())
                 return true;
 
             return false;
@@ -40,7 +40,7 @@ namespace KitchenHQ.Franchise
 
             selector.Type = selected;
 
-            var request = new HandleFoodRequests.SFoodRequest();
+            var request = new HandleFoodRequests.SSelectedFood();
 
             if (selected == 1)
             {
@@ -58,6 +58,7 @@ namespace KitchenHQ.Franchise
 
             Set(data.Target, selector);
             Set(request);
+            Set<HandleFoodRequests.SRefreshFood>();
         }
     }
 }

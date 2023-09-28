@@ -128,9 +128,8 @@ namespace KitchenHQ.Franchise
                 foreach (var entity in entities)
                 {
                     var cSelector = GetComponent<CFoodSelector>(entity);
-                    var cView = GetComponent<CLinkedView>(entity);
 
-                    SendUpdate(cView, new()
+                    SendUpdate(GetComponent<CLinkedView>(entity), new()
                     {
                         SelectedID = cSelector.Selection,
                         SelectedType = math.clamp(cSelector.Type, 0, 3)
