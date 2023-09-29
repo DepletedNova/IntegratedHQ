@@ -1,4 +1,5 @@
 ﻿using Steamworks.Ugc;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -49,26 +50,32 @@ namespace KitchenHQ.Utility
             return result.Value.TotalCount;
         }
 
-        public static Texture GetItemIcon(Item item) => GetItemIcon(item.Id.Value, item.PreviewImageUrl);
+        public static Texture2D GetItemIcon(Item item) => GetIcon(ImageType.Icon, item.Id.Value.ToString(), item.PreviewImageUrl);
 
-        public static Texture GetItemIcon(ulong id, string imageAddress)
+        public static Texture2D GetIcon(ImageType type, string tag, string url)
         {
-            var folder = DevelopPath("Icons");
-            var iconPath = Path.Combine(folder, id + ".png");
+            string folder;
+            switch(type)
+            {
+                case ImageType.Icon: folder = DevelopPath("Icons"); break;
+                default: folder = DevelopPath("Images"); break;
+            }
+
+            var iconPath = Path.Combine(folder, tag + ".png");
             Texture2D tex = new Texture2D(0, 0);
             if (File.Exists(iconPath))
             {
                 var imageBytes = File.ReadAllBytes(iconPath);
                 tex.LoadImage(imageBytes);
-                LogDebug($"[WEB] [IMAGE] Retrieved cached icon from file (ID: \"{id}\")");
+                LogDebug($"[WEB] [IMAGE] Retrieved cached icon from file: \"{tag}.png\"");
             }
             else
             {
-                LogDebug($"[WEB] [IMAGE] Retrieving icon from URL (ID: \"{id}\")");
+                LogDebug($"[WEB] [IMAGE] Retrieving icon from URL: \"{url}\"");
                 using WebClient client = new();
                 try
                 {
-                    using Stream stream = client.OpenRead(imageAddress);
+                    using Stream stream = client.OpenRead(url);
                     using Bitmap bitmap = new(stream);
                     if (bitmap != null)
                     {
@@ -79,21 +86,27 @@ namespace KitchenHQ.Utility
                         tex.LoadImage(bytes);
 
                         File.WriteAllBytes(iconPath, bytes);
-                        LogDebug($"[WEB] [IMAGE] Retrieved and cached icon from URL (ID: \"{id}\")");
+                        LogDebug($"[WEB] [IMAGE] Retrieved and cached icon from URL: \"{url}\"");
                     }
                     else
                     {
-                        LogDebug($"[WEB] [IMAGE] Failed to retrieve image from URL (ID: \"{id}\")");
+                        LogDebug($"[WEB] [IMAGE] Failed to retrieve image from URL: \"{url}\"");
                         return null;
                     }
                 }
                 catch
                 {
-                    LogDebug($"[WEB] [IMAGE] Failed to retrieve image from URL (ID: \"{id}\")");
+                    LogDebug($"[WEB] [IMAGE] Failed to retrieve image from URL: \"{url}\"");
                     return null;
                 }
             }
             return tex;
+        }
+
+        public enum ImageType
+        {
+            Image,
+            Icon,
         }
 
         private static string DevelopPath(string path)
