@@ -113,7 +113,6 @@ namespace KitchenHQ.Layout
         public const int WorkshopMarker = -1145577711;
 
         // Office
-
         public const int OfficeShortWall = -1011656387;
         public const int ThematicBoardVisual = 870916113;
         public const int TimedBoardVisual = 1742137083;
@@ -131,6 +130,9 @@ namespace KitchenHQ.Layout
         public const int RoomSwapper = -1366052815;
         public const int ApplianceSwapper = 1637849031;
         public const int DebugMarker = -1909067557;
+
+        // Mod Room
+         
     }
     #endregion
 }

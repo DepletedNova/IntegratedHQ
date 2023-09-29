@@ -33,7 +33,7 @@ namespace KitchenHQ.API
             Entity entity = ECB.CreateEntity();
             ECB.AddComponent(entity, new CCreateAppliance { ID = id });
             ECB.AddComponent(entity, new CPosition(pos, quaternion.LookRotation(facing, new float3(0f, 1f, 0f))));
-            ECB.AddComponent<CModRoomAppliance>(entity);
+            ECB.AddComponent<CModRoomClears>(entity);
 
             System.SetPublicOccupant(roundedPos, entity);
 

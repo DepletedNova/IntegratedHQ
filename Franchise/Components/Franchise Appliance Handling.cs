@@ -6,7 +6,7 @@ using UnityEngine;
 namespace KitchenHQ.Franchise
 {
     // Mod Room
-    public struct CModRoomAppliance : IAttachableProperty, IModComponent { }
+    public struct CModRoomClears : IAttachableProperty, IModComponent { }
 
     public struct SModRoom : IModComponent
     {

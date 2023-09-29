@@ -35,7 +35,7 @@ namespace KitchenHQ.Franchise
             table.ApplyMaterialToChild("Cloth", "Cloth - Cheap");
             table.ApplyMaterialToChildren("Leg", "Wood - Default");
 
-            prefab.ApplyMaterialToChild("Icon", "Flat Image - Faded");
+            prefab.ApplyMaterialToChild("Icon", "Flat Image");
             prefab.ApplyMaterialToChild("Icon/Outline", "Paper - Menu Header");
 
             var label = prefab.transform.CreateLabel("Label", new(0, 0.7f, -0.75f), Quaternion.Euler(40, 0, 0),
