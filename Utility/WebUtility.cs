@@ -39,6 +39,8 @@ namespace KitchenHQ.Utility
 
         public static async Task<int> GetItemCountFromQuery(Query query, int pageLimit = 999)
         {
+            query.WithTotalOnly(true);
+
             LogDebug("[WEB] [STEAM] Getting count from Query...");
             ResultPage? result = await query.GetPageAsync(1);
             if (!result.HasValue)

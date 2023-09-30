@@ -136,7 +136,17 @@ namespace KitchenHQ.Layout
     #region Mod Room References
     public static class ModRoomReferences
     {
-        public static readonly ItemCategory TapeItemCategory = (ItemCategory)VariousUtils.GetID("MODROOM-TAPES");
+        public static readonly ItemCategory TapeItemCategory = (ItemCategory)32768;
+
+        public enum TapeType
+        {
+            Newest,
+            NewestWithTag,
+            Trending,
+            TrendingWithTag,
+            FromUser,
+            Search,
+        }
     }
     #endregion
 }
