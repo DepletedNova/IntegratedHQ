@@ -136,30 +136,34 @@
   <ItemGroup>
     <Compile Include="API\FranchiseAppliance.cs" />
     <Compile Include="API\ModRoom.cs" />
-    <Compile Include="Franchise\Appliances\RoomSwapper.cs" />
-    <Compile Include="Franchise\Appliances\DebugMarker.cs" />
-    <Compile Include="Franchise\Appliances\Office\Refresher.cs" />
-    <Compile Include="Franchise\Appliances\Office\OfficeArchway.cs" />
-    <Compile Include="Franchise\Appliances\ApplianceSwapper.cs" />
-    <Compile Include="Franchise\Appliances\Stats\CreatedModsView.cs" />
-    <Compile Include="Franchise\Appliances\Stats\SubscribedModsView.cs" />
-    <Compile Include="Franchise\Appliances\Stats\ModdedProgressView.cs" />
+    <Compile Include="Franchise\GDOs\Mod Room\VHSTape.cs" />
+    <Compile Include="Franchise\GDOs\Mod Room\VHSWriter.cs" />
+    <Compile Include="Franchise\GDOs\Mod Room\ModTV.cs" />
+    <Compile Include="Franchise\GDOs\Mod Room\EventBoard.cs" />
+    <Compile Include="Franchise\GDOs\RoomSwapper.cs" />
+    <Compile Include="Franchise\GDOs\DebugMarker.cs" />
+    <Compile Include="Franchise\GDOs\Office\Refresher.cs" />
+    <Compile Include="Franchise\GDOs\Office\OfficeArchway.cs" />
+    <Compile Include="Franchise\GDOs\ApplianceSwapper.cs" />
+    <Compile Include="Franchise\GDOs\Stats\CreatedModsView.cs" />
+    <Compile Include="Franchise\GDOs\Stats\SubscribedModsView.cs" />
+    <Compile Include="Franchise\GDOs\Stats\ModdedProgressView.cs" />
     <Compile Include="Franchise\Components\Franchise Appliance Handling.cs" />
     <Compile Include="Franchise\Components\Swappers.cs" />
     <Compile Include="Franchise\Components\Stats View.cs" />
     <Compile Include="Franchise\Components\Kitchen Tutorial.cs" />
     <Compile Include="Franchise\Components\Dish Choice Handling.cs" />
     <Compile Include="Extensions\WorldExtensions.cs" />
-    <Compile Include="Franchise\Appliances\Garage\WorkshopMarkers.cs" />
-    <Compile Include="Franchise\Appliances\Garage\GarageMarkers.cs" />
-    <Compile Include="Franchise\Appliances\Garage\LoadingBayText.cs" />
-    <Compile Include="Franchise\Appliances\Office\FoodSelector.cs" />
-    <Compile Include="Franchise\Appliances\Office\ModdedFoodsText.cs" />
-    <Compile Include="Franchise\Appliances\Office\OfficeShortWall.cs" />
-    <Compile Include="Franchise\Appliances\Garage\OpenGarageDoor.cs" />
-    <Compile Include="Franchise\Appliances\Garage\ClosedGarageDoor.cs" />
-    <Compile Include="Franchise\Appliances\Office\ThematicSeededBoard.cs" />
-    <Compile Include="Franchise\Appliances\Office\TimedSeededBoard.cs" />
+    <Compile Include="Franchise\GDOs\Garage\WorkshopMarkers.cs" />
+    <Compile Include="Franchise\GDOs\Garage\GarageMarkers.cs" />
+    <Compile Include="Franchise\GDOs\Garage\LoadingBayText.cs" />
+    <Compile Include="Franchise\GDOs\Office\FoodSelector.cs" />
+    <Compile Include="Franchise\GDOs\Office\ModdedFoodsText.cs" />
+    <Compile Include="Franchise\GDOs\Office\OfficeShortWall.cs" />
+    <Compile Include="Franchise\GDOs\Garage\OpenGarageDoor.cs" />
+    <Compile Include="Franchise\GDOs\Garage\ClosedGarageDoor.cs" />
+    <Compile Include="Franchise\GDOs\Office\ThematicSeededBoard.cs" />
+    <Compile Include="Franchise\GDOs\Office\TimedSeededBoard.cs" />
     <Compile Include="Franchise\Components\Food Selector.cs" />
     <Compile Include="Franchise\Processes\SwitchProcess.cs" />
     <Compile Include="Franchise\Systems\ClearExcessLayoutData.cs" />
@@ -203,9 +207,7 @@
     <Compile Include="Utility\ModFranchiseComponentGroup.cs" />
     <Compile Include="Utility\WebUtility.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Franchise\Appliances\Mod Room\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy "$(TargetDir)$(TargetFileName)" "C:\Program Files (x86)\Steam\steamapps\common\PlateUp\PlateUp\Mods\Workshop Alley\content" /y

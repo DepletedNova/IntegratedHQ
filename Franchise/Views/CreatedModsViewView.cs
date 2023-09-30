@@ -68,7 +68,7 @@ namespace KitchenHQ.Franchise
                 return;
 
             var item = Items[ItemIndex];
-            var tex = WebUtility.GetItemIcon(item);
+            Texture tex = WebUtility.GetItemIcon(item);
             Renderer.material.SetTexture(Image, tex);
             Renderer.gameObject.SetActive(tex != null);
         }

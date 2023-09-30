@@ -130,9 +130,13 @@ namespace KitchenHQ.Layout
         public const int RoomSwapper = -1366052815;
         public const int ApplianceSwapper = 1637849031;
         public const int DebugMarker = -1909067557;
+    }
+    #endregion
 
-        // Mod Room
-         
+    #region Mod Room References
+    public static class ModRoomReferences
+    {
+        public static readonly ItemCategory TapeItemCategory = (ItemCategory)VariousUtils.GetID("MODROOM-TAPES");
     }
     #endregion
 }

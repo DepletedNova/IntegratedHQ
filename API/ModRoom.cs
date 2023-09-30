@@ -1,4 +1,6 @@
 ﻿using Kitchen;
+using Kitchen.Layouts;
+using KitchenData;
 using KitchenHQ.Franchise;
 using KitchenLib.Customs;
 using System;
@@ -7,6 +9,7 @@ using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
 using UnityEngine;
+using static UnityEngine.EventSystems.EventTrigger;
 
 namespace KitchenHQ.API
 {
@@ -43,6 +46,25 @@ namespace KitchenHQ.API
         public Entity Create<T>(Vector3 location, Vector3 facing) where T : CustomAppliance =>
             Create(GetCustomGameDataObject<T>().ID, location, facing);
 
+        public Entity CreateProxy(Vector3 location, Entity target)
+        {
+            var proxy = Create(AssetReference.InteractionProxy, location, Vector3.forward);
+            ECB.AddComponent(proxy, new CInteractionProxy { IsActive = true, Target = target });
+            return proxy;
+        }
+
+        public Entity CreateItem(int id, Entity parent)
+        {
+            var entity = ECB.CreateEntity();
+            ECB.AddComponent(entity, new CCreateItem { Holder = parent, ID = id });
+            ECB.AddComponent<CModRoomClears>(entity);
+
+            return entity;
+        }
+
+        public Entity CreateItem<T>(Entity parent) where T : CustomItem =>
+            CreateItem(GetCustomGameDataObject<T>().ID, parent);
+
         // Non API
 
         #region Non-API 
@@ -74,7 +96,22 @@ namespace KitchenHQ.API
             new ModRoom((room, ECB) =>
             {
                 LogDebug("[REBUILD] [MOD ROOM] Building default room");
-                room.Create<SubscribedModsView>(Vector3.zero, Vector3.forward);
+
+                // Event board
+                var eventBoard = room.Create<EventBoard>(new(-1.5f, 0f, -3f), Vector3.forward);
+                room.CreateProxy(new(-0.5f, 0f, -3f), eventBoard);
+
+                // TV
+                var TV = room.Create<ModTV>(new(-1f, 0f, 2f), Vector3.forward);
+                room.CreateProxy(new(-2f, 0f, 2f), TV);
+                room.CreateProxy(new(0f, 0f, 2f), TV);
+
+                var tape = room.CreateItem<VHSTape>(TV);
+
+                // VHS Writer
+                room.Create<VHSWriter>(new(1.5f, 0f, 2f), Vector3.forward);
+
+                // Decorations
             })
         };
         #endregion
