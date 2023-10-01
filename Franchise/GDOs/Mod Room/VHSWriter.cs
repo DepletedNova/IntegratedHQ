@@ -27,10 +27,6 @@ namespace KitchenHQ.Franchise
         {
             prefab.TryAddComponent<HoldPointContainer>().HoldPoint = prefab.transform.Find("HoldPoint");
 
-            var table = prefab.GetChild("Table");
-            table.ApplyMaterialToChild("Legs", "Metal Very Dark");
-            table.ApplyMaterialToChild("Top", "Wood 1 - Dim");
-
             prefab.ApplyMaterialToChild("Computer", "Plastic", "Plastic - Black", "Hob Black");
         }
 

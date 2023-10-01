@@ -97,6 +97,9 @@ namespace KitchenHQ.API
             {
                 LogDebug("[REBUILD] [MOD ROOM] Building default room");
 
+                // Decorations
+                room.Create<ModRoomTable>(new(1.5f, 0f, 2f), Vector3.forward);
+
                 // Event board
                 var eventBoard = room.Create<EventBoard>(new(-1.5f, 0f, -3f), Vector3.forward);
                 room.CreateProxy(new(-0.5f, 0f, -3f), eventBoard);
@@ -109,9 +112,7 @@ namespace KitchenHQ.API
                 var tape = room.CreateItem<VHSTape>(TV);
 
                 // VHS Writer
-                room.Create<VHSWriter>(new(1.5f, 0f, 2f), Vector3.forward);
-
-                // Decorations
+                room.Create<VHSWriter>(new(2f, 0f, 2f), Vector3.forward);
             })
         };
         #endregion

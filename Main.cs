@@ -21,10 +21,11 @@ namespace KitchenHQ
 {
     public class Main : BaseMod
     {
+        public const string NAME = "Integrated HQ";
         public const string GUID = "nova.integrated-hq";
         public const string VERSION = "1.0.0";
 
-        public Main() : base(GUID, "Integrated HQ", "Zoey Davis", VERSION, ">=1.0.0", Assembly.GetExecutingAssembly()) { }
+        public Main() : base(GUID, NAME, "Zoey Davis", VERSION, ">=1.0.0", Assembly.GetExecutingAssembly()) { }
 
         private void ShowExamples()
         {
@@ -48,8 +49,8 @@ namespace KitchenHQ
                 room.Create(AssetReference.DangerHob, new(-1, 0, 2), Vector3.forward);
                 room.Create(AssetReference.Counter, new(0, 0, 2), Vector3.forward);
                 room.Create(AssetReference.Counter, new(1, 0, 2), Vector3.forward);
-                var counter = room.Create(AssetReference.Counter, new(2, 0, 2), Vector3.forward);
 
+                var counter = room.Create(AssetReference.Counter, new(2, 0, 2), Vector3.forward);
                 ECB.AddComponent<CIsOnFire>(counter);
             });
         }
@@ -60,6 +61,7 @@ namespace KitchenHQ
         private void PostActivate()
         {
             SetupMenu();
+            ModRoomReferences.SetupSettings();
         }
 
         private void BuildGameData(GameData gameData)
@@ -226,14 +228,14 @@ namespace KitchenHQ
         #endregion
 
         #region Logging
-        internal static void LogInfo(string msg) { Debug.Log($"[{GUID}] " + msg); }
-        internal static void LogWarning(string msg) { Debug.LogWarning($"[{GUID}] " + msg); }
-        internal static void LogError(string msg) { Debug.LogError($"[{GUID}] " + msg); }
+        internal static void LogInfo(string msg) { Debug.Log($"[{NAME}] " + msg); }
+        internal static void LogWarning(string msg) { Debug.LogWarning($"[{NAME}] " + msg); }
+        internal static void LogError(string msg) { Debug.LogError($"[{NAME}] " + msg); }
         internal static void LogInfo(object msg) { LogInfo(msg.ToString()); }
         internal static void LogWarning(object msg) { LogWarning(msg.ToString()); }
         internal static void LogError(object msg) { LogError(msg.ToString()); }
 
-        internal static void LogDebug(string msg) { if (PrefManager.Get<bool>("DeveloperMode")) Debug.Log($"[{GUID}] [DEBUG] " + msg); }
+        internal static void LogDebug(string msg) { if (PrefManager.Get<bool>("DeveloperMode")) Debug.Log($"[{NAME}] [DEBUG] " + msg); }
         internal static void LogDebug(object msg) { LogDebug(msg.ToString()); }
         #endregion
 

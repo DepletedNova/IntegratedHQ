@@ -3,7 +3,9 @@ using Kitchen;
 using Kitchen.Layouts;
 using Kitchen.Layouts.Modules;
 using KitchenData;
+using KitchenHQ.Utility;
 using KitchenLib.Utils;
+using Newtonsoft.Json;
 using UnityEngine;
 using XNode;
 
@@ -140,12 +142,18 @@ namespace KitchenHQ.Layout
 
         public enum TapeType
         {
-            Newest,
-            NewestWithTag,
-            Trending,
-            TrendingWithTag,
-            FromUser,
-            Search,
+            Newest = 0b000010,
+            Trending = 0b000100,
+            Search = 0b001000,
+            WithTag = 0b010000,
+            FromUser = 0b100000,
+        }
+
+        public static int Settings { get; private set; }
+        internal static void SetupSettings()
+        {
+            var defaultSettings = EmbedUtility.ReadEmbeddedFile("DefaultSettings.json");
+            var obj = JsonConvert.DeserializeObject<CloudSettings>(defaultSettings);
         }
     }
     #endregion

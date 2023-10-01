@@ -80,6 +80,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\PlateUp\PlateUp\PlateUp_Data\Managed\MessagePack.Annotations.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\PlateUp\PlateUp\PlateUp_Data\Managed\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="PreferenceSystem-Workshop">
       <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\workshop\content\1599600\2949018507\PreferenceSystem-Workshop.dll</HintPath>
     </Reference>
@@ -137,6 +141,7 @@
     <Compile Include="API\FranchiseAppliance.cs" />
     <Compile Include="API\ModRoom.cs" />
     <Compile Include="Franchise\GDOs\Mod Room\VHSTape.cs" />
+    <Compile Include="Franchise\GDOs\Mod Room\ModRoomTable.cs" />
     <Compile Include="Franchise\GDOs\Mod Room\VHSWriter.cs" />
     <Compile Include="Franchise\GDOs\Mod Room\ModTV.cs" />
     <Compile Include="Franchise\GDOs\Mod Room\EventBoard.cs" />
@@ -202,12 +207,18 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\Abstract\StaticFranchiseAppliance.cs" />
     <Compile Include="Utility\Abstract\FranchiseBuildSystem.cs" />
+    <Compile Include="Utility\EmbedUtility.cs" />
     <Compile Include="Utility\GameObjectUtility.cs" />
     <Compile Include="Utility\GDOContainer.cs" />
+    <Compile Include="Utility\JSON\CloudSettings.cs" />
+    <Compile Include="Utility\JSON\CloudSettingsConverter.cs" />
     <Compile Include="Utility\ModFranchiseComponentGroup.cs" />
     <Compile Include="Utility\WebUtility.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="DefaultSettings.json" />
+    <None Include="CloudSettings.json" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy "$(TargetDir)$(TargetFileName)" "C:\Program Files (x86)\Steam\steamapps\common\PlateUp\PlateUp\Mods\Workshop Alley\content" /y

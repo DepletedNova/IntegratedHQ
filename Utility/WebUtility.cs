@@ -92,13 +92,13 @@ namespace KitchenHQ.Utility
                     }
                     else
                     {
-                        LogDebug($"[WEB] [IMAGE] Failed to retrieve image from URL: \"{url}\"");
+                        LogError($"Failed to retrieve image from URL: \"{url}\"");
                         return null;
                     }
                 }
                 catch
                 {
-                    LogDebug($"[WEB] [IMAGE] Failed to retrieve image from URL: \"{url}\"");
+                    LogError($"Failed to retrieve image from URL: \"{url}\"");
                     return null;
                 }
             }
