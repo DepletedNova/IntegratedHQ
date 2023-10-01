@@ -6,6 +6,7 @@ using KitchenData;
 using KitchenHQ.Utility;
 using KitchenLib.Utils;
 using Newtonsoft.Json;
+using System.Net;
 using UnityEngine;
 using XNode;
 
@@ -149,11 +150,26 @@ namespace KitchenHQ.Layout
             FromUser = 0b100000,
         }
 
-        public static int Settings { get; private set; }
+        public static CloudSettings Settings { get; private set; }
+
+        private const string CloudURL = "https://raw.githubusercontent.com/DepletedNova/IntegratedHQ/master/CloudSettings.json";
         internal static void SetupSettings()
         {
-            var defaultSettings = EmbedUtility.ReadEmbeddedFile("DefaultSettings.json");
-            var obj = JsonConvert.DeserializeObject<CloudSettings>(defaultSettings);
+            LogDebug("[CLOUD] Gathering dynamic info from the Cloud");
+            string settings;
+            try
+            {
+                using (WebClient wc = new())
+                {
+                    settings = wc.DownloadString(CloudURL);
+                }
+                LogDebug("[CLOUD] Successfully read data from Cloud.");
+            } catch
+            {
+                settings = EmbedUtility.ReadEmbeddedFile("DefaultSettings.json");
+                LogDebug("[CLOUD] Failed to read data from Cloud. Reverting to defaults.");
+            }
+            Settings = JsonConvert.DeserializeObject<CloudSettings>(settings);
         }
     }
     #endregion

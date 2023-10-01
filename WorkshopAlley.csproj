@@ -210,14 +210,16 @@
     <Compile Include="Utility\EmbedUtility.cs" />
     <Compile Include="Utility\GameObjectUtility.cs" />
     <Compile Include="Utility\GDOContainer.cs" />
-    <Compile Include="Utility\JSON\CloudSettings.cs" />
-    <Compile Include="Utility\JSON\CloudSettingsConverter.cs" />
+    <Compile Include="Utility\CloudSettings.cs" />
     <Compile Include="Utility\ModFranchiseComponentGroup.cs" />
     <Compile Include="Utility\WebUtility.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="DefaultSettings.json" />
     <None Include="CloudSettings.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Utility\JSON\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
