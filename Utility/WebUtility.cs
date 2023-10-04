@@ -37,7 +37,7 @@ namespace KitchenHQ.Utility
 
         public static List<Item> GetItemsFromQuery(Query query, int pageLimit = 999) => Task.Run(() => GetItemsFromQueryAsync(query, pageLimit)).GetAwaiter().GetResult();
 
-        public static async Task<int> GetItemCountFromQuery(Query query, int pageLimit = 999)
+        public static async Task<int> GetItemCountFromQueryAsync(Query query)
         {
             query.WithTotalOnly(true);
 
@@ -51,6 +51,8 @@ namespace KitchenHQ.Utility
             LogDebug($"[WEB] [STEAM] Found a total of {result.Value.TotalCount} Items from Query");
             return result.Value.TotalCount;
         }
+
+        public static int GetItemCountFromQuery(Query query) => Task.Run(() => GetItemCountFromQuery(query)).GetAwaiter().GetResult();
 
         public static Texture2D GetItemIcon(Item item) => GetIcon(ImageType.Icon, item.Id.Value.ToString(), item.PreviewImageUrl);
 

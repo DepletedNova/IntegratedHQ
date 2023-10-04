@@ -1,5 +1,4 @@
 ﻿using Kitchen;
-using Kitchen.Layouts;
 using KitchenData;
 using KitchenHQ.Franchise;
 using KitchenLib.Customs;
@@ -9,7 +8,6 @@ using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
 using UnityEngine;
-using static UnityEngine.EventSystems.EventTrigger;
 
 namespace KitchenHQ.API
 {

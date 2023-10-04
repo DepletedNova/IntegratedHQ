@@ -81,6 +81,9 @@ namespace KitchenHQ
                 .AddLabel("Integrated HQ")
                 .AddInfo("Any changes will require a restart.")
                 .AddSubmenu("HQ", "HQMenu")
+                    .AddLabel("Auto-load Tape in TV")
+                    .AddInfo("Disabling reduces the amount of data retrieved from the Steam Workshop on load.")
+                    .AddOption("VHSInTV", true, new bool[] { false, true }, new string[] { "Disabled", "Enabled" })
                     .AddLabel("Use Legacy HQ")
                     .AddOption("LegacyHQEnabled", false, new bool[] { false, true }, new string[] { "Disabled", "Enabled" })
                 .SubmenuDone()
@@ -89,7 +92,7 @@ namespace KitchenHQ
                     .AddOption("DeveloperMode", false, new bool[] { false, true }, new string[] { "Disabled", "Enabled" })
                     .AddLabel("Show room anchors")
                     .AddOption("ShowRoomAnchors", false, new bool[] { false, true }, new string[] { "Disabled", "Enabled" })
-                    .AddLabel("Add Example Appliances & Room")
+                    .AddLabel("Add Example Appliances")
                     .AddOption("ShowExampleAppRoom", false, new bool[] { false, true }, new string[] { "Disabled", "Enabled" })
                 .SubmenuDone();
 

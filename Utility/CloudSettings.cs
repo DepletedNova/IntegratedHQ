@@ -9,13 +9,15 @@ namespace KitchenHQ.Utility
     {
         public Tape VHS;
 
-        public Event[] Events;
+        public List<Event> Events;
 
         [JsonConstructor]
         public CloudSettings(Tape VHS, Event[] Events)
         {
             this.VHS = VHS;
-            this.Events = Events;
+
+            this.Events = new();
+            this.Events.AddRange(Events);
         }
 
         public struct Tape

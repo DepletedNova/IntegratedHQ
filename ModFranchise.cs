@@ -143,10 +143,10 @@ namespace KitchenHQ.Layout
 
         public enum TapeType
         {
-            Newest = 0b000010,
-            Trending = 0b000100,
-            Search = 0b001000,
-            WithTag = 0b010000,
+            Newest = 0b10,
+            Trending = 0b100,
+            Search = 0b1000,
+            WithTag = 0b10000,
             FromUser = 0b100000,
         }
 
