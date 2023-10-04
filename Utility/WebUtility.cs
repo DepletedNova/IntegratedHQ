@@ -13,46 +13,56 @@ namespace KitchenHQ.Utility
 {
     internal static class WebUtility
     {
-        public static async Task<List<Item>> GetItemsFromQueryAsync(Query query, int pageLimit = 999)
+        public static async Task<List<Item>> GetItemsFromQuery(Query query, int pageLimit = 999)
         {
             LogDebug("[WEB] [STEAM] Getting Items from Query...");
-            List<Item> items = new();
-            int page = 1;
-            int total = 0;
-            ResultPage value;
-            do
+            try
             {
-                ResultPage? result = await query.GetPageAsync(page);
-                if (!result.HasValue)
-                    break;
+                List<Item> items = new();
+                int page = 1;
+                int total = 0;
+                ResultPage value;
+                do
+                {
+                    ResultPage? result = await query.GetPageAsync(page);
+                    if (!result.HasValue)
+                        break;
 
-                value = result.Value;
-                items.AddRange(value.Entries.Where(i => i.IsPublic));
-                total += value.ResultCount;
-                page++;
-            } while (value.ResultCount != 0 && total < value.TotalCount && page < pageLimit);
-            LogDebug($"[WEB] [STEAM] Collected {total} items from {page} pages");
-            return items;
+                    value = result.Value;
+                    items.AddRange(value.Entries.Where(i => i.IsPublic));
+                    total += value.ResultCount;
+                    page++;
+                } while (value.ResultCount != 0 && total < value.TotalCount && page < pageLimit);
+                LogDebug($"[WEB] [STEAM] Collected {total} items from {page} pages");
+                return items;
+            } catch
+            {
+                LogDebug($"[WEB] [STEAM] Failed to collect items from Query");
+                return new();
+            }
         }
 
-        public static List<Item> GetItemsFromQuery(Query query, int pageLimit = 999) => Task.Run(() => GetItemsFromQueryAsync(query, pageLimit)).GetAwaiter().GetResult();
-
-        public static async Task<int> GetItemCountFromQueryAsync(Query query)
+        public static async Task<int> GetItemCountFromQuery(Query query)
         {
             query.WithTotalOnly(true);
 
             LogDebug("[WEB] [STEAM] Getting count from Query...");
-            ResultPage? result = await query.GetPageAsync(1);
-            if (!result.HasValue)
+            try
             {
-                LogDebug("[WEB] [STEAM] No Items found in Query");
+                ResultPage? result = await query.GetPageAsync(1);
+                if (!result.HasValue)
+                {
+                    LogDebug("[WEB] [STEAM] No Items found in Query");
+                    return 0;
+                }
+                LogDebug($"[WEB] [STEAM] Found a total of {result.Value.TotalCount} Items from Query");
+                return result.Value.TotalCount;
+            } catch
+            {
+                LogDebug($"[WEB] [STEAM] Failed to get count from Query");
                 return 0;
             }
-            LogDebug($"[WEB] [STEAM] Found a total of {result.Value.TotalCount} Items from Query");
-            return result.Value.TotalCount;
         }
-
-        public static int GetItemCountFromQuery(Query query) => Task.Run(() => GetItemCountFromQuery(query)).GetAwaiter().GetResult();
 
         public static Texture2D GetItemIcon(Item item) => GetIcon(ImageType.Icon, item.Id.Value.ToString(), item.PreviewImageUrl);
 

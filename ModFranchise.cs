@@ -143,11 +143,11 @@ namespace KitchenHQ.Layout
 
         public enum TapeType
         {
-            Newest = 0b10,
-            Trending = 0b100,
-            Search = 0b1000,
-            WithTag = 0b10000,
-            FromUser = 0b100000,
+            Newest = 2,
+            Trending = 4,
+            Search = 8,
+            WithTag = 16,
+            FromUser = 32,
         }
 
         public static CloudSettings Settings { get; private set; }
