@@ -15,6 +15,12 @@ namespace KitchenHQ.Utility
     {
         public static async Task<List<Item>> GetItemsFromQuery(Query query, int pageLimit = 999)
         {
+            if (!PrefManager.Get<bool>("AllowAPI"))
+            {
+                LogDebug("[WEB] [STEAM] Skipping Item retrieval");
+                return new();
+            }
+
             LogDebug("[WEB] [STEAM] Getting Items from Query...");
             try
             {
@@ -44,6 +50,12 @@ namespace KitchenHQ.Utility
 
         public static async Task<int> GetItemCountFromQuery(Query query)
         {
+            if (!PrefManager.Get<bool>("AllowAPI"))
+            {
+                LogDebug("[WEB] [STEAM] Skipping Item count retrieval");
+                return 0;
+            }
+
             query.WithTotalOnly(true);
 
             LogDebug("[WEB] [STEAM] Getting count from Query...");

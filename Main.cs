@@ -1,21 +1,22 @@
 ﻿global using static KitchenHQ.Main;
 global using static KitchenLib.Utils.GDOUtils;
 global using static KitchenLib.Utils.LocalisationUtils;
-using KitchenHQ.Utility;
+using Kitchen;
 using KitchenData;
+using KitchenHQ.API;
+using KitchenHQ.Franchise;
+using KitchenHQ.Utility;
 using KitchenLib;
 using KitchenLib.Customs;
 using KitchenLib.Event;
+using KitchenLib.References;
 using KitchenMods;
 using PreferenceSystem;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using UnityEngine;
-using KitchenHQ.API;
-using Kitchen;
 using TMPro;
-using static UnityEngine.UI.GridLayoutGroup;
+using UnityEngine;
 
 namespace KitchenHQ
 {
@@ -27,15 +28,15 @@ namespace KitchenHQ
 
         public Main() : base(GUID, NAME, "Zoey Davis", VERSION, ">=1.0.0", Assembly.GetExecutingAssembly()) { }
 
+        // API Examples (BaseMod.OnInitialise() is recommended)
         private void ShowExamples()
         {
-            // API Examples
-            // Must be performed after GameDataConstructor.BuildGameData
-            // Can be put in BaseMod.OnInitialise
-
             // Example appliances
+            // Uses absolute positions. Highly recommend the use of Kitchen.LobbyPositionAnchors
+            // Accounts for both the new and legacy HQs
             FranchiseAppliance.Register(AssetReference.DangerHob, new(-1, 0, -6), Vector3.forward, new(4, 0, 0), Vector3.forward);
 
+            // EntityCommandBuffer available for use
             FranchiseAppliance.Register(AssetReference.Counter, new(-1, 0, -6), Vector3.forward, new(4, 0, 0), Vector3.forward, 
                 (Entity, ECB) =>
             {
@@ -45,13 +46,19 @@ namespace KitchenHQ
             // Example room
             ModRoom.Register((room, ECB) =>
             {
+                // Positions are relative to the middle of the mod room
                 room.Create(AssetReference.Counter, new(-2, 0, 2), Vector3.forward);
                 room.Create(AssetReference.DangerHob, new(-1, 0, 2), Vector3.forward);
-                room.Create(AssetReference.Counter, new(0, 0, 2), Vector3.forward);
-                room.Create(AssetReference.Counter, new(1, 0, 2), Vector3.forward);
 
-                var counter = room.Create(AssetReference.Counter, new(2, 0, 2), Vector3.forward);
-                ECB.AddComponent<CIsOnFire>(counter);
+                var specialCounter = room.Create(AssetReference.Counter, new(0, 0, 2), Vector3.forward);
+                room.CreateProxy(new(1, 0, 0), specialCounter); // Allows the easy creation of interaction proxies
+                room.CreateItem(ItemReferences.Apple, specialCounter); // Allows the creation of items
+
+                // EntityCommandBuffer available for use
+                var flamingCounter = room.Create(AssetReference.Counter, new(2, 0, 2), Vector3.forward);
+                ECB.AddComponent<CIsOnFire>(flamingCounter);
+
+                // Any entities in the mod room created should have KitchenHQ.Franchise.CModRoomClears
             });
         }
 
@@ -61,7 +68,10 @@ namespace KitchenHQ
         private void PostActivate()
         {
             SetupMenu();
-            ModRoomReferences.SetupSettings();
+
+            SetupSettings();
+
+            TapeEditorView = AddViewType("Tape Editor", new GameObject("VHS Tape Editor"));
         }
 
         private void BuildGameData(GameData gameData)
@@ -82,8 +92,10 @@ namespace KitchenHQ
                 .AddInfo("Any changes will require a restart.")
                 .AddSubmenu("HQ", "HQMenu")
                     .AddLabel("Auto-load Tape in TV")
-                    .AddInfo("Disabling reduces the amount of data retrieved from the Steam Workshop on load.")
                     .AddOption("VHSInTV", true, new bool[] { false, true }, new string[] { "Disabled", "Enabled" })
+                    .AddLabel("Allow Network API Calls")
+                    .AddInfo("Disabling reduces the amount of data gathered from the internet and <i>may</i> improve load times.")
+                    .AddOption("AllowAPI", true, new bool[] { false, true }, new string[] { "Disabled", "Enabled" })
                     .AddLabel("Use Legacy HQ")
                     .AddOption("LegacyHQEnabled", false, new bool[] { false, true }, new string[] { "Disabled", "Enabled" })
                 .SubmenuDone()

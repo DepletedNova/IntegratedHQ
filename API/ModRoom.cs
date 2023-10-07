@@ -96,21 +96,33 @@ namespace KitchenHQ.API
                 LogDebug("[REBUILD] [MOD ROOM] Building default room");
 
                 // Decorations
-                room.Create<ModRoomTable>(new(1.5f, 0f, 2f), Vector3.forward);
+                room.Create<ModRoomTable>(new(1.15f, 0f, 2f), Vector3.forward);
 
                 // Event board
-                var eventBoard = room.Create<EventBoard>(new(-1.5f, 0f, -3f), Vector3.forward);
-                room.CreateProxy(new(-0.5f, 0f, -3f), eventBoard);
+                var eventboard = room.Create<EventBoard>(new(-1.65f, 0f, -3f), Vector3.forward);
+                room.CreateProxy(new(-0.65f, 0f, -3f), eventboard);
+                ECB.AddComponent<SEventBoard>(eventboard);
+
+                var buffer = ECB.AddBuffer<CEvent>(eventboard);
+                for (int i = 0; i < Settings.Events.Count; i++)
+                    buffer.Add(Settings.Events[i]);
 
                 // TV
-                var TV = room.Create<ModTV>(new(-1f, 0f, 2f), Vector3.forward);
-                room.CreateProxy(new(-2f, 0f, 2f), TV);
-                room.CreateProxy(new(0f, 0f, 2f), TV);
-
-                var tape = room.CreateItem<VHSTape>(TV);
+                var screen = room.Create<ModTV>(new(-1.5f, 0f, 2f), Vector3.forward);
+                room.CreateProxy(new(-0.5f, 0f, 2f), screen);
+                ECB.AddComponent<STelevision>(screen);
 
                 // VHS Writer
-                room.Create<VHSWriter>(new(2f, 0f, 2f), Vector3.forward);
+                var writer = room.Create<VHSWriter>(new(1.65f, 0f, 2f), Vector3.forward);
+                ECB.AddComponent<STapeWriter>(writer);
+
+                // VHS Player
+                var player = room.Create<VHSPlayer>(new(0.65f, 0f, 2f), Vector3.forward);
+                ECB.AddComponent<STapePlayer>(player);
+
+                // Tape
+                var tape = room.CreateItem<VHSTape>(PrefManager.Get<bool>("VHSInTV") ? player : writer);
+                ECB.AddComponent(tape, Settings.VHS);
             })
         };
         #endregion

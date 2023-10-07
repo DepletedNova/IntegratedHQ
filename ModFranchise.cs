@@ -1,16 +1,17 @@
-﻿global using KitchenHQ.Layout;
+﻿global using static KitchenHQ.Franchise.ModRoomReferences;
 using Kitchen;
 using Kitchen.Layouts;
 using Kitchen.Layouts.Modules;
 using KitchenData;
 using KitchenHQ.Utility;
 using KitchenLib.Utils;
+using KitchenLib.Views;
 using Newtonsoft.Json;
 using System.Net;
 using UnityEngine;
 using XNode;
 
-namespace KitchenHQ.Layout
+namespace KitchenHQ.Franchise
 {
     // Headquarter modifications
     public static class ModFranchise
@@ -139,6 +140,7 @@ namespace KitchenHQ.Layout
     #region Mod Room References
     public static class ModRoomReferences
     {
+        public static CustomViewType TapeEditorView { get; internal set; }
         public static readonly ItemCategory TapeItemCategory = (ItemCategory)32768;
 
         public enum TapeType
@@ -155,21 +157,29 @@ namespace KitchenHQ.Layout
         private const string CloudURL = "https://raw.githubusercontent.com/DepletedNova/IntegratedHQ/master/CloudSettings.json";
         internal static void SetupSettings()
         {
-            LogDebug("[CLOUD] Gathering dynamic info from the Cloud");
-            string settings;
-            try
+            if (Settings != null)
+                return;
+
+            if (PrefManager.Get<bool>("AllowAPI"))
             {
-                using (WebClient wc = new())
+                LogDebug("[CLOUD] Gathering dynamic info from the Cloud");
+                string settings;
+                try
                 {
-                    settings = wc.DownloadString(CloudURL);
+                    using (WebClient wc = new())
+                    {
+                        settings = wc.DownloadString(CloudURL);
+                    }
+                    LogDebug("[CLOUD] Successfully read data from Cloud.");
                 }
-                LogDebug("[CLOUD] Successfully read data from Cloud.");
-            } catch
-            {
-                settings = EmbedUtility.ReadEmbeddedFile("DefaultSettings.json");
-                LogDebug("[CLOUD] Failed to read data from Cloud. Reverting to defaults.");
+                catch
+                {
+                    settings = EmbedUtility.ReadEmbeddedFile("DefaultSettings.json");
+                    LogDebug("[CLOUD] Failed to read data from Cloud. Reverting to defaults.");
+                }
+                Settings = JsonConvert.DeserializeObject<CloudSettings>(settings);
             }
-            Settings = JsonConvert.DeserializeObject<CloudSettings>(settings);
+            else Settings = JsonConvert.DeserializeObject<CloudSettings>(EmbedUtility.ReadEmbeddedFile("DefaultSettings.json"));
         }
     }
     #endregion

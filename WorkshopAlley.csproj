@@ -98,6 +98,10 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="Unity.Collections, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\PlateUp\PlateUp\PlateUp_Data\Managed\Unity.Collections.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Entities">
       <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\PlateUp\PlateUp\PlateUp_Data\Managed\Unity.Entities.dll</HintPath>
     </Reference>
@@ -140,8 +144,11 @@
   <ItemGroup>
     <Compile Include="API\FranchiseAppliance.cs" />
     <Compile Include="API\ModRoom.cs" />
+    <Compile Include="Franchise\Components\Event Board.cs" />
+    <Compile Include="Franchise\Components\Tape Handling.cs" />
     <Compile Include="Franchise\GDOs\Mod Room\VHSTape.cs" />
     <Compile Include="Franchise\GDOs\Mod Room\ModRoomTable.cs" />
+    <Compile Include="Franchise\GDOs\Mod Room\VHSPlayer.cs" />
     <Compile Include="Franchise\GDOs\Mod Room\VHSWriter.cs" />
     <Compile Include="Franchise\GDOs\Mod Room\ModTV.cs" />
     <Compile Include="Franchise\GDOs\Mod Room\EventBoard.cs" />
@@ -175,6 +182,7 @@
     <Compile Include="Franchise\Systems\CycleModdedViewProgress.cs" />
     <Compile Include="Franchise\Systems\DebugMarkers.cs" />
     <Compile Include="Franchise\Systems\CycleFranchiseKitchenTutorial.cs" />
+    <Compile Include="Franchise\Systems\ManageTapeEditor.cs" />
     <Compile Include="Franchise\Systems\RebuildFranchiseAppliances.cs" />
     <Compile Include="Franchise\Systems\SwapAppliances.cs" />
     <Compile Include="Franchise\Systems\SwapModRoom.cs" />
@@ -218,9 +226,7 @@
     <EmbeddedResource Include="DefaultSettings.json" />
     <None Include="CloudSettings.json" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Utility\JSON\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy "$(TargetDir)$(TargetFileName)" "C:\Program Files (x86)\Steam\steamapps\common\PlateUp\PlateUp\Mods\Workshop Alley\content" /y

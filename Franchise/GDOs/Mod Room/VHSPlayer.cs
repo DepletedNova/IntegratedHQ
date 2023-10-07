@@ -8,12 +8,18 @@ using UnityEngine;
 
 namespace KitchenHQ.Franchise
 {
-    public class ModTV : CustomAppliance
+    public class VHSPlayer : CustomAppliance
     {
-        public override string UniqueNameID => "Mod TV";
+        public override string UniqueNameID => "VHS Player";
         public override List<(Locale, ApplianceInfo)> InfoList => new()
         {
-            (Locale.English, CreateApplianceInfo("Mod TV", "", new(), new()))
+            (Locale.English, CreateApplianceInfo("VHS Player", "", new(), new()))
+        };
+
+        public override List<IApplianceProperty> Properties => new()
+        {
+            new CItemHolder(),
+            new CItemHolderFilter() { Category = ModRoomReferences.TapeItemCategory }
         };
 
         public override GameObject Prefab => GetPrefab(UniqueNameID);
@@ -21,10 +27,7 @@ namespace KitchenHQ.Franchise
         {
             prefab.TryAddComponent<HoldPointContainer>().HoldPoint = prefab.transform.Find("HoldPoint");
 
-            prefab.ApplyMaterialToChild("TV", "Wood", "Wood - Default", "Metal Very Dark", "Metal", "Wood 5 - Grey");
-            prefab.ApplyMaterialToChild("Legs", "Metal");
-
-            prefab.ApplyMaterialToChild("Screen", "Flat Image");
+            prefab.ApplyMaterialToChild("Player", "Metal Dark", "Hob Black");
         }
 
     }

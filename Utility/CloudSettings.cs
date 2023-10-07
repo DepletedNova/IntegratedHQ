@@ -6,9 +6,9 @@ namespace KitchenHQ.Utility
 {
     public class CloudSettings
     {
-        public readonly STape VHS;
+        public STape VHS;
 
-        public readonly List<CEvent> Events;
+        public List<CEvent> Events;
 
         [JsonConstructor]
         public CloudSettings(STape VHS, CEvent[] Events)
@@ -18,5 +18,6 @@ namespace KitchenHQ.Utility
             this.Events = new();
             this.Events.AddRange(Events);
         }
+
     }
 }

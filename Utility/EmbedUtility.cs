@@ -18,7 +18,7 @@ namespace KitchenHQ.Utility
                     result = reader.ReadToEnd();
                 } catch
                 {
-                    LogError($"Could not reach nor read file: {fullname}");
+                    LogError($"Could not reach file: {fullname}");
                 }
             }
             return result;
