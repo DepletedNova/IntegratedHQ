@@ -93,7 +93,6 @@ namespace KitchenHQ.Utility
             {
                 var imageBytes = File.ReadAllBytes(iconPath);
                 tex.LoadImage(imageBytes);
-                LogDebug($"[WEB] [IMAGE] Retrieved cached icon from file: \"{tag}.png\"");
             }
             else
             {

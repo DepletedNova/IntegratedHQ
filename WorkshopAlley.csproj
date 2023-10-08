@@ -218,6 +218,7 @@
     <Compile Include="Franchise\Views\ModdedProgressViewView.cs" />
     <Compile Include="Franchise\Views\SubscribedModsViewView.cs" />
     <Compile Include="Franchise\Views\TapeEditorView.cs" />
+    <Compile Include="Franchise\Views\TelevisionView.cs" />
     <Compile Include="ModFranchise.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

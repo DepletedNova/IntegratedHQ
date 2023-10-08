@@ -30,9 +30,9 @@ namespace KitchenHQ.Franchise.Menus
                         if (value == "")
                             tape.Type -= TapeTypes.Creator;
                         RequestUpdate(tape);
+                        RequestSubMenu(typeof(TapeTextMenu));
                     }
                 });
-                RequestSubMenu(typeof(TapeTextMenu));
             });
             AddButton("Set Search", (int i) =>
             {
@@ -46,9 +46,9 @@ namespace KitchenHQ.Franchise.Menus
                         if (value == "")
                             tape.Type -= TapeTypes.Search;
                         RequestUpdate(tape);
+                        RequestSubMenu(typeof(TapeTextMenu));
                     }
                 });
-                RequestSubMenu(typeof(TapeTextMenu));
             });
 
             New<SpacerElement>();

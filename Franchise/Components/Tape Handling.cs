@@ -1,23 +1,25 @@
 ﻿using KitchenData;
 using KitchenMods;
+using MessagePack;
 using Newtonsoft.Json;
 using Unity.Collections;
 using Unity.Entities;
 
 namespace KitchenHQ.Franchise
 {
+    [MessagePackObject]
     public struct STape : IAttachableProperty, IModComponent
     {
-        public TapeTypes Type;
-        public FixedString512 Tag;
-        public FixedString128 User;
-        public FixedString512 Search;
+        [Key(0)] public int Type;
+        [Key(1)] public FixedString512 Tags;
+        [Key(2)] public FixedString128 User;
+        [Key(3)] public FixedString512 Search;
 
         [JsonConstructor]
-        public STape(int Type, string Tag, string User, string Search)
+        public STape(int Type, string Tags, string User, string Search)
         {
-            this.Type = (TapeTypes)Type;
-            this.Tag = Tag;
+            this.Type = Type;
+            this.Tags = Tags;
             this.User = User;
             this.Search = Search;
         }

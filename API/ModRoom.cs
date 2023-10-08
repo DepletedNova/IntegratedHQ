@@ -101,11 +101,6 @@ namespace KitchenHQ.API
                 // Event board
                 var eventboard = room.Create<EventBoard>(new(-1.65f, 0f, -3f), Vector3.forward);
                 room.CreateProxy(new(-0.65f, 0f, -3f), eventboard);
-                ECB.AddComponent<SEventBoard>(eventboard);
-
-                var buffer = ECB.AddBuffer<CEvent>(eventboard);
-                for (int i = 0; i < Settings.Events.Count; i++)
-                    buffer.Add(Settings.Events[i]);
 
                 // TV
                 var screen = room.Create<ModTV>(new(-1.5f, 0f, 2f), Vector3.forward);
@@ -120,9 +115,18 @@ namespace KitchenHQ.API
                 var player = room.Create<VHSPlayer>(new(0.65f, 0f, 2f), Vector3.forward);
                 ECB.AddComponent<STapePlayer>(player);
 
-                // Tape
-                var tape = room.CreateItem<VHSTape>(PrefManager.Get<bool>("VHSInTV") ? player : writer);
-                ECB.AddComponent(tape, Settings.VHS);
+                if (PrefManager.Get<bool>("AllowAPI"))
+                {
+                    // Tape
+                    var tape = room.CreateItem<VHSTape>(PrefManager.Get<bool>("VHSInTV") ? player : writer);
+                    ECB.AddComponent(tape, Settings.VHS);
+                    
+                    // Events
+                    ECB.AddComponent<SEventBoard>(eventboard);
+                    var buffer = ECB.AddBuffer<CEvent>(eventboard);
+                    for (int i = 0; i < Settings.Events.Count; i++)
+                        buffer.Add(Settings.Events[i]);
+                }
             })
         };
         #endregion

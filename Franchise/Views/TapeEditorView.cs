@@ -2,9 +2,11 @@
 using Kitchen;
 using Kitchen.Modules;
 using KitchenHQ.Franchise.Menus;
+using KitchenLib.Utils;
 using MessagePack;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using Unity.Collections;
 using Unity.Entities;
@@ -68,6 +70,7 @@ namespace KitchenHQ.Franchise
             gameObject.SetActive(true);
 
             PlayerID = data.PlayerID;
+            Values = (TapeValues)data.Data;
 
             LocalInputSourceConsumers.Register(this);
             if (Lock.Type != PlayerLockState.Unlocked)
@@ -82,17 +85,11 @@ namespace KitchenHQ.Franchise
             state = null;
             if (IsComplete && !Values.Equals(default(TapeValues)))
             {
-                string tag = "";
-                foreach (var newTag in Values.Tags)
-                    tag += newTag + ";";
                 state = new ResponseData
                 {
                     DoNotSet = DoNotSet,
                     IsComplete = true,
-                    Type = (int)Values.Type,
-                    Search = Values.Search,
-                    User = Values.User,
-                    Tag = tag
+                    Data = (STape)Values
                 };
             }
             return IsComplete;
@@ -153,9 +150,11 @@ namespace KitchenHQ.Franchise
                 for (int i = 0; i < views.Length; i++)
                 {
                     var view = views[i];
+                    var tape = GetSingleton<STape>();
                     SendUpdate(view, new()
                     {
-                        PlayerID = cPlayer.ID
+                        PlayerID = cPlayer.ID,
+                        Data = tape
                     });
 
                     ResponseData result = default(ResponseData);
@@ -164,13 +163,7 @@ namespace KitchenHQ.Franchise
                         var tapeEntity = GetSingletonEntity<STape>();
                         if (!result.DoNotSet)
                         {
-                            Set(tapeEntity, new STape
-                            {
-                                Type = (TapeTypes)result.Type,
-                                Search = result.Search,
-                                Tag = result.Tag,
-                                User = result.User
-                            });
+                            Set(tapeEntity, result.Data);
                         }
 
                         var editorEntity = GetSingletonEntity<STapeWriter.SEditor>();
@@ -248,6 +241,7 @@ namespace KitchenHQ.Franchise
         public struct ViewData : ISpecificViewData, IViewData.ICheckForChanges<ViewData>
         {
             [Key(1)] public int PlayerID;
+            [Key(2)] public STape Data;
 
             public IUpdatableObject GetRelevantSubview(IObjectView view) => view.GetSubView<TapeEditorView>();
 
@@ -259,10 +253,7 @@ namespace KitchenHQ.Franchise
         {
             [Key(0)] public bool DoNotSet;
             [Key(1)] public bool IsComplete;
-            [Key(2)] public int Type;
-            [Key(3)] public FixedString512 Tag;
-            [Key(4)] public FixedString128 User;
-            [Key(5)] public FixedString512 Search;
+            [Key(2)] public STape Data;
         }
         #endregion
     }
@@ -282,18 +273,71 @@ namespace KitchenHQ.Franchise
 
         public string FormatValues()
         {
+            // Tags
             string tags = "";
-            foreach (var tag in Tags)
-                tags += $"{tag}, ";
-            tags.Substring(0, Math.Max(tags.Length - 2, tags.Length));
-            var result = $"<color=#DDE542>Sort</color>: {Type}\n" +
-                $"<color=#DDE542>Tags</color>: {tags}\n" +
-                $"<color=#DDE542>Creator</color>: \"{User}\"\n" +
-                $"<color=#DDE542>Search</color>: \"{Search}\"\n";
-            result = Regex.Replace(result, @"""", string.Empty);
+            for (int i = 0; i < Tags.Count; i++)
+            {
+                tags += Tags[i];
+                if (i < Tags.Count - 1)
+                {
+                    tags += ", ";
+                }
+            }
+
+            string result = "";
+            AddValue(ref result, "Filter", Type.ToString());
+            AddValue(ref result, "Tags", tags);
+            AddValue(ref result, "Creator", $"\"{User}\"");
+            AddValue(ref result, "Search", $"\"{Search}\"");
             return result;
         }
 
+        private void AddValue(ref string Input, string Name, string Value)
+        {
+            if (Value.Trim('"') != string.Empty)
+            {
+                if (Input.Length > 0) Input += "\n";
+                Input += $"<color=#DDE542>{Name}</color>: {Value}";
+            }
+        }
+
+        public static implicit operator STape(TapeValues Values)
+        {
+            string tag = "";
+            foreach (var newTag in Values.Tags)
+                tag += newTag + ";";
+
+            var tape = new STape() { Type = (int)Values.Type };
+
+            if (!tag.IsNullOrEmpty())
+                tape.Tags = tag;
+            if (!Values.Search.IsNullOrEmpty())
+                tape.Search = Values.Search;
+            if (!Values.User.IsNullOrEmpty())
+                tape.User = Values.User;
+
+            return tape;
+        }
+
+        public static explicit operator TapeValues(STape Values)
+        {
+            TapeValues tape = new()
+            {
+                Type = (TapeTypes)Values.Type,
+                Tags = new(),
+                Search = "",
+                User = ""
+            };
+
+            if (Values.Tags != default(FixedString512) && !Values.Tags.IsEmpty)
+                tape.Tags = Values.Tags.ConvertToString().Split(';').ToList();
+            if (Values.Search != default(FixedString512) && !Values.Search.IsEmpty)
+                tape.Search = Values.Search.ConvertToString();
+            if (Values.User != default(FixedString512) && !Values.User.IsEmpty)
+                tape.User = Values.User.ConvertToString();
+
+            return tape;
+        }
 
     }
 }
