@@ -1,9 +1,6 @@
-﻿using Kitchen;
-using KitchenData;
+﻿using KitchenData;
 using KitchenLib.Customs;
 using KitchenLib.Utils;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 namespace KitchenHQ.Franchise
@@ -12,7 +9,7 @@ namespace KitchenHQ.Franchise
     {
         public override string UniqueNameID => "VHS Tape";
 
-        public override ItemCategory ItemCategory => ModRoomReferences.TapeItemCategory;
+        public override ItemCategory ItemCategory => TapeItemCategory;
         public override bool IsIndisposable => true;
 
         public override GameObject Prefab => GetPrefab(UniqueNameID);

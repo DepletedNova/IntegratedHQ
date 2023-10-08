@@ -7,6 +7,7 @@ using KitchenHQ.Utility;
 using KitchenLib.Utils;
 using KitchenLib.Views;
 using Newtonsoft.Json;
+using System;
 using System.Net;
 using UnityEngine;
 using XNode;
@@ -140,16 +141,17 @@ namespace KitchenHQ.Franchise
     #region Mod Room References
     public static class ModRoomReferences
     {
-        public static CustomViewType TapeEditorView { get; internal set; }
+        public static CustomViewType TapeEditorCustomView { get; internal set; }
         public static readonly ItemCategory TapeItemCategory = (ItemCategory)32768;
 
-        public enum TapeType
+        [Flags]
+        public enum TapeTypes
         {
-            Newest = 2,
-            Trending = 4,
-            Search = 8,
-            WithTag = 16,
-            FromUser = 32,
+            Newest = 1,
+            Trending = 2,
+            Tagged = 4,
+            Creator = 8,
+            Search = 16,
         }
 
         public static CloudSettings Settings { get; private set; }
@@ -178,8 +180,9 @@ namespace KitchenHQ.Franchise
                     LogDebug("[CLOUD] Failed to read data from Cloud. Reverting to defaults.");
                 }
                 Settings = JsonConvert.DeserializeObject<CloudSettings>(settings);
+                return;
             }
-            else Settings = JsonConvert.DeserializeObject<CloudSettings>(EmbedUtility.ReadEmbeddedFile("DefaultSettings.json"));
+            Settings = JsonConvert.DeserializeObject<CloudSettings>(EmbedUtility.ReadEmbeddedFile("DefaultSettings.json"));
         }
     }
     #endregion

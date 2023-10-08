@@ -19,10 +19,11 @@ namespace KitchenHQ.Franchise
         public override List<IApplianceProperty> Properties => new()
         {
             new CItemHolder(),
-            new CItemHolderFilter() { Category = ModRoomReferences.TapeItemCategory }
+            new CItemHolderFilter() { Category = TapeItemCategory }
         };
 
         public override GameObject Prefab => GetPrefab(UniqueNameID);
+
         public override void SetupPrefab(GameObject prefab)
         {
             prefab.TryAddComponent<HoldPointContainer>().HoldPoint = prefab.transform.Find("HoldPoint");

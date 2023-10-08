@@ -8,7 +8,7 @@ namespace KitchenHQ.Franchise
 {
     public struct STape : IAttachableProperty, IModComponent
     {
-        public TapeType Type;
+        public TapeTypes Type;
         public FixedString512 Tag;
         public FixedString128 User;
         public FixedString512 Search;
@@ -16,7 +16,7 @@ namespace KitchenHQ.Franchise
         [JsonConstructor]
         public STape(int Type, string Tag, string User, string Search)
         {
-            this.Type = (TapeType)Type;
+            this.Type = (TapeTypes)Type;
             this.Tag = Tag;
             this.User = User;
             this.Search = Search;
@@ -41,6 +41,7 @@ namespace KitchenHQ.Franchise
 
         public struct SEditor : IModComponent
         {
+            public Entity Appliance;
             public int PlayerID;
 
             public bool Completed;

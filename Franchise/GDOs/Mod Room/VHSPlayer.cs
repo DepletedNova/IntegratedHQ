@@ -3,7 +3,6 @@ using KitchenData;
 using KitchenLib.Customs;
 using KitchenLib.Utils;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 namespace KitchenHQ.Franchise
@@ -19,7 +18,7 @@ namespace KitchenHQ.Franchise
         public override List<IApplianceProperty> Properties => new()
         {
             new CItemHolder(),
-            new CItemHolderFilter() { Category = ModRoomReferences.TapeItemCategory }
+            new CItemHolderFilter() { Category = TapeItemCategory }
         };
 
         public override GameObject Prefab => GetPrefab(UniqueNameID);

@@ -10,6 +10,7 @@ using KitchenLib;
 using KitchenLib.Customs;
 using KitchenLib.Event;
 using KitchenLib.References;
+using KitchenLib.Utils;
 using KitchenMods;
 using PreferenceSystem;
 using System.Collections.Generic;
@@ -44,21 +45,24 @@ namespace KitchenHQ
             });
 
             // Example room
-            ModRoom.Register((room, ECB) =>
+            ModRoom.Register((Room, ECB) =>
             {
-                // Positions are relative to the middle of the mod room
-                room.Create(AssetReference.Counter, new(-2, 0, 2), Vector3.forward);
-                room.Create(AssetReference.DangerHob, new(-1, 0, 2), Vector3.forward);
+                // Room is a ModRoom and it contains various helper functions
+                // ECB is an EntityCommandBuffer used for ECS
 
-                var specialCounter = room.Create(AssetReference.Counter, new(0, 0, 2), Vector3.forward);
-                room.CreateProxy(new(1, 0, 0), specialCounter); // Allows the easy creation of interaction proxies
-                room.CreateItem(ItemReferences.Apple, specialCounter); // Allows the creation of items
+                // Positions are relative to the middle of the mod room
+                Room.Create(AssetReference.Counter, new(-2, 0, 2), Vector3.forward);
+                Room.Create(AssetReference.DangerHob, new(-1, 0, 2), Vector3.forward);
+
+                var specialCounter = Room.Create(AssetReference.Counter, new(0, 0, 2), Vector3.forward);
+                Room.CreateProxy(new(1, 0, 2), specialCounter); // Allows the easy creation of interaction proxies
+                Room.CreateItem(ItemReferences.Apple, specialCounter); // Allows the creation of items
 
                 // EntityCommandBuffer available for use
-                var flamingCounter = room.Create(AssetReference.Counter, new(2, 0, 2), Vector3.forward);
+                var flamingCounter = Room.Create(AssetReference.Counter, new(2, 0, 2), Vector3.forward);
                 ECB.AddComponent<CIsOnFire>(flamingCounter);
 
-                // Any entities in the mod room created should have KitchenHQ.Franchise.CModRoomClears
+                // Any entities created for the mod room through the ECB should have KitchenHQ.Franchise.CModRoomClears
             });
         }
 
@@ -71,7 +75,7 @@ namespace KitchenHQ
 
             SetupSettings();
 
-            TapeEditorView = AddViewType("Tape Editor", new GameObject("VHS Tape Editor"));
+            TapeEditorCustomView = AddViewType("Tape Editor", GetPrefab("VHS Writer Indicator").TryAddComponent<TapeEditorView>().gameObject);
         }
 
         private void BuildGameData(GameData gameData)
@@ -94,7 +98,7 @@ namespace KitchenHQ
                     .AddLabel("Auto-load Tape in TV")
                     .AddOption("VHSInTV", true, new bool[] { false, true }, new string[] { "Disabled", "Enabled" })
                     .AddLabel("Allow Network API Calls")
-                    .AddInfo("Disabling reduces the amount of data gathered from the internet and <i>may</i> improve load times.")
+                    .AddInfo("Disabling reduces the amount of data gathered from the internet and  <i>may</i> improve load times.")
                     .AddOption("AllowAPI", true, new bool[] { false, true }, new string[] { "Disabled", "Enabled" })
                     .AddLabel("Use Legacy HQ")
                     .AddOption("LegacyHQEnabled", false, new bool[] { false, true }, new string[] { "Disabled", "Enabled" })
