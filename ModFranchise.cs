@@ -164,7 +164,7 @@ namespace KitchenHQ.Franchise
 
             if (PrefManager.Get<bool>("AllowAPI"))
             {
-                LogDebug("[CLOUD] Gathering dynamic info from the Cloud");
+                LogDebug("[CLOUD] Gathering dynamic info from the cloud");
                 string settings;
                 try
                 {
@@ -172,12 +172,12 @@ namespace KitchenHQ.Franchise
                     {
                         settings = wc.DownloadString(CloudURL);
                     }
-                    LogDebug("[CLOUD] Successfully read data from Cloud.");
+                    LogDebug("[CLOUD] Successfully read data from the cloud.");
                 }
                 catch
                 {
                     settings = EmbedUtility.ReadEmbeddedFile("DefaultSettings.json");
-                    LogDebug("[CLOUD] Failed to read data from Cloud. Reverting to defaults.");
+                    LogDebug("[CLOUD] Failed to read data from the cloud. Reverting to defaults.");
                 }
                 Settings = JsonConvert.DeserializeObject<CloudSettings>(settings);
                 return;

@@ -23,7 +23,7 @@ namespace KitchenHQ.Franchise
 
             if (Label != null)
             {
-                var totalMods = Task.Run(() => WebUtility.GetItemCountFromQuery(Query.Items)).GetAwaiter().GetResult();
+                var totalMods = WebUtility.AwaitTask(Task.Run(() => WebUtility.GetItemCountFromQuery(Query.Items)));
                 Label.text = string.Format("{0}/{1}\n<size=1.5>{2}</size>", Data.Count, totalMods, Localisation["IHQ:SubbedMods"]);
             }
         }

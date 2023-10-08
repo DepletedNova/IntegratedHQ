@@ -34,7 +34,7 @@ namespace KitchenHQ.Franchise
                 return;
             Data = data;
 
-            Items = Task.Run(() => WebUtility.GetItemsFromQuery(Query.Items.WhereUserPublished(data.UserID))).GetAwaiter().GetResult();
+            Items = WebUtility.AwaitTask(Task.Run(() => WebUtility.GetItemsFromQuery(Query.Items.WhereUserPublished(data.UserID))));
             ItemIndex = Random.Range(0, Items.Count);
 
             // Setup label

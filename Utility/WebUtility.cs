@@ -13,6 +13,8 @@ namespace KitchenHQ.Utility
 {
     internal static class WebUtility
     {
+        public const int APIWaitDuration = 1000; // ms
+
         public static async Task<List<Item>> GetItemsFromQuery(Query query, int pageLimit = 999)
         {
             if (!PrefManager.Get<bool>("AllowAPI"))
@@ -75,6 +77,8 @@ namespace KitchenHQ.Utility
                 return 0;
             }
         }
+
+        public static T AwaitTask<T>(Task<T> task, int additionalWait = 0) => task.Wait(APIWaitDuration + additionalWait) ? task.Result : default;
 
         public static Texture2D GetItemIcon(Item item) => GetIcon(ImageType.Icon, item.Id.Value.ToString(), item.PreviewImageUrl);
 

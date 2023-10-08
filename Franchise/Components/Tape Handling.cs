@@ -1,4 +1,5 @@
 ﻿using KitchenData;
+using KitchenLib.Utils;
 using KitchenMods;
 using MessagePack;
 using Newtonsoft.Json;
@@ -19,14 +20,19 @@ namespace KitchenHQ.Franchise
         public STape(int Type, string Tags, string User, string Search)
         {
             this.Type = Type;
-            this.Tags = Tags;
-            this.User = User;
-            this.Search = Search;
+            this.Tags = Tags.IsNullOrEmpty() ? new() : (FixedString512)Tags;
+            this.User = User.IsNullOrEmpty() ? new() : (FixedString128)User;
+            this.Search = Search.IsNullOrEmpty() ? new() : (FixedString512)Search;
         }
     }
 
     public struct STelevision : IAttachableProperty, IModComponent { }
-    public struct STapePlayer : IAttachableProperty, IModComponent { }
+    public struct STapePlayer : IAttachableProperty, IModComponent
+    {
+        public bool Cycle;
+        public float CycleTimer;
+        public ulong FileID;
+    }
 
     public struct STapeWriter : IAttachableProperty, IModComponent
     {
