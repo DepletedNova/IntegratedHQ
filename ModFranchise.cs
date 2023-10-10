@@ -11,6 +11,7 @@ using System;
 using System.Net;
 using UnityEngine;
 using XNode;
+using WebUtility = KitchenHQ.Utility.WebUtility;
 
 namespace KitchenHQ.Franchise
 {
@@ -165,24 +166,17 @@ namespace KitchenHQ.Franchise
             if (PrefManager.Get<bool>("AllowAPI"))
             {
                 LogDebug("[CLOUD] Gathering dynamic info from the cloud");
-                string settings;
-                try
+                using WebClient wc = new();
+                string settings = WebUtility.AwaitTask(wc.DownloadStringTaskAsync(CloudURL));
+                if (settings == default)
                 {
-                    using (WebClient wc = new())
-                    {
-                        settings = wc.DownloadString(CloudURL);
-                    }
-                    LogDebug("[CLOUD] Successfully read data from the cloud.");
+                    LogWarning("[CLOUD] Failed to read data dynamic info. Reverting to defaults.");
                 }
-                catch
-                {
-                    settings = EmbedUtility.ReadEmbeddedFile("DefaultSettings.json");
-                    LogDebug("[CLOUD] Failed to read data from the cloud. Reverting to defaults.");
-                }
+                else LogDebug("[CLOUD] Successfully read data from the cloud.");
                 Settings = JsonConvert.DeserializeObject<CloudSettings>(settings);
                 return;
             }
-            Settings = JsonConvert.DeserializeObject<CloudSettings>(EmbedUtility.ReadEmbeddedFile("DefaultSettings.json"));
+            Settings = JsonConvert.DeserializeObject<CloudSettings>(EmbedUtility.ReadEmbeddedTextFile("DefaultSettings.json"));
         }
     }
     #endregion

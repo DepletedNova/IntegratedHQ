@@ -1,5 +1,5 @@
-﻿using Steamworks.Ugc;
-using System;
+﻿using KitchenLib.Utils;
+using Steamworks.Ugc;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -13,7 +13,7 @@ namespace KitchenHQ.Utility
 {
     internal static class WebUtility
     {
-        public const int APIWaitDuration = 1000; // ms
+        internal const int APIWaitDuration = 1000; // ms
 
         public static async Task<List<Item>> GetItemsFromQuery(Query query, int pageLimit = 999)
         {
@@ -78,9 +78,28 @@ namespace KitchenHQ.Utility
             }
         }
 
-        public static T AwaitTask<T>(Task<T> task, int additionalWait = 0) => task.Wait(APIWaitDuration + additionalWait) ? task.Result : default;
+        public static T AwaitTask<T>(Task<T> task, int additionalWait = 0)
+        {
+            if (task.Wait(APIWaitDuration + additionalWait))
+            {
+                return task.Result;
+            }
+            else
+            {
+                LogError($"Failed to perform task in alotted timespan ({APIWaitDuration + additionalWait}ms). Could be due to poor internet connection.");
+                return default;
+            }
+        }
 
-        public static Texture2D GetItemIcon(Item item) => GetIcon(ImageType.Icon, item.Id.Value.ToString(), item.PreviewImageUrl);
+        public static Texture2D GetItemIcon(Item item)
+        {
+            var embedded = EmbedUtility.ReadEmbeddedTextureFile("SteamDefault.png");
+            if (item.PreviewImageUrl.IsNullOrEmpty())
+                return embedded;
+
+            var icon = GetIcon(ImageType.Icon, item.Id.Value.ToString(), item.PreviewImageUrl);
+            return icon == null ? embedded : icon;
+        }
 
         public static Texture2D GetIcon(ImageType type, string tag, string url)
         {
@@ -104,7 +123,12 @@ namespace KitchenHQ.Utility
                 using WebClient client = new();
                 try
                 {
-                    using Stream stream = client.OpenRead(url);
+                    using Stream stream = AwaitTask(client.OpenReadTaskAsync(url));
+                    if (stream == default)
+                    {
+                        LogError($"(EC:1) Failed to retrieve image from URL: \"{url}\"");
+                        return null;
+                    }
                     using Bitmap bitmap = new(stream);
                     if (bitmap != null)
                     {
@@ -119,13 +143,14 @@ namespace KitchenHQ.Utility
                     }
                     else
                     {
-                        LogError($"Failed to retrieve image from URL: \"{url}\"");
+
+                        LogError($"(EC:2) Failed to retrieve image from URL: \"{url}\"");
                         return null;
                     }
                 }
                 catch
                 {
-                    LogError($"Failed to retrieve image from URL: \"{url}\"");
+                    LogError($"(EC:3) Failed to retrieve image from URL: \"{url}\"");
                     return null;
                 }
             }

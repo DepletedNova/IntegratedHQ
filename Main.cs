@@ -72,8 +72,8 @@ namespace KitchenHQ
         private void PostActivate()
         {
             SetupMenu();
-
             SetupSettings();
+            EmbedUtility.PrintEmbedResourceNames();
 
             TapeEditorCustomView = AddViewType("Tape Editor", GetPrefab("VHS Writer Indicator").TryAddComponent<TapeEditorView>().gameObject);
         }
