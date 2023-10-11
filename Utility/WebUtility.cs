@@ -1,6 +1,7 @@
 ﻿using KitchenLib.Utils;
 using Steamworks.Ugc;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -11,9 +12,9 @@ using UnityEngine;
 
 namespace KitchenHQ.Utility
 {
-    internal static class WebUtility
+    public static class WebUtility
     {
-        internal const int APIWaitDuration = 1000; // ms
+        internal const int MaxCallWait = 250; // ms
 
         public static async Task<List<Item>> GetItemsFromQuery(Query query, int pageLimit = 999)
         {
@@ -78,102 +79,64 @@ namespace KitchenHQ.Utility
             }
         }
 
-        public static T AwaitTask<T>(Task<T> task, int additionalWait = 0)
-        {
-            if (task.Wait(APIWaitDuration + additionalWait))
-            {
-                return task.Result;
-            }
-            else
-            {
-                LogError($"Failed to perform task in alotted timespan ({APIWaitDuration + additionalWait}ms). Could be due to poor internet connection.");
-                return default;
-            }
-        }
-
         public static Texture2D GetItemIcon(Item item)
         {
             var embedded = EmbedUtility.ReadEmbeddedTextureFile("SteamDefault.png");
             if (item.PreviewImageUrl.IsNullOrEmpty())
                 return embedded;
 
-            var icon = GetIcon(ImageType.Icon, item.Id.Value.ToString(), item.PreviewImageUrl);
+            var icon = GetIcon(item.Id.Value.ToString(), item.PreviewImageUrl);
             return icon == null ? embedded : icon;
         }
 
-        public static Texture2D GetIcon(ImageType type, string tag, string url)
+        public static Texture2D GetIcon(string tag, string url)
         {
-            string folder;
-            switch(type)
-            {
-                case ImageType.Icon: folder = DevelopPath("Icons"); break;
-                default: folder = DevelopPath("Images"); break;
-            }
-
-            var iconPath = Path.Combine(folder, tag + ".png");
-            Texture2D tex = new Texture2D(0, 0);
-            if (File.Exists(iconPath))
-            {
-                var imageBytes = File.ReadAllBytes(iconPath);
-                tex.LoadImage(imageBytes);
-            }
-            else
+            Texture2D tex = new(0, 0);
+            if (!FileUtility.TryGetImage(tag, out tex))
             {
                 LogDebug($"[WEB] [IMAGE] Retrieving icon from URL: \"{url}\"");
                 using WebClient client = new();
-                try
+                using Stream stream = Task.Run(() => client.OpenReadTaskAsync(url)).GetAwaiter().GetResult();
+
+                if (stream == default || stream == null)
                 {
-                    using Stream stream = AwaitTask(client.OpenReadTaskAsync(url));
-                    if (stream == default)
-                    {
-                        LogError($"(EC:1) Failed to retrieve image from URL: \"{url}\"");
-                        return null;
-                    }
-                    using Bitmap bitmap = new(stream);
-                    if (bitmap != null)
-                    {
-                        using var memoryStream = new MemoryStream();
-                        
-                        bitmap.Save(memoryStream, ImageFormat.Png);
-                        var bytes = memoryStream.ToArray();
-                        tex.LoadImage(bytes);
-
-                        File.WriteAllBytes(iconPath, bytes);
-                        LogDebug($"[WEB] [IMAGE] Retrieved and cached icon from URL: \"{url}\"");
-                    }
-                    else
-                    {
-
-                        LogError($"(EC:2) Failed to retrieve image from URL: \"{url}\"");
-                        return null;
-                    }
+                    LogError($"(EC:1) Failed to retrieve image from URL: \"{url}\"");
+                    return null;
                 }
-                catch
+
+                using Bitmap bitmap = new(stream);
+                if (bitmap != null)
                 {
-                    LogError($"(EC:3) Failed to retrieve image from URL: \"{url}\"");
+                    using var memoryStream = new MemoryStream();
+
+                    bitmap.Save(memoryStream, ImageFormat.Png);
+                    var bytes = memoryStream.ToArray();
+                    FileUtility.WriteImage(tag, bytes);
+                    tex.LoadImage(bytes);
+
+                    LogDebug($"[WEB] [IMAGE] Retrieved and cached icon from URL: \"{url}\"");
+                }
+                else
+                {
+
+                    LogError($"(EC:2) Failed to retrieve image from URL: \"{url}\"");
                     return null;
                 }
             }
             return tex;
         }
 
-        public enum ImageType
+        public static T AwaitTask<T>(Task<T> task, int additionalWait = 0)
         {
-            Image,
-            Icon,
-        }
-
-        private static string DevelopPath(string path)
-        {
-            var baseFolder = Path.Combine(Application.persistentDataPath, "IntegratedHQ");
-            if (!Directory.Exists(baseFolder))
-                Directory.CreateDirectory(baseFolder);
-
-            var fullPath = Path.Combine(baseFolder, path);
-            if (!Directory.Exists(fullPath))
-                Directory.CreateDirectory(fullPath);
-
-            return fullPath;
+            if (task.Wait(MaxCallWait + additionalWait))
+            {
+                return task.Result;
+            }
+            else
+            {
+                LogError($"Failed to perform task in alotted timespan ({MaxCallWait + additionalWait}ms). Could be due to poor internet connection.");
+                return default;
+            }
         }
     }
 }

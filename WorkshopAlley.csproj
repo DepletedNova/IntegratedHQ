@@ -225,9 +225,9 @@
     <Compile Include="Utility\Abstract\StaticFranchiseAppliance.cs" />
     <Compile Include="Utility\Abstract\FranchiseBuildSystem.cs" />
     <Compile Include="Utility\EmbedUtility.cs" />
+    <Compile Include="Utility\FileUtility.cs" />
     <Compile Include="Utility\GameObjectUtility.cs" />
     <Compile Include="Utility\GDOContainer.cs" />
-    <Compile Include="Utility\CloudSettings.cs" />
     <Compile Include="Utility\ModFranchiseComponentGroup.cs" />
     <Compile Include="Utility\WebUtility.cs" />
   </ItemGroup>

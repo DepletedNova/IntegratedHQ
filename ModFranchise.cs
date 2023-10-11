@@ -8,6 +8,7 @@ using KitchenLib.Utils;
 using KitchenLib.Views;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Net;
 using UnityEngine;
 using XNode;
@@ -171,6 +172,7 @@ namespace KitchenHQ.Franchise
                 if (settings == default)
                 {
                     LogWarning("[CLOUD] Failed to read data dynamic info. Reverting to defaults.");
+                    settings = EmbedUtility.ReadEmbeddedTextFile("DefaultSettings.json");
                 }
                 else LogDebug("[CLOUD] Successfully read data from the cloud.");
                 Settings = JsonConvert.DeserializeObject<CloudSettings>(settings);
@@ -178,6 +180,23 @@ namespace KitchenHQ.Franchise
             }
             Settings = JsonConvert.DeserializeObject<CloudSettings>(EmbedUtility.ReadEmbeddedTextFile("DefaultSettings.json"));
         }
+    }
+
+    public class CloudSettings
+    {
+        public STape VHS;
+
+        public List<CEvent> Events;
+
+        [JsonConstructor]
+        public CloudSettings(STape VHS, CEvent[] Events)
+        {
+            this.VHS = VHS;
+
+            this.Events = new();
+            this.Events.AddRange(Events);
+        }
+
     }
     #endregion
 }
