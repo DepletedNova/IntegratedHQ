@@ -25,20 +25,21 @@ namespace KitchenHQ.Utility
                 Tracker.UpdateFile(path);
                 var bytes = File.ReadAllBytes(path);
                 tex.LoadImage(bytes);
-                Cache.Add(path, tex);
+                if (!Cache.ContainsKey(path))
+                    Cache.Add(path, tex);
                 return true;
             } else return false;
         }
 
-        public static void WriteImage(string name, Texture2D tex) => WriteImage(name, tex.EncodeToPNG());
-
-        public static void WriteImage(string name, byte[] bytes)
+        public static void WriteImage(string name, Texture2D tex)
         {
             var path = Develop(SubfolderType.Image, name);
             if (!File.Exists(path))
             {
+                if (!Cache.ContainsKey(path))
+                    Cache.Add(path, tex);
                 Tracker.UpdateFile(path);
-                File.WriteAllBytes(path, bytes);
+                File.WriteAllBytes(path, tex.EncodeToPNG());
             }
             else LogWarning("File already exists: " + path);
         }
@@ -54,7 +55,7 @@ namespace KitchenHQ.Utility
             {
                 // Create Tracker
                 Tracker = new();
-                File.WriteAllText(trackerLoc, JsonConvert.SerializeObject(Tracker));
+                File.WriteAllText(trackerLoc, JsonConvert.SerializeObject(Tracker, Formatting.Indented));
             } else Tracker = JsonConvert.DeserializeObject<FileTracker>(File.ReadAllText(trackerLoc));
         }
 
@@ -103,11 +104,8 @@ namespace KitchenHQ.Utility
 
     internal class FileTracker
     {
-        public void UpdateTrackerFile()
-        {
-            var path = Path.Combine(FileUtility.RetrieveFolder(), "Tracker.json");
-            File.WriteAllText(path, JsonConvert.SerializeObject(this));
-        }
+        public void UpdateTrackerFile() =>
+            File.WriteAllText(Path.Combine(FileUtility.RetrieveFolder(), "Tracker.json"), JsonConvert.SerializeObject(this, Formatting.Indented));
 
         public void UpdateFile(string path)
         {
@@ -135,6 +133,10 @@ namespace KitchenHQ.Utility
             // Destroy unused files
             foreach (var file in UnusedFiles)
             {
+                if (!File.Exists(file))
+                    continue;
+
+                LogDebug($"Destroying file: \"{file}\"");
                 File.Delete(file);
             }
         }

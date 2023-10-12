@@ -26,12 +26,18 @@ namespace KitchenHQ.Franchise
         }
     }
 
-    public struct STelevision : IAttachableProperty, IModComponent { }
+    public struct STelevision : IAttachableProperty, IModComponent
+    {
+        public struct STriggerInteraction : IAttachableProperty, IModComponent
+        {
+            public int PlayerID;
+        }
+    }
+
     public struct STapePlayer : IAttachableProperty, IModComponent
     {
-        public bool Cycle;
-        public float CycleTimer;
-        public ulong FileID;
+        public STape Tape;
+        public bool Holding;
     }
 
     public struct STapeWriter : IAttachableProperty, IModComponent

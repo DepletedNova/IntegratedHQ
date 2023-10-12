@@ -184,12 +184,14 @@
     <Compile Include="Franchise\Menus\TapeEditor\TapeEditorSubmenu.cs" />
     <Compile Include="Franchise\Processes\SwitchProcess.cs" />
     <Compile Include="Franchise\Systems\ActivateTapeEditor.cs" />
+    <Compile Include="Franchise\Systems\ApplyTapeInfo.cs" />
     <Compile Include="Franchise\Systems\CleanTapeEditor.cs" />
     <Compile Include="Franchise\Systems\ClearExcessLayoutData.cs" />
     <Compile Include="Franchise\Systems\CreateTapeEditor.cs" />
     <Compile Include="Franchise\Systems\CycleModdedViewProgress.cs" />
     <Compile Include="Franchise\Systems\DebugMarkers.cs" />
     <Compile Include="Franchise\Systems\CycleFranchiseKitchenTutorial.cs" />
+    <Compile Include="Franchise\Systems\InteractActivateTelevision.cs" />
     <Compile Include="Franchise\Systems\RebuildFranchiseAppliances.cs" />
     <Compile Include="Franchise\Systems\SwapAppliances.cs" />
     <Compile Include="Franchise\Systems\SwapModRoom.cs" />

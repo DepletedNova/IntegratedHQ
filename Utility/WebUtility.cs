@@ -111,8 +111,8 @@ namespace KitchenHQ.Utility
 
                     bitmap.Save(memoryStream, ImageFormat.Png);
                     var bytes = memoryStream.ToArray();
-                    FileUtility.WriteImage(tag, bytes);
                     tex.LoadImage(bytes);
+                    FileUtility.WriteImage(tag, tex);
 
                     LogDebug($"[WEB] [IMAGE] Retrieved and cached icon from URL: \"{url}\"");
                 }
@@ -134,7 +134,7 @@ namespace KitchenHQ.Utility
             }
             else
             {
-                LogError($"Failed to perform task in alotted timespan ({MaxCallWait + additionalWait}ms). Could be due to poor internet connection.");
+                LogWarning($"Failed to perform task in alotted timespan ({MaxCallWait + additionalWait}ms). Could be due to poor internet connection.");
                 return default;
             }
         }

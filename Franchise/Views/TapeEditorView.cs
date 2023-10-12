@@ -163,6 +163,9 @@ namespace KitchenHQ.Franchise
                         var tapeEntity = GetSingletonEntity<STape>();
                         if (!result.DoNotSet)
                         {
+                            LogDebug("[APPLIANCE] [Tape Editor] Setting Tape data " +
+                                $"(Type: {(TapeTypes)result.Data.Type}; Tags: \"{result.Data.Tags.ConvertToString()}\"; " +
+                                $"Search: \"{result.Data.Search.ConvertToString()}\"; User: \"{result.Data.User.ConvertToString()}\")");
                             Set(tapeEntity, result.Data);
                         }
 
@@ -275,6 +278,7 @@ namespace KitchenHQ.Franchise
         {
             // Tags
             string tags = "";
+            Tags.RemoveAll(s => s.IsNullOrEmpty());
             for (int i = 0; i < Tags.Count; i++)
             {
                 tags += Tags[i];
@@ -303,6 +307,7 @@ namespace KitchenHQ.Franchise
 
         public static implicit operator STape(TapeValues Values)
         {
+            Values.Tags.RemoveAll(s => s.IsNullOrEmpty());
             string tag = "";
             foreach (var newTag in Values.Tags)
                 tag += newTag + ";";

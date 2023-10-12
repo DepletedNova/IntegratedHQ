@@ -18,7 +18,7 @@ namespace KitchenHQ.Franchise.Menus
             New<SpacerElement>().Size = 0.05f;
 
             AddSubmenuButton("Add Tags", typeof(AddTapeTagsMenu));
-            AddButton("Set Creator ID", (int i) =>
+            /*AddButton("Set Creator ID", (int i) =>
             {
                 RequestTextInput("Set Creator ID", "", 32, (TextInputState state, string value) =>
                 {
@@ -33,7 +33,7 @@ namespace KitchenHQ.Franchise.Menus
                         RequestSubMenu(typeof(TapeTextMenu));
                     }
                 });
-            });
+            });*/
             AddButton("Set Search", (int i) =>
             {
                 RequestTextInput("Set Search", "", 32, (TextInputState state, string value) =>

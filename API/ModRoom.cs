@@ -113,7 +113,7 @@ namespace KitchenHQ.API
 
                 // VHS Player
                 var player = room.Create<VHSPlayer>(new(0.65f, 0f, 2f), Vector3.forward);
-                ECB.AddComponent<STapePlayer>(player);
+                ECB.AddComponent(player, new STapePlayer() { Tape = default });
 
                 if (PrefManager.Get<bool>("AllowAPI"))
                 {
