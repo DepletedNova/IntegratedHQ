@@ -6,6 +6,11 @@
     "Search": ""
   },
   "Events": [
-
+    {
+      "Title": "Test Event Title!",
+      "Desc": "An event for testing the event board! All in due time. How are you? You probably won't see this but I'm happy you did! Thank you!'",
+      "Url": "https://github.com/DepletedNova/IntegratedHQ",
+      "IconUrl": "https://avatars.githubusercontent.com/u/40815280?v=4"
+    }
   ]
 }
