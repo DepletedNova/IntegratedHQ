@@ -8,13 +8,13 @@ using Unity.Entities;
 
 namespace KitchenHQ.Franchise
 {
-    [MessagePackObject]
+    [MessagePackObject(false)]
     public struct STape : IAttachableProperty, IModComponent
     {
-        [Key(0)] public int Type;
-        [Key(1)] public FixedString512 Tags;
-        [Key(2)] public FixedString128 User;
-        [Key(3)] public FixedString512 Search;
+        [Key(1)] public int Type;
+        [Key(2)] public FixedString512 Tags;
+        [Key(3)] public FixedString128 User;
+        [Key(4)] public FixedString512 Search;
 
         [JsonConstructor]
         public STape(int Type, string Tags, string User, string Search)

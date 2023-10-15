@@ -75,7 +75,7 @@ namespace KitchenHQ.Franchise
                 Renderer.material.SetTexture(Image, tex);
         }
 
-        [MessagePackObject]
+        [MessagePackObject(false)]
         public struct ViewData : ISpecificViewData, IViewData.ICheckForChanges<ViewData>
         {
             [Key(1)] public ulong UserID;
@@ -104,7 +104,7 @@ namespace KitchenHQ.Franchise
                     SendUpdate(Views[i], new()
                     {
                         UserID = comp.UserID
-                    });
+                    }, MessageType.SpecificViewUpdate);
                 }
             }
         }

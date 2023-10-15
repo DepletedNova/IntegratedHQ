@@ -156,8 +156,8 @@ namespace KitchenHQ.Franchise
 
             protected override void OnUpdate()
             {
-                var views = ProgressViews.ToComponentDataArray<CLinkedView>(Allocator.Temp);
-                var upgrades = ProgressViews.ToComponentDataArray<CModdedUpgradeView>(Allocator.Temp);
+                using var views = ProgressViews.ToComponentDataArray<CLinkedView>(Allocator.Temp);
+                using var upgrades = ProgressViews.ToComponentDataArray<CModdedUpgradeView>(Allocator.Temp);
 
                 for (int i = 0; i < views.Length; i++)
                 {
@@ -169,9 +169,6 @@ namespace KitchenHQ.Franchise
                         Page = upgrade.Page
                     }, MessageType.SpecificViewUpdate);
                 }
-
-                views.Dispose();
-                upgrades.Dispose();
             }
         }
     }

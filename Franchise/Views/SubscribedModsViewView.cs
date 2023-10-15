@@ -28,7 +28,7 @@ namespace KitchenHQ.Franchise
             }
         }
 
-        [MessagePackObject]
+        [MessagePackObject(false)]
         public struct ViewData : ISpecificViewData, IViewData.ICheckForChanges<ViewData>
         {
             [Key(1)] public int Count;

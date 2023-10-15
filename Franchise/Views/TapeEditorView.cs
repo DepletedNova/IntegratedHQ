@@ -70,7 +70,7 @@ namespace KitchenHQ.Franchise
             gameObject.SetActive(true);
 
             PlayerID = data.PlayerID;
-            Values = (TapeValues)data.Data;
+            Values = data.Data;
 
             LocalInputSourceConsumers.Register(this);
             if (Lock.Type != PlayerLockState.Unlocked)
@@ -89,7 +89,7 @@ namespace KitchenHQ.Franchise
                 {
                     DoNotSet = DoNotSet,
                     IsComplete = true,
-                    Data = (STape)Values
+                    Data = Values
                 };
             }
             return IsComplete;
@@ -154,19 +154,17 @@ namespace KitchenHQ.Franchise
                     SendUpdate(view, new()
                     {
                         PlayerID = cPlayer.ID,
-                        Data = tape
+                        Data = (TapeValues)tape
                     });
 
-                    ResponseData result = default(ResponseData);
+                    ResponseData result = default;
                     if (ApplyUpdates(view.Identifier, (ResponseData data) => result = data, true))
                     {
                         var tapeEntity = GetSingletonEntity<STape>();
                         if (!result.DoNotSet)
                         {
-                            LogDebug("[APPLIANCE] [Tape Editor] Setting Tape data " +
-                                $"(Type: {(TapeTypes)result.Data.Type}; Tags: \"{result.Data.Tags.ConvertToString()}\"; " +
-                                $"Search: \"{result.Data.Search.ConvertToString()}\"; User: \"{result.Data.User.ConvertToString()}\")");
-                            Set(tapeEntity, result.Data);
+                            LogDebug("[APPLIANCE] [Tape Editor] Setting Tape data");
+                            Set(tapeEntity, (STape)result.Data);
                         }
 
                         var editorEntity = GetSingletonEntity<STapeWriter.STapeEditor>();
@@ -240,23 +238,25 @@ namespace KitchenHQ.Franchise
         #endregion
 
         #region MessagePack Objects
-        [MessagePackObject]
-        public struct ViewData : ISpecificViewData, IViewData.ICheckForChanges<ViewData>
+        [MessagePackObject(false)]
+        public struct ViewData : IViewData, IViewData.ICheckForChanges<ViewData>
         {
             [Key(1)] public int PlayerID;
-            [Key(2)] public STape Data;
+            [Key(2)] public TapeValues Data;
 
             public IUpdatableObject GetRelevantSubview(IObjectView view) => view.GetSubView<TapeEditorView>();
 
             public bool IsChangedFrom(ViewData check) => PlayerID != check.PlayerID;
         }
 
-        [MessagePackObject]
+        [MessagePackObject(false)]
         public struct ResponseData : IResponseData
         {
-            [Key(0)] public bool DoNotSet;
-            [Key(1)] public bool IsComplete;
-            [Key(2)] public STape Data;
+            [Key(1)] public bool DoNotSet;
+            [Key(2)] public bool IsComplete;
+            [Key(3)] public TapeValues Data;
+
+            public bool IsChangedFrom(ResponseData check) => IsComplete != check.IsComplete;
         }
         #endregion
     }
@@ -267,12 +267,22 @@ namespace KitchenHQ.Franchise
         Close
     }
 
-    public struct TapeValues
+    [MessagePackObject(false)]
+    public struct TapeValues : IEquatable<TapeValues>
     {
-        public TapeTypes Type;
-        public List<string> Tags;
-        public string User;
-        public string Search;
+        [Key(1)] public TapeTypes Type;
+        [Key(2)] public List<string> Tags;
+        [Key(3)] public string User;
+        [Key(4)] public string Search;
+
+        public bool Equals(TapeValues other)
+        {
+            if (Tags != null && other.Tags != null)
+                foreach (var tag in other.Tags)
+                    if (!Tags.Contains(tag))
+                        return false;
+            return Type == other.Type && User == other.User && Search == other.Search;
+        }
 
         public string FormatValues()
         {
@@ -338,7 +348,7 @@ namespace KitchenHQ.Franchise
                 tape.Tags = Values.Tags.ConvertToString().Split(';').ToList();
             if (Values.Search != default(FixedString512) && !Values.Search.IsEmpty)
                 tape.Search = Values.Search.ConvertToString();
-            if (Values.User != default(FixedString512) && !Values.User.IsEmpty)
+            if (Values.User != default(FixedString128) && !Values.User.IsEmpty)
                 tape.User = Values.User.ConvertToString();
 
             return tape;

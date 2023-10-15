@@ -241,9 +241,13 @@
     <None Include="app.config" />
     <None Include="CloudSettings.json" />
     <EmbeddedResource Include="Embedded\Keys.json" />
+    <None Include="IHQ.pdn" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Embedded\SteamDefault.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="IHQ.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

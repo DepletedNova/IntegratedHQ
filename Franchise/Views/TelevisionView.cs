@@ -117,52 +117,50 @@ namespace KitchenHQ.Franchise
             Index = UnityEngine.Random.Range(0, Items.Count);
         }
 
-        private Query CreateQuery(STape tape)
+        private Query CreateQuery(TapeValues tape)
         {
             var query = Query.Items;
-            var types = (TapeTypes)tape.Type;
+            var types = tape.Type;
 
-            // Tags
-            if (types.HasFlag(TapeTypes.Tagged))
+            if (types.HasFlag(TapeTypes.Tagged)) // Tags
             {
                 query.MatchAnyTag();
-                var tags = tape.Tags.ConvertToString().Split(';');
-                for (int i = 0; i < tags.Length; i++)
+                var tags = tape.Tags;
+                for (int i = 0; i < tags.Count; i++)
                 {
                     query.WithTag(tags[i]);
                 }
-                LogDebug($"[APPLIANCE] [Tape Player] Sorted by tags ({tags.Length}; {tape.Tags.ConvertToString()})");
+                LogDebug($"[APPLIANCE] [Television] Sorted by tags ({tags.Count}; {tags})");
             }
 
-            // Search
-            if (types.HasFlag(TapeTypes.Search))
+            if (types.HasFlag(TapeTypes.Search)) // Search
             {
-                var search = tape.Search.ConvertToString();
+                var search = tape.Search;
                 query.WhereSearchText(search);
-                LogDebug($"[APPLIANCE] [Tape Player] Search applied (\"{search}\")");
+                LogDebug($"[APPLIANCE] [Television] Search applied (\"{search}\")");
             }
 
             if (types.HasFlag(TapeTypes.Newest)) // Newest
             {
-                LogDebug("[APPLIANCE] [Tape Player] Sorted by Newest");
+                LogDebug("[APPLIANCE] [Television] Sorted by Newest");
                 query.RankedByPublicationDate();
             }
             else if (types.HasFlag(TapeTypes.Trending)) // Trending
             {
-                LogDebug("[APPLIANCE] [Tape Player] Sorted by Trending");
+                LogDebug("[APPLIANCE] [Television] Sorted by Trending");
                 query.RankedByTrend();
             }
 
             return query;
         }
 
-        [MessagePackObject]
+        [MessagePackObject(false)]
         public struct ViewData : ISpecificViewData, IViewData.ICheckForChanges<ViewData>
         {
-            [Key(0)] public STape Tape;
-            [Key(1)] public bool Active;
-            [Key(2)] public bool Interacted;
-            [Key(3)] public int PlayerID;
+            [Key(1)] public TapeValues Tape;
+            [Key(2)] public bool Active;
+            [Key(3)] public bool Interacted;
+            [Key(4)] public int PlayerID;
 
             public IUpdatableObject GetRelevantSubview(IObjectView view) => view.GetSubView<TelevisionView>();
 
@@ -187,7 +185,7 @@ namespace KitchenHQ.Franchise
                 var sTapePlayer = GetSingleton<STapePlayer>();
                 var data = new ViewData()
                 {
-                    Tape = sTapePlayer.Tape,
+                    Tape = (TapeValues)sTapePlayer.Tape,
                     Active = sTapePlayer.Holding
                 };
 

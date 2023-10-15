@@ -1,7 +1,5 @@
 ﻿using Kitchen;
-using KitchenData;
 using MessagePack;
-using System.Threading;
 using Unity.Collections;
 using Unity.Entities;
 using UnityEngine;
@@ -20,11 +18,10 @@ namespace KitchenHQ.Franchise
                 Animator.SetTrigger("Play");
         }
 
-        [MessagePackObject]
+        [MessagePackObject(false)]
         public struct ViewData : ISpecificViewData, IViewData.ICheckForChanges<ViewData>
         {
-            [Key(1)]
-            public bool Pinged;
+            [Key(1)] public bool Pinged;
 
             public IUpdatableObject GetRelevantSubview(IObjectView view) => view.GetSubView<ActivateSwitchView>();
 
