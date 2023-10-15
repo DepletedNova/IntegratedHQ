@@ -97,9 +97,6 @@ namespace KitchenHQ
                 .AddSubmenu("HQ", "HQMenu")
                     .AddLabel("Auto-load Tape in TV")
                     .AddOption("VHSInTV", true, new bool[] { false, true }, new string[] { "Disabled", "Enabled" })
-                    .AddLabel("Allow Network API Calls")
-                    .AddInfo("Disabling reduces the amount of data gathered from the internet and  <i>may</i> improve load times.")
-                    .AddOption("AllowAPI", true, new bool[] { false, true }, new string[] { "Disabled", "Enabled" })
                     .AddLabel("Use Legacy HQ")
                     .AddOption("LegacyHQEnabled", false, new bool[] { false, true }, new string[] { "Disabled", "Enabled" })
                 .SubmenuDone()
@@ -110,7 +107,10 @@ namespace KitchenHQ
                     .AddOption("ShowRoomAnchors", false, new bool[] { false, true }, new string[] { "Disabled", "Enabled" })
                     .AddLabel("Add Example Appliances")
                     .AddOption("ShowExampleAppRoom", false, new bool[] { false, true }, new string[] { "Disabled", "Enabled" })
-                .SubmenuDone();
+                .SubmenuDone()
+                .AddLabel("Allow Network API Calls")
+                    .AddInfo("Disabling reduces the amount of data gathered from the internet and  <i>may</i> improve load times.")
+                    .AddOption("AllowAPI", true, new bool[] { false, true }, new string[] { "Disabled", "Enabled" });
 
             PrefManager.RegisterMenu(PreferenceSystemManager.MenuType.MainMenu);
             PrefManager.RegisterMenu(PreferenceSystemManager.MenuType.PauseMenu);
