@@ -92,7 +92,6 @@ namespace KitchenHQ
             PrefManager = new(GUID, "Integrated HQ");
 
             PrefManager
-                .AddLabel("Integrated HQ")
                 .AddInfo("Any changes will require a restart.")
                 .AddSubmenu("HQ", "HQMenu")
                     .AddLabel("Auto-load Tape in TV")
@@ -107,10 +106,11 @@ namespace KitchenHQ
                     .AddOption("ShowRoomAnchors", false, new bool[] { false, true }, new string[] { "Disabled", "Enabled" })
                     .AddLabel("Add Example Appliances")
                     .AddOption("ShowExampleAppRoom", false, new bool[] { false, true }, new string[] { "Disabled", "Enabled" })
-                .SubmenuDone()
+                .AddSpacer()
                 .AddLabel("Allow Network API Calls")
-                    .AddInfo("Disabling reduces the amount of data gathered from the internet and  <i>may</i> improve load times.")
-                    .AddOption("AllowAPI", true, new bool[] { false, true }, new string[] { "Disabled", "Enabled" });
+                .AddInfo("Disabling reduces the amount of data gathered from the internet and  <i>may</i> improve load times.")
+                .AddOption("AllowAPI", true, new bool[] { false, true }, new string[] { "Disabled", "Enabled" })
+                .SubmenuDone();
 
             PrefManager.RegisterMenu(PreferenceSystemManager.MenuType.MainMenu);
             PrefManager.RegisterMenu(PreferenceSystemManager.MenuType.PauseMenu);
