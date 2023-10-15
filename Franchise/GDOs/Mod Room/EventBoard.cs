@@ -1,8 +1,10 @@
 ﻿using Kitchen;
 using KitchenData;
+using KitchenHQ.Utility;
 using KitchenLib.Customs;
 using KitchenLib.Utils;
 using System.Collections.Generic;
+using System.Text;
 using TMPro;
 using UnityEngine;
 
@@ -40,6 +42,10 @@ namespace KitchenHQ.Franchise
             events.GetChild("Pins").ApplyMaterialToChildren("", "Wood 1");
             events.ApplyMaterialToChild("Paper", "Paper - Newspaper");
             events.ApplyMaterialToChild("Poster", "Flat Image - Faded");
+
+            /*prefab.transform.CreateLabel("Label", new(0.5f, 1.65f, 0.3f), Quaternion.identity,
+                MaterialUtils.GetExistingMaterial("Cake n Truffles Atlas Material"), FontUtils.GetExistingTMPFont("Map Label"), 0, 2.25f,
+                "Events").TryAddComponent<AutoGlobalLocal>().Text = "IHQ:EventBoard";*/
         }
 
     }

@@ -42,18 +42,18 @@ namespace KitchenHQ.Franchise
 
     public struct STapeWriter : IAttachableProperty, IModComponent
     {
-        public struct STriggerEditor : IAttachableProperty, IModComponent
+        public struct STriggerTapeEditor : IAttachableProperty, IModComponent
         {
             public Entity Interactor;
         }
 
-        public struct SHasEditor : IAttachableProperty, IModComponent
+        public struct SHasTapeEditor : IAttachableProperty, IModComponent
         {
             public Entity Editor;
             public Entity Player;
         }
 
-        public struct SEditor : IModComponent
+        public struct STapeEditor : IModComponent
         {
             public Entity Appliance;
             public int PlayerID;

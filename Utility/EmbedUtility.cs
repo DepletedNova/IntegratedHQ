@@ -11,20 +11,14 @@ namespace KitchenHQ.Utility
 {
     public static class EmbedUtility
     {
-        internal static void PrintEmbedResourceNames()
+        public static byte[] ReadEmbeddedBytes(string name) => ReadEmbedded(name, stream =>
         {
-            LogDebug("[EMBED] Printing resources...");
-            var assembly = Assembly.GetExecutingAssembly();
-            var names = assembly.GetManifestResourceNames();
-            for (int i = 0; i < names.Length; i++)
+            using (MemoryStream memoryStream = new())
             {
-                var name = names[i];
-                if (name == null || name == default)
-                    continue;
-                LogDebug(name);
+                stream.CopyTo(memoryStream);
+                return memoryStream.ToArray();
             }
-            LogDebug("[EMBED] All resources have been printed");
-        }
+        });
 
         public static string ReadEmbeddedTextFile(string name) => ReadEmbedded(name, stream =>
         {
@@ -53,7 +47,7 @@ namespace KitchenHQ.Utility
             if (CachedObjects.ContainsKey(name))
                 return CachedObjects[name] as T;
             var type = typeof(Main);
-            var loc = $"{type.Namespace}.{name}";
+            var loc = $"{type.Namespace}.Embedded.{name}";
             T result = default;
             using (var stream = type.Assembly.GetManifestResourceStream(loc))
             {
@@ -67,6 +61,21 @@ namespace KitchenHQ.Utility
                 }
             }
             return result;
+        }
+
+        internal static void PrintEmbedResourceNames()
+        {
+            LogDebug("[EMBED] Printing resources...");
+            var assembly = Assembly.GetExecutingAssembly();
+            var names = assembly.GetManifestResourceNames();
+            for (int i = 0; i < names.Length; i++)
+            {
+                var name = names[i];
+                if (name == null || name == default)
+                    continue;
+                LogDebug(name);
+            }
+            LogDebug("[EMBED] All resources have been printed");
         }
     }
 }

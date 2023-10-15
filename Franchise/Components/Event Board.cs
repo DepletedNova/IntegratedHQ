@@ -1,34 +1,44 @@
 ﻿using KitchenData;
+using KitchenHQ.Utility;
 using KitchenMods;
+using MessagePack;
 using Newtonsoft.Json;
 using Unity.Collections;
 using Unity.Entities;
+using UnityEngine;
 
 namespace KitchenHQ.Franchise
 {
     public struct SEventBoard : IAttachableProperty, IModComponent
     {
         public int Index;
+        public float Timer;
 
-        public struct SInteracted : IAttachableProperty, IModComponent
+        public struct SInteractedEvents : IAttachableProperty, IModComponent
         {
             public Entity Player;
+        }
+
+        public struct SEventPopup : IModComponent
+        {
+            public CEventData Data;
         }
     }
 
     [InternalBufferCapacity(4)]
-    public struct CEvent : IBufferElementData
+    [MessagePackObject]
+    public struct CEventData : IBufferElementData
     {
-        public FixedString128 Title;
-        public FixedString512 LinkUrl;
-        public FixedString512 Desc;
-        public FixedString512 IconUrl;
+        [Key(0)] public FixedString128 Title;
+        [Key(1)] public FixedString512 Url;
+        [Key(2)] public FixedString512 Desc;
+        [Key(3)] public FixedString512 IconUrl;
 
         [JsonConstructor]
-        public CEvent(string Title, string LinkUrl, string Desc, string IconUrl)
+        public CEventData(string Title, string Desc, string Url, string IconUrl)
         {
             this.Title = Title;
-            this.LinkUrl = LinkUrl;
+            this.Url = Url;
             this.Desc = Desc;
             this.IconUrl = IconUrl;
         }

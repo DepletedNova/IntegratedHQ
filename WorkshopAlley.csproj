@@ -89,14 +89,16 @@
     </Reference>
     <Reference Include="Sirenix.Serialization, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Drawing.Design" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
     <Reference Include="Unity.Collections, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -183,6 +185,7 @@
     <Compile Include="Franchise\Menus\TapeEditor\SelectTapeSortMenu.cs" />
     <Compile Include="Franchise\Menus\TapeEditor\TapeEditorSubmenu.cs" />
     <Compile Include="Franchise\Processes\SwitchProcess.cs" />
+    <Compile Include="Franchise\Systems\ManageEventIndicators.cs" />
     <Compile Include="Franchise\Systems\ActivateTapeEditor.cs" />
     <Compile Include="Franchise\Systems\ApplyTapeInfo.cs" />
     <Compile Include="Franchise\Systems\CleanTapeEditor.cs" />
@@ -191,7 +194,7 @@
     <Compile Include="Franchise\Systems\CycleModdedViewProgress.cs" />
     <Compile Include="Franchise\Systems\DebugMarkers.cs" />
     <Compile Include="Franchise\Systems\CycleFranchiseKitchenTutorial.cs" />
-    <Compile Include="Franchise\Systems\InteractActivateTelevision.cs" />
+    <Compile Include="Franchise\Systems\ActivateTelevision.cs" />
     <Compile Include="Franchise\Systems\RebuildFranchiseAppliances.cs" />
     <Compile Include="Franchise\Systems\SwapAppliances.cs" />
     <Compile Include="Franchise\Systems\SwapModRoom.cs" />
@@ -234,11 +237,13 @@
     <Compile Include="Utility\WebUtility.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="DefaultSettings.json" />
+    <EmbeddedResource Include="Embedded\DefaultSettings.json" />
+    <None Include="app.config" />
     <None Include="CloudSettings.json" />
+    <EmbeddedResource Include="Embedded\Keys.json" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="SteamDefault.png" />
+    <EmbeddedResource Include="Embedded\SteamDefault.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

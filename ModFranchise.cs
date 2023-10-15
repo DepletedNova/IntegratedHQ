@@ -143,6 +143,7 @@ namespace KitchenHQ.Franchise
     #region Mod Room References
     public static class ModRoomReferences
     {
+        public static CustomViewType EventboardIndicatorView { get; internal set; }
         public static CustomViewType TapeEditorCustomView { get; internal set; }
         public static readonly ItemCategory TapeItemCategory = (ItemCategory)32768;
 
@@ -186,10 +187,10 @@ namespace KitchenHQ.Franchise
     {
         public STape VHS;
 
-        public List<CEvent> Events;
+        public List<CEventData> Events;
 
         [JsonConstructor]
-        public CloudSettings(STape VHS, CEvent[] Events)
+        public CloudSettings(STape VHS, CEventData[] Events)
         {
             this.VHS = VHS;
 

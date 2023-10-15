@@ -123,7 +123,7 @@ namespace KitchenHQ.API
                     
                     // Events
                     ECB.AddComponent<SEventBoard>(eventboard);
-                    var buffer = ECB.AddBuffer<CEvent>(eventboard);
+                    var buffer = ECB.AddBuffer<CEventData>(eventboard);
                     for (int i = 0; i < Settings.Events.Count; i++)
                         buffer.Add(Settings.Events[i]);
                 }

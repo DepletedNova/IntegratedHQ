@@ -79,7 +79,7 @@ namespace KitchenHQ.Franchise
                 var isModded = EntityManager.GetComponentData<CFoodPedestal>(pedestal).Modded;
 
                 // Check if no more available choices
-                if (!ignoreFilter && moddedCounter >= allModded.Count ||
+                if (!ignoreFilter && moddedCounter >= allModded.Count && isModded ||
                     (!isModded || ignoreFilter) && counter >= allFoods.Count)
                     continue;
 

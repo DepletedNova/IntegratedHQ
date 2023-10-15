@@ -8,22 +8,22 @@ namespace KitchenHQ.Franchise.Systems
     {
         protected override void OnUpdate()
         {
-            if (Require(out SHasEditor sHasEditor) && 
+            if (Require(out SHasTapeEditor sHasEditor) && 
                 (sHasEditor.Editor == Entity.Null || sHasEditor.Player == Entity.Null 
-                || !Has<SEditor>(sHasEditor.Editor) || !Has<CPlayer>(sHasEditor.Player)))
+                || !Has<STapeEditor>(sHasEditor.Editor) || !Has<CPlayer>(sHasEditor.Player)))
             {
-                EntityManager.RemoveComponent<SHasEditor>(GetSingletonEntity<SHasEditor>());
+                EntityManager.RemoveComponent<SHasTapeEditor>(GetSingletonEntity<SHasTapeEditor>());
             }
 
-            if (Require(out SEditor sEditor) && (!Has<SHasEditor>() || sEditor.Appliance == Entity.Null || sEditor.Completed))
+            if (Require(out STapeEditor sEditor) && (!Has<SHasTapeEditor>() || sEditor.Appliance == Entity.Null || sEditor.Completed))
             {
-                Clear<SEditor>();
+                Clear<STapeEditor>();
 
-                if (Has<SHasEditor>())
-                    EntityManager.RemoveComponent<SHasEditor>(GetSingletonEntity<SHasEditor>());
+                if (Has<SHasTapeEditor>())
+                    EntityManager.RemoveComponent<SHasTapeEditor>(GetSingletonEntity<SHasTapeEditor>());
             }
 
-            if ((!Has<SHasEditor>() || !Has<SEditor>()) && TryGetSingletonEntity<STapeWriter>(out var writer) && Has<CPreventItemTransfer>(writer))
+            if ((!Has<SHasTapeEditor>() || !Has<STapeEditor>()) && TryGetSingletonEntity<STapeWriter>(out var writer) && Has<CPreventItemTransfer>(writer))
             {
                 EntityManager.RemoveComponent<CPreventItemTransfer>(writer);
             }

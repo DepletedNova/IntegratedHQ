@@ -132,10 +132,10 @@ namespace KitchenHQ.Franchise
             {
                 base.Initialise();
 
-                Views = GetEntityQuery(new ComponentType[] { typeof(CLinkedView), typeof(STapeWriter.SEditor) });
+                Views = GetEntityQuery(new ComponentType[] { typeof(CLinkedView), typeof(STapeWriter.STapeEditor) });
                 RequireForUpdate(Views);
 
-                RequireSingletonForUpdate<STapeWriter.SHasEditor>();
+                RequireSingletonForUpdate<STapeWriter.SHasTapeEditor>();
                 RequireSingletonForUpdate<STape>();
             }
 
@@ -143,7 +143,7 @@ namespace KitchenHQ.Franchise
             {
                 using var views = Views.ToComponentDataArray<CLinkedView>(Allocator.Temp);
 
-                var hasEditor = GetSingleton<STapeWriter.SHasEditor>();
+                var hasEditor = GetSingleton<STapeWriter.SHasTapeEditor>();
                 if (!Require(hasEditor.Player, out CPlayer cPlayer))
                     return;
 
@@ -169,8 +169,8 @@ namespace KitchenHQ.Franchise
                             Set(tapeEntity, result.Data);
                         }
 
-                        var editorEntity = GetSingletonEntity<STapeWriter.SEditor>();
-                        var editor = GetSingleton<STapeWriter.SEditor>();
+                        var editorEntity = GetSingletonEntity<STapeWriter.STapeEditor>();
+                        var editor = GetSingleton<STapeWriter.STapeEditor>();
                         editor.Completed = result.IsComplete;
                         Set(editorEntity, editor);
                     }

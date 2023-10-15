@@ -2,7 +2,7 @@
 
 namespace KitchenHQ.Franchise.Systems
 {
-    public class InteractActivateTelevision : ItemInteractionSystem
+    public class ActivateTelevision : ItemInteractionSystem
     {
         protected override bool RequirePress => true;
 

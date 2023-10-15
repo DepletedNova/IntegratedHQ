@@ -134,7 +134,7 @@ namespace KitchenHQ.Utility
             }
             else
             {
-                LogWarning($"Failed to perform task in alotted timespan ({MaxCallWait + additionalWait}ms). Could be due to poor internet connection.");
+                LogWarning($"Elapsed task exceeded time limit ({MaxCallWait + additionalWait}ms). Reverting to default.");
                 return default;
             }
         }

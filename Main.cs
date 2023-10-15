@@ -75,8 +75,7 @@ namespace KitchenHQ
             SetupSettings();
             EmbedUtility.PrintEmbedResourceNames();
             FileUtility.InitFiles();
-
-            TapeEditorCustomView = AddViewType("Tape Editor", GetPrefab("VHS Writer Indicator").TryAddComponent<TapeEditorView>().gameObject);
+            AddViewTypes();
         }
 
         private void BuildGameData(GameData gameData)
@@ -180,6 +179,20 @@ namespace KitchenHQ
         #endregion
 
         #region Registry
+        private void AddViewTypes()
+        {
+            TapeEditorCustomView = AddViewType("Tape Editor", GetPrefab("VHS Writer Indicator").TryAddComponent<TapeEditorView>().gameObject);
+
+            EventboardIndicatorView = AddViewType("Event Indicator", () =>
+            {
+                var prefab = GetPrefab("Event Board Indicator");
+                prefab.GetChild("Container/Body").transform.CreateLabel("Title", new(0f, 0f, 0f), Quaternion.identity,
+                MaterialUtils.GetExistingMaterial("Cake n Truffles Atlas Material"), FontUtils.GetExistingTMPFont("Map Label"), 0, 2.25f,
+                "Event Title!");
+                return prefab;
+            });
+        }
+
         protected override void OnInitialise()
         {
             if (PrefManager.Get<bool>("ShowExampleAppRoom"))
@@ -201,10 +214,7 @@ namespace KitchenHQ
 
             AddIcons(); // Creates the icons ingame
 
-            Events.BuildGameDataEvent += (s, args) =>
-            {
-                BuildGameData(args.gamedata); // Actions to be performed during BGD
-            };
+            Events.BuildGameDataEvent += (s, args) => BuildGameData(args.gamedata); // Actions to be performed during BGD
         }
 
         internal void AddGameData()

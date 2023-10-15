@@ -1,5 +1,6 @@
 ﻿using Kitchen;
 using KitchenHQ.Utility;
+using KitchenLib.Utils;
 using MessagePack;
 using Steamworks.Ugc;
 using System;
@@ -25,7 +26,7 @@ namespace KitchenHQ.Franchise
 
         private ViewData Data;
         private List<Item> Items = new();
-        private int ItemIndex;
+        private int ItemIndex = 0;
         private float TimerDelta;
 
         protected override void UpdateData(ViewData data)
@@ -64,7 +65,7 @@ namespace KitchenHQ.Franchise
 
         private void UpdateRenderer()
         {
-            if (Renderer == null)
+            if (Renderer == null || Items.IsNullOrEmpty())
                 return;
 
             var item = Items[ItemIndex];
