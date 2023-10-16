@@ -25,7 +25,7 @@ namespace KitchenHQ
     {
         public const string NAME = "Integrated HQ";
         public const string GUID = "nova.integrated-hq";
-        public const string VERSION = "1.0.2";
+        public const string VERSION = "1.0.0";
 
         public Main() : base(GUID, NAME, "Zoey Davis", VERSION, ">=1.0.0", Assembly.GetExecutingAssembly()) { }
 
@@ -106,11 +106,11 @@ namespace KitchenHQ
                     .AddOption("ShowRoomAnchors", false, new bool[] { false, true }, new string[] { "Disabled", "Enabled" })
                     .AddLabel("Add Example Appliances")
                     .AddOption("ShowExampleAppRoom", false, new bool[] { false, true }, new string[] { "Disabled", "Enabled" })
+                .SubmenuDone()
                 .AddSpacer()
                 .AddLabel("Allow Network API Calls")
                 .AddInfo("Disabling reduces the amount of data gathered from the internet and  <i>may</i> improve load times.")
-                .AddOption("AllowAPI", true, new bool[] { false, true }, new string[] { "Disabled", "Enabled" })
-                .SubmenuDone();
+                .AddOption("AllowAPI", true, new bool[] { false, true }, new string[] { "Disabled", "Enabled" });
 
             PrefManager.RegisterMenu(PreferenceSystemManager.MenuType.MainMenu);
             PrefManager.RegisterMenu(PreferenceSystemManager.MenuType.PauseMenu);

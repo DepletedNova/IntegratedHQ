@@ -244,8 +244,6 @@ namespace KitchenHQ.Franchise
             [Key(1)] public int PlayerID;
             [Key(2)] public TapeValues Data;
 
-            public IUpdatableObject GetRelevantSubview(IObjectView view) => view.GetSubView<TapeEditorView>();
-
             public bool IsChangedFrom(ViewData check) => PlayerID != check.PlayerID;
         }
 
