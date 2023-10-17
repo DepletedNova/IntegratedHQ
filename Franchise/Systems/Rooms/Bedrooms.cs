@@ -41,12 +41,12 @@ namespace KitchenHQ.Franchise
                 CreateAssigned(i, AssetReference.OutfitStation, bedrooms[i] + new Vector3(inversion * -1.5f, 0f, 1f), Vector3.forward);
                 CreateAssigned(i, AssetReference.OccupationIndicator, bedrooms[i] + Vector3.right * 2.5f, Vector3.forward);
 
-                PlaceSpawnMarker(i, bedrooms[i] + Vector3.left);
+                PlaceSpawnMarker(i, bedrooms[i]);
 
                 if (playerEntities.Length - 1 < i)
                     continue;
 
-                EntityManager.SetComponentData(playerEntities[i], new CPosition(bedrooms[i] + Vector3.left));
+                EntityManager.SetComponentData(playerEntities[i], new CPosition(bedrooms[i]));
             }
 
             playerEntities.Dispose();
