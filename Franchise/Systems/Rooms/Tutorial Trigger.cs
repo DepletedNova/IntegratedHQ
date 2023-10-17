@@ -7,7 +7,7 @@ using Unity.Entities;
 
 namespace KitchenHQ.Franchise
 {
-    [UpdateInGroup(typeof(ModFranchiseComponentGroup))]
+    [UpdateInGroup(typeof(ModFranchiseGroup))]
     public class CreateModdedTutorialTrigger : FranchiseBuildSystem<CreateTutorialTrigger>, IModSystem
     {
         protected override void Build()

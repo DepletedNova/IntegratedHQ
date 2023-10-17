@@ -21,6 +21,8 @@ namespace KitchenHQ.Franchise
     {
         public static readonly Vector3 ModRoomAnchor = new(-1f, 0f, 6f);
 
+
+
         #region Setup Layout
         // Setup Anchors & Layout
         internal static void SetupLayout(GameData gameData)
@@ -105,6 +107,60 @@ namespace KitchenHQ.Franchise
             prefab.transform.Find("Cube (2)").localPosition -= Vector3.forward * 0.5f;
             prefab.transform.Find("Crate").localPosition -= Vector3.forward * 0.5f;
             prefab.transform.Find("Crate (1)").localPosition -= Vector3.forward * 0.5f;
+        }
+        #endregion
+
+        #region Seasonal Decoration
+        public enum SeasonalLobby
+        {
+            None,
+            NewYear,
+            Valentines,
+            Easter,
+            AprilFools,
+            Halloween,
+            Thanksgiving,
+            Christmas
+        }
+
+        public static string SeasonalToString(SeasonalLobby lobby) => lobby switch
+            {
+                SeasonalLobby.None => "None!",
+                SeasonalLobby.NewYear => "Chinese New Year",
+                SeasonalLobby.Valentines => "Valentines",
+                SeasonalLobby.Easter => "Easter",
+                SeasonalLobby.AprilFools => "April Fools",
+                SeasonalLobby.Halloween => "Halloween",
+                SeasonalLobby.Thanksgiving => "Thanksgiving",
+                SeasonalLobby.Christmas => "Christmas",
+                _ => "None!"
+            };
+
+        public static SeasonalLobby CurrentSeasonal()
+        {
+            if (!PrefManager.Get<bool>("AllowSeasonalDeco"))
+                return SeasonalLobby.None;
+            if (PrefManager.Get<bool>("ForceSeasonalDeco"))
+                return (SeasonalLobby)PrefManager.Get<int>("ForcedSeasonalDecoType");
+
+            var date = DateTime.UtcNow;
+
+            if ((date.Month == 1 && date.Day <= 20) || (date.Month == 12 && date.Day >= 26))
+                return SeasonalLobby.NewYear;
+            if (date.Month == 2 && date.Day > 5 && date.Day < 25)
+                return SeasonalLobby.Valentines;
+            if (date.Month == 3 && date.Day > 15)
+                return SeasonalLobby.Easter;
+            if (date.Month == 4 && date.Day == 1)
+                return SeasonalLobby.AprilFools;
+            if (date.Month == 10)
+                return SeasonalLobby.Halloween;
+            if (date.Month == 11 && date.Day > 10)
+                return SeasonalLobby.Thanksgiving;
+            if (date.Month == 12)
+                return SeasonalLobby.Christmas;
+
+            return SeasonalLobby.None;
         }
         #endregion
     }

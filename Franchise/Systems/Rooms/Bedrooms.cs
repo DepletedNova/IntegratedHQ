@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace KitchenHQ.Franchise
 {
-    [UpdateInGroup(typeof(ModFranchiseComponentGroup))]
+    [UpdateInGroup(typeof(ModFranchiseGroup))]
     public class CreateModdedBedrooms : FranchiseBuildSystem<CreateBedrooms>, IModSystem
     {
         private EntityQuery Players;

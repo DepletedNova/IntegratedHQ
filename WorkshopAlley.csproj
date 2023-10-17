@@ -196,6 +196,7 @@
     <Compile Include="Franchise\Systems\CycleFranchiseKitchenTutorial.cs" />
     <Compile Include="Franchise\Systems\ActivateTelevision.cs" />
     <Compile Include="Franchise\Systems\RebuildFranchiseAppliances.cs" />
+    <Compile Include="Franchise\Systems\Rooms\Seasonal\Halloween.cs" />
     <Compile Include="Franchise\Systems\SwapAppliances.cs" />
     <Compile Include="Franchise\Systems\SwapModRoom.cs" />
     <Compile Include="Franchise\Systems\RefreshChoices.cs" />
@@ -233,12 +234,11 @@
     <Compile Include="Utility\FileUtility.cs" />
     <Compile Include="Utility\GameObjectUtility.cs" />
     <Compile Include="Utility\GDOContainer.cs" />
-    <Compile Include="Utility\ModFranchiseComponentGroup.cs" />
+    <Compile Include="Utility\System Groups.cs" />
     <Compile Include="Utility\WebUtility.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Embedded\DefaultSettings.json" />
-    <None Include="app.config" />
     <None Include="CloudSettings.json" />
     <EmbeddedResource Include="Embedded\Keys.json" />
     <None Include="IHQ.pdn" />
@@ -248,6 +248,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="IHQ.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Franchise\GDOs\Seasonal\Halloween\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

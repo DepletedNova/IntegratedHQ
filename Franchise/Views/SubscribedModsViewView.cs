@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using TMPro;
 using Unity.Collections;
 using Unity.Entities;
+using UnityEngine;
 
 namespace KitchenHQ.Franchise
 {
@@ -13,7 +14,13 @@ namespace KitchenHQ.Franchise
     {
         public TextMeshPro Label;
 
+        public GameObject GenericPodium;
+        public GameObject PartialPodium;
+
+        public float PartialPercent = 0.6f;
+
         private ViewData Data;
+        private int TotalMods = 0;
 
         protected override void UpdateData(ViewData data)
         {
@@ -23,10 +30,24 @@ namespace KitchenHQ.Franchise
 
             if (Label != null)
             {
-                var hasTotalMods = WebUtility.AwaitTask(Task.Run(() => WebUtility.GetItemCountFromQuery(Query.Items)), out int totalMods);
-                Label.text = hasTotalMods ?
-                    string.Format("{0}/{1}\n<size=1.5>{2}</size>", Data.Count, totalMods, Localisation["IHQ:SubbedMods"]) :
+                var hasTotalMods = WebUtility.AwaitTask(Task.Run(() => WebUtility.GetItemCountFromQuery(Query.Items)), out TotalMods);
+                Label.text = hasTotalMods && TotalMods != 0 ?
+                    string.Format("{0}/{1}\n<size=1.5>{2}</size>", Data.Count, TotalMods, Localisation["IHQ:SubbedMods"]) :
                     string.Format("{0}\n<size=1.5>{1}</size>", Data.Count, Localisation["IHQ:SubbedMods"]);
+            }
+
+            if (GenericPodium != null && PartialPodium != null)
+            {
+                if (TotalMods != 0 && Data.Count >= TotalMods * PartialPercent)
+                {
+                    GenericPodium.SetActive(false);
+                    PartialPodium.SetActive(true);
+                }
+                else
+                {
+                    GenericPodium.SetActive(true);
+                    PartialPodium.SetActive(false);
+                }
             }
         }
 

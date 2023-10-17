@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace KitchenHQ.Franchise
 {
-    [UpdateInGroup(typeof(ModFranchiseComponentGroup))]
+    [UpdateInGroup(typeof(ModFranchiseGroup))]
     public class CreateModdedOffice : FranchiseBuildSystem<CreateOffice>, IModSystem
     {
         protected override void Build()

@@ -35,11 +35,14 @@ namespace KitchenHQ.Franchise
             table.ApplyMaterialToChild("Cloth", "Cloth - Cheap");
             table.ApplyMaterialToChildren("Leg", "Wood - Default");
 
-            prefab.ApplyMaterialToChild("Podium", "Metal");
+            var view = prefab.TryAddComponent<SubscribedModsViewView>();
 
-            prefab.TryAddComponent<SubscribedModsViewView>().Label = prefab.transform.CreateLabel("Label", new(0, 0.7f, -0.75f), Quaternion.Euler(40, 0, 0),
+            view.Label = prefab.transform.CreateLabel("Label", new(0, 0.7f, -0.75f), Quaternion.Euler(40, 0, 0),
                 MaterialUtils.GetExistingMaterial("Alphakind Atlas Material_1"), FontUtils.GetExistingTMPFont("Floating Text"), 73.07f, 2.85f,
                 "10/10\n<size=1.5>Mods Installed</size>").GetComponent<TextMeshPro>();
+
+            view.GenericPodium = prefab.ApplyMaterialToChild("Podium", "Metal");
+            view.PartialPodium = prefab.ApplyMaterialToChild("Partial", "Plastic - Shiny Gold", "Paint - Gold");
         }
     }
 }

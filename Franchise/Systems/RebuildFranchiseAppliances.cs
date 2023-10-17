@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace KitchenHQ.Franchise.Systems
 {
-    [UpdateAfter(typeof(ModFranchiseComponentGroup))]
+    [UpdateAfter(typeof(ModFranchiseGroup))]
     public class RebuildFranchiseAppliances : FranchiseSystem
     {
         private EntityQuery FranchiseAppliances;

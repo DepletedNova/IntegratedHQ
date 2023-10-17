@@ -18,6 +18,7 @@ using System.Linq;
 using System.Reflection;
 using TMPro;
 using UnityEngine;
+using static KitchenHQ.Franchise.ModFranchise;
 
 namespace KitchenHQ
 {
@@ -80,8 +81,8 @@ namespace KitchenHQ
 
         private void BuildGameData(GameData gameData)
         {
-            ModFranchise.SetupLayout(gameData);
-            ModFranchise.ModifyBasePrefabs(gameData);
+            SetupLayout(gameData);
+            ModifyBasePrefabs(gameData);
             AddLocalisations(gameData);
             GDOContainer.SetupDishes(gameData);
         }
@@ -106,6 +107,20 @@ namespace KitchenHQ
                     .AddOption("ShowRoomAnchors", false, new bool[] { false, true }, new string[] { "Disabled", "Enabled" })
                     .AddLabel("Add Example Appliances")
                     .AddOption("ShowExampleAppRoom", false, new bool[] { false, true }, new string[] { "Disabled", "Enabled" })
+                .SubmenuDone()
+                .AddSubmenu("Seasonal Decorations", "SeasonalMenu")
+                    .AddLabel("Enable Seasonal Decorations")
+                    .AddOption("AllowSeasonalDeco", true, new bool[] { false, true }, new string[] { "Disabled", "Enabled" }, true)
+                    .AddConditionalBlocker(() => !PrefManager.Get<bool>("AllowSeasonalDeco"))
+                        .AddLabel($"<size=80%>Current:</size> <color=#878787>{SeasonalToString(CurrentSeasonal())}</color>")
+                        .AddLabel("Force Seasonal Decorations")
+                        .AddOption("ForceSeasonalDeco", false, new bool[] { false, true }, new string[] { "Disabled", "Enabled" }, true)
+                    .ConditionalBlockerDone()
+                    .AddConditionalBlocker(() => !PrefManager.Get<bool>("ForceSeasonalDeco") || !PrefManager.Get<bool>("AllowSeasonalDeco"))
+                        .AddOption("ForcedSeasonalDecoType", 5, new int[]
+                        { 1, 2, 3, 4, 5, 6, 7 }, new string[] 
+                        { "Chinese New Year", "Valentines", "Easter", "April Fools", "Halloween", "Thanksgiving", "Christmas" }, true)
+                    .ConditionalBlockerDone()
                 .SubmenuDone()
                 .AddSpacer()
                 .AddLabel("Allow Network API Calls")

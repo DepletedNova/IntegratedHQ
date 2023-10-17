@@ -8,7 +8,7 @@ using KitchenHQ.Utility;
 
 namespace KitchenHQ.Franchise
 {
-    [UpdateInGroup(typeof(ModFranchiseComponentGroup))]
+    [UpdateInGroup(typeof(ModFranchiseGroup))]
     public class GenerateFranchiseAppliances : FranchiseBuildSystem
     {
         protected override bool OverrideBuild => true;

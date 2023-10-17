@@ -43,7 +43,7 @@ namespace KitchenHQ.Franchise
 
             // Setup label
             if (Label != null)
-                Label.text = string.Format("{0}\n<size=1.5>{1}</size>", Items.Count, Localisation["IHQ:CreatedMods"].Split('/')[Items.Count > 1 ? 0 : 1]);
+                Label.text = Items.Count != 0 ? string.Format("{0}\n<size=1.5>{1}</size>", Items.Count, Localisation["IHQ:CreatedMods"].Split('/')[Items.Count > 1 ? 0 : 1]) : string.Empty;
 
             // Initial renderer setup
             UpdateRenderer();
@@ -69,13 +69,17 @@ namespace KitchenHQ.Franchise
         private void UpdateRenderer()
         {
             if (Renderer == null || Items.IsNullOrEmpty())
-                return;
+            {
+                Renderer.gameObject.SetActive(false);
+            }
 
             var item = Items[ItemIndex];
             Texture tex = WebUtility.GetItemIcon(item);
-            Renderer.gameObject.SetActive(tex != null);
             if (tex != null)
+            {
+                Renderer.gameObject.SetActive(true);
                 Renderer.material.SetTexture(Image, tex);
+            }
         }
 
         [MessagePackObject(false)]

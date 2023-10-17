@@ -1,6 +1,7 @@
 ﻿using KitchenHQ.Extensions;
 using Kitchen;
 using Unity.Entities;
+using KitchenHQ.Franchise;
 
 namespace KitchenHQ.Utility
 {
@@ -40,5 +41,18 @@ namespace KitchenHQ.Utility
 
             World.DisableSystem<T>();
         }
+    }
+
+    public abstract class SeasonalFranchiseBuildSystem : FranchiseBuildSystem
+    {
+        protected abstract ModFranchise.SeasonalLobby Seasonal { get; }
+
+        protected override void Build()
+        {
+            if (ModFranchise.CurrentSeasonal() == Seasonal)
+                AddDecorations();
+        }
+
+        protected abstract void AddDecorations();
     }
 }

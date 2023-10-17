@@ -12,7 +12,7 @@ using UnityEngine;
 
 namespace KitchenHQ.Franchise
 {
-    [UpdateInGroup(typeof(ModFranchiseComponentGroup))]
+    [UpdateInGroup(typeof(ModFranchiseGroup))]
     public class CreateModdedStatsRoom : FranchiseBuildSystem<CreateStatsRoom>, IModSystem
     {
         protected override void Build()

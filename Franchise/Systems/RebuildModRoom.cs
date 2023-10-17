@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace KitchenHQ.Franchise
 {
-    [UpdateAfter(typeof(ModFranchiseComponentGroup))]
+    [UpdateAfter(typeof(ModFranchiseGroup))]
     public class RebuildModRoom : FranchiseSystem
     {
         private EntityQuery Clearables;
