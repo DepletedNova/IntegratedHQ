@@ -30,10 +30,10 @@ namespace KitchenHQ.Franchise
 
             // Modded
             LogDebug("[BUILD] Subscribed mods");
-            var count = WebUtility.AwaitTask(Task.Run(() => WebUtility.GetItemCountFromQuery(Query.Items.WhereUserSubscribed())));
+            var hasCount = WebUtility.AwaitTask(Task.Run(() => WebUtility.GetItemCountFromQuery(Query.Items.WhereUserSubscribed())), out int count);
             EntityManager.AddComponentData(
                 Create(FranchiseReferences.SubscribedModsView, stats + new Vector3(0f, 0f, -4f), Vector3.forward),
-                new CSubscribedModsView { ModCount = count });
+                new CSubscribedModsView { ModCount = hasCount ? count : ModPreload.Mods.Count });
 
             CreateModdedUpgrades();
             CreateDevModView();
@@ -42,8 +42,8 @@ namespace KitchenHQ.Franchise
         private void CreateDevModView()
         {
             LogDebug("[BUILD] Checking to build Developer Mod View");
-            var count = WebUtility.AwaitTask(Task.Run(() => WebUtility.GetItemCountFromQuery(Query.Items.WhereUserPublished())));
-            if (count > 0)
+            var devCount = WebUtility.AwaitTask(Task.Run(() => WebUtility.GetItemCountFromQuery(Query.Items.WhereUserPublished())), out int count);
+            if (devCount && count > 0)
             {
                 LogDebug("[BUILD] Building Developer Mod View");
                 EntityManager.AddComponentData(

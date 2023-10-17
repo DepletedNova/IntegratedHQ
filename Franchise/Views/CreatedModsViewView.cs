@@ -35,9 +35,11 @@ namespace KitchenHQ.Franchise
                 return;
             Data = data;
 
-            Items = WebUtility.AwaitTask(Task.Run(() => WebUtility.GetItemsFromQuery(Query.Items.WhereUserPublished(data.UserID))));
-            if (!Items.IsNullOrEmpty())
-                ItemIndex = Random.Range(0, Items.Count);
+            if (!WebUtility.AwaitTask(Task.Run(() => WebUtility.GetItemsFromQuery(Query.Items.WhereUserPublished(data.UserID))), out Items))
+            {
+                Items = new();
+                ItemIndex = 0;
+            } else ItemIndex = Random.Range(0, Items.Count);
 
             // Setup label
             if (Label != null)
@@ -50,7 +52,7 @@ namespace KitchenHQ.Franchise
         void Update()
         {
             // Cycle
-            if (Items.Count > 1)
+            if (!Items.IsNullOrEmpty())
             {
                 TimerDelta -= Time.deltaTime;
                 if (TimerDelta <= 0)

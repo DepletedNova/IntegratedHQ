@@ -91,51 +91,63 @@ namespace KitchenHQ.Utility
 
         public static Texture2D GetIcon(string tag, string url)
         {
-            Texture2D tex = new(0, 0);
+            Texture2D tex = EmbedUtility.ReadEmbeddedTextureFile("SteamDefault.png");
+            if (!PrefManager.Get<bool>("AllowAPI"))
+                return tex;
+
             if (!FileUtility.TryGetImage(tag, out tex))
             {
-                LogDebug($"[WEB] [IMAGE] Retrieving icon from URL: \"{url}\"");
-                using WebClient client = new();
-                using Stream stream = Task.Run(() => client.OpenReadTaskAsync(url)).GetAwaiter().GetResult();
-
-                if (stream == default || stream == null)
+                try
                 {
-                    LogError($"(EC:1) Failed to retrieve image from URL: \"{url}\"");
-                    return null;
-                }
+                    LogDebug($"[WEB] [IMAGE] Retrieving icon from URL: \"{url}\"");
+                    using WebClient client = new();
 
-                using Bitmap bitmap = new(stream);
-                if (bitmap != null)
-                {
-                    using var memoryStream = new MemoryStream();
+                    var HasStream = AwaitTask(Task.Run(() => client.OpenReadTaskAsync(url)), out Stream stream);
 
-                    bitmap.Save(memoryStream, ImageFormat.Png);
-                    var bytes = memoryStream.ToArray();
-                    tex.LoadImage(bytes);
-                    FileUtility.WriteImage(tag, tex);
+                    if (!HasStream)
+                    {
+                        LogError($"(EC:1) Failed to retrieve image from URL: \"{url}\"");
+                        stream.Dispose();
+                        return tex;
+                    }
 
-                    LogDebug($"[WEB] [IMAGE] Retrieved and cached icon from URL: \"{url}\"");
-                }
-                else
-                {
+                    using Bitmap bitmap = new(stream);
+                    if (bitmap != null)
+                    {
+                        using var memoryStream = new MemoryStream();
 
-                    LogError($"(EC:2) Failed to retrieve image from URL: \"{url}\"");
-                    return null;
-                }
+                        bitmap.Save(memoryStream, ImageFormat.Png);
+                        var bytes = memoryStream.ToArray();
+                        tex.LoadImage(bytes);
+                        FileUtility.WriteImage(tag, tex);
+
+                        LogDebug($"[WEB] [IMAGE] Retrieved and cached icon from URL: \"{url}\"");
+                    }
+                    else
+                    {
+
+                        LogError($"(EC:2) Failed to retrieve image from URL: \"{url}\"");
+                        stream.Dispose();
+                        return tex;
+                    }
+                    stream.Dispose();
+                } catch { }
             }
             return tex;
         }
 
-        public static T AwaitTask<T>(Task<T> task, int additionalWait = 0)
+        public static bool AwaitTask<T>(Task<T> task, out T value, int additionalWait = 0)
         {
             if (task.Wait(MaxCallWait + additionalWait))
             {
-                return task.Result;
+                value = task.Result;
+                return true;
             }
             else
             {
                 LogWarning($"Elapsed task exceeded time limit ({MaxCallWait + additionalWait}ms). Reverting to default.");
-                return default;
+                value = default;
+                return false;
             }
         }
     }

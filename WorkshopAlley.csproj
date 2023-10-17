@@ -192,7 +192,7 @@
     <Compile Include="Franchise\Systems\ClearExcessLayoutData.cs" />
     <Compile Include="Franchise\Systems\CreateTapeEditor.cs" />
     <Compile Include="Franchise\Systems\CycleModdedViewProgress.cs" />
-    <Compile Include="Franchise\Systems\DebugMarkers.cs" />
+    <Compile Include="Franchise\Systems\Rooms\Debug Markers.cs" />
     <Compile Include="Franchise\Systems\CycleFranchiseKitchenTutorial.cs" />
     <Compile Include="Franchise\Systems\ActivateTelevision.cs" />
     <Compile Include="Franchise\Systems\RebuildFranchiseAppliances.cs" />

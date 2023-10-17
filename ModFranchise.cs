@@ -169,8 +169,8 @@ namespace KitchenHQ.Franchise
             {
                 LogDebug("[CLOUD] Gathering dynamic info from the cloud");
                 using WebClient wc = new();
-                string settings = WebUtility.AwaitTask(wc.DownloadStringTaskAsync(CloudURL));
-                if (settings == default)
+                bool hasSettings = WebUtility.AwaitTask(wc.DownloadStringTaskAsync(CloudURL), out string settings);
+                if (!hasSettings)
                 {
                     LogWarning("[CLOUD] Failed to read data dynamic info. Reverting to defaults.");
                     settings = EmbedUtility.ReadEmbeddedTextFile("DefaultSettings.json");

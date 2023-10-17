@@ -25,6 +25,7 @@ namespace KitchenHQ.Franchise
 
         private ViewData Data = default;
 
+        private bool HasData = false;
         private List<Item> Items = new();
         private Dictionary<ulong, Texture2D> Textures = new();
         private int Index = 0;
@@ -56,7 +57,7 @@ namespace KitchenHQ.Franchise
 
             LogDebug("[APPLIANCE] [Television] Calling overlay");
             if (Players.Main.Get(Data.PlayerID).IsLocalUser)
-                SteamFriends.OpenWebOverlay(Items[Index].Url, true);
+                SteamFriends.OpenWebOverlay(Items[Index].Url, false);
         }
 
         private float CycleDuration = MaxCycleDuration;
@@ -98,9 +99,12 @@ namespace KitchenHQ.Franchise
             if (!PrefManager.Get<bool>("AllowAPI"))
                 return;
 
-            var potentialItems = WebUtility.AwaitTask(Task.Run(() => WebUtility.GetItemsFromQuery(CreateQuery(data.Tape), 1)), 50);
-            if (potentialItems.IsNullOrEmpty() || potentialItems == default)
+            HasData = WebUtility.AwaitTask(Task.Run(() => WebUtility.GetItemsFromQuery(CreateQuery(data.Tape), 1)), out var potentialItems, 50);
+            if (!HasData)
+            {
+                Items = new();
                 return;
+            }
 
             LogDebug("[APPLIANCE] [Television] Collected items");
             
