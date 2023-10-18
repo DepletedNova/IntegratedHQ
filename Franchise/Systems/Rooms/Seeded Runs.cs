@@ -35,7 +35,7 @@ namespace KitchenHQ.Franchise
             CreateSeededRun(GetSeed(false, AssetReference.FixedRunLayout), Create(AssetReference.FixedRunPedestal, office + new Vector3(-4.5f, 0f, 0f), Vector3.forward), AssetReference.FixedRunSetting);
 
             // Thematic
-            if (!Data.TryGet(AssetReference.ThematicSetting, out RestaurantSetting _))
+            if (AssetReference.ThematicSetting == 0 || !Data.TryGet(AssetReference.ThematicSetting, out RestaurantSetting _))
             {
                 LogDebug("[BUILD] [SKIP] Thematic maps (none applicable)");
                 return;

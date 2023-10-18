@@ -77,6 +77,7 @@ namespace KitchenHQ
             EmbedUtility.PrintEmbedResourceNames();
             FileUtility.InitFiles();
             AddViewTypes();
+            AddMaterials();
         }
 
         private void BuildGameData(GameData gameData)
@@ -86,6 +87,27 @@ namespace KitchenHQ
             AddLocalisations(gameData);
             GDOContainer.SetupDishes(gameData);
         }
+
+        #region Material
+        public void AddMaterials()
+        {
+            Bundle.LoadAllAssets<Texture2D>();
+            Bundle.LoadAllAssets<Sprite>();
+
+            var tex = GetAsset<Texture2D>("VineTex");
+            var mat = MaterialUtils.CreateFlat("Rug - Vine", 0xA86025, overlayScale: 1f);
+            mat.SetTexture("_Overlay", tex);
+            mat.SetColor("_OverlayColour", MaterialUtils.ColorFromHex(0x333333));
+            mat.SetVector("_OverlayTextureScale", new(10, 10, 0, 0));
+            mat.SetInt("_HasTextureOverlay", 1);
+            mat.EnableKeyword("_HASTEXTUREOVERLAY_ON");
+            mat.SetInt("_TextureByUV", 1);
+            mat.EnableKeyword("_TEXTUREBYUV_ON");
+            mat.SetFloat("_OverlayMax", 1f);
+            mat.SetFloat("_OverlayMin", 1f);
+            AddMaterial(mat);
+        }
+        #endregion
 
         #region Menu
         private void SetupMenu()
@@ -111,8 +133,8 @@ namespace KitchenHQ
                 .AddSubmenu("Seasonal Decorations", "SeasonalMenu")
                     .AddLabel("Enable Seasonal Decorations")
                     .AddOption("AllowSeasonalDeco", true, new bool[] { false, true }, new string[] { "Disabled", "Enabled" }, true)
-                    .AddConditionalBlocker(() => !PrefManager.Get<bool>("AllowSeasonalDeco"))
-                        .AddLabel($"<size=80%>Current:</size> <color=#878787>{SeasonalToString(CurrentSeasonal())}</color>")
+                    .AddLabel($"<size=80%>Current:</size> <color=#878787>{SeasonalToString(CurrentSeasonal())}</color>")
+                    .AddConditionalBlocker(() => !PrefManager.Get<bool>("AllowSeasonalDeco") || true) // Revert whenever you release more seasonals
                         .AddLabel("Force Seasonal Decorations")
                         .AddOption("ForceSeasonalDeco", false, new bool[] { false, true }, new string[] { "Disabled", "Enabled" }, true)
                     .ConditionalBlockerDone()
@@ -219,7 +241,6 @@ namespace KitchenHQ
             // Bundle loading
             Bundle = mod.GetPacks<AssetBundleModPack>().SelectMany(e => e.AssetBundles).First();
 
-            // Preload any textures
             Bundle.LoadAllAssets<Texture2D>();
             Bundle.LoadAllAssets<Sprite>();
 

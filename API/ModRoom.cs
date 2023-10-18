@@ -98,6 +98,12 @@ namespace KitchenHQ.API
                 // Decorations
                 room.Create<ModRoomTable>(new(1.15f, 0f, 2f), Vector3.forward);
 
+                var seasonal = ModFranchise.CurrentSeasonal();
+                switch (seasonal)
+                {
+                    case ModFranchise.SeasonalLobby.Halloween: room.Create<HalloweenRug>(new(0f, 0f -0.5f), Vector3.forward); break;
+                }
+
                 // Event board
                 var eventboard = room.Create<EventBoard>(new(-1.65f, 0f, -3f), Vector3.forward);
                 room.CreateProxy(new(-0.65f, 0f, -3f), eventboard);

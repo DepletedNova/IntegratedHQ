@@ -159,6 +159,10 @@
     <Compile Include="Franchise\GDOs\Office\Refresher.cs" />
     <Compile Include="Franchise\GDOs\Office\OfficeArchway.cs" />
     <Compile Include="Franchise\GDOs\ApplianceSwapper.cs" />
+    <Compile Include="Franchise\GDOs\Seasonal\Halloween\Pumpkins.cs" />
+    <Compile Include="Franchise\GDOs\Seasonal\Halloween\HalloweenRug.cs" />
+    <Compile Include="Franchise\GDOs\Seasonal\Halloween\HalloweenGarland.cs" />
+    <Compile Include="Franchise\GDOs\Seasonal\Halloween\Cobweb.cs" />
     <Compile Include="Franchise\GDOs\Stats\CreatedModsView.cs" />
     <Compile Include="Franchise\GDOs\Stats\SubscribedModsView.cs" />
     <Compile Include="Franchise\GDOs\Stats\ModdedProgressView.cs" />
@@ -249,9 +253,7 @@
   <ItemGroup>
     <None Include="IHQ.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Franchise\GDOs\Seasonal\Halloween\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy "$(TargetDir)$(TargetFileName)" "C:\Program Files (x86)\Steam\steamapps\common\PlateUp\PlateUp\Mods\Workshop Alley\content" /y

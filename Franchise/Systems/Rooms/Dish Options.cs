@@ -26,9 +26,9 @@ namespace KitchenHQ.Franchise
             Set<HandleFoodRequests.SSelectedFood>();
             Set<HandleFoodRequests.SRefreshFood>();
 
-            // Always available -- replace with a reroll
-            /*if (AssetReference.AlwaysAvailableDish != 0 && Data.TryGet(AssetReference.AlwaysAvailableDish, out Dish alwaysDish, true))
-                CreateFixedFoodSource(office + new Vector3(0f, 0f, -3f), alwaysDish);*/
+            // Always available
+            if (AssetReference.AlwaysAvailableDish != 0 && Data.TryGet(AssetReference.AlwaysAvailableDish, out Dish alwaysDish, true))
+                CreateFixedFoodSource(office + new Vector3(6f, 0f, -1f), alwaysDish);
 
             // Slot count
             int slots = ExtraDishes.CalculateEntityCount();
