@@ -68,9 +68,13 @@ namespace KitchenHQ.Franchise
 
         private void UpdateRenderer()
         {
-            if (Renderer == null || Items.IsNullOrEmpty())
+            if (Renderer == null)
+                return;
+
+            if (Items.IsNullOrEmpty())
             {
                 Renderer.gameObject.SetActive(false);
+                return;
             }
 
             var item = Items[ItemIndex];
