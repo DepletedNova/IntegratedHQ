@@ -1,10 +1,11 @@
 ﻿using Kitchen;
+using Unity.Entities;
 
 namespace KitchenHQ.Franchise.Systems
 {
     public class ActivateTelevision : ItemInteractionSystem
     {
-        protected override bool RequirePress => true;
+        protected override InteractionType RequiredType => InteractionType.Act;
 
         private CPlayer player;
         protected override bool IsPossible(ref InteractionData data) =>

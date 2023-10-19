@@ -29,6 +29,7 @@ namespace KitchenHQ.Franchise
         private List<Item> Items = new();
         private Dictionary<ulong, Texture2D> Textures = new();
         private int Index = 0;
+        private int OpenedBy = 0;
 
         protected override void UpdateData(ViewData data)
         {
@@ -36,6 +37,8 @@ namespace KitchenHQ.Franchise
             bool IsActive = data.Active;
             if (!IsActive)
             {
+                OpenedBy = 0;
+                Index = 0;
                 CycleDuration = MaxCycleDuration;
                 Screen.SetActive(false);
                 return;
@@ -45,6 +48,7 @@ namespace KitchenHQ.Franchise
             {
                 LogDebug("[APPLIANCE] [Television] Retrieving items");
                 Index = 0;
+                OpenedBy = 0;
                 RetrieveFiles(data);
             }
 
@@ -52,12 +56,19 @@ namespace KitchenHQ.Franchise
 
             UpdateVisuals();
 
-            if (!Screen.activeSelf || !Data.Interacted || Data.PlayerID == 0)
+            if (!Screen.activeSelf || !Data.Interacted || Data.PlayerID == 0 || OpenedBy == Data.PlayerID)
+            {
+                LogDebug($"{OpenedBy == Data.PlayerID} ; {Data.PlayerID} ; {OpenedBy}");
+                OpenedBy = 0;
                 return;
+            }
 
             LogDebug("[APPLIANCE] [Television] Calling overlay");
             if (Players.Main.Get(Data.PlayerID).IsLocalUser)
+            {
                 SteamFriends.OpenWebOverlay(Items[Index].Url, false);
+                OpenedBy = Data.PlayerID;
+            }
         }
 
         private float CycleDuration = MaxCycleDuration;
@@ -86,6 +97,7 @@ namespace KitchenHQ.Franchise
                 return;
             }
 
+            OpenedBy = 0;
             Screen.SetActive(true);
             Renderer.material.SetTexture(Image, tex);
             Label.text = Items[Index].Title;
@@ -190,18 +202,21 @@ namespace KitchenHQ.Franchise
                 var data = new ViewData()
                 {
                     Tape = (TapeValues)sTapePlayer.Tape,
-                    Active = sTapePlayer.Holding
+                    Active = sTapePlayer.Holding,
+                    Interacted = false,
+                    PlayerID = 0
                 };
 
                 if (Require(television, out STelevision.STriggerInteraction interaction))
                 {
-                    EntityManager.RemoveComponent<STelevision.STriggerInteraction>(television);
                     if (interaction.PlayerID != 0)
                     {
                         data.Interacted = true;
                         data.PlayerID = interaction.PlayerID;
                     }
+                    EntityManager.RemoveComponent<STelevision.STriggerInteraction>(television);
                 }
+                
 
                 SendUpdate(cView, data, MessageType.SpecificViewUpdate);
             }
