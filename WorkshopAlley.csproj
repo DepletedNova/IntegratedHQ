@@ -146,6 +146,7 @@
   <ItemGroup>
     <Compile Include="API\FranchiseAppliance.cs" />
     <Compile Include="API\ModRoom.cs" />
+    <Compile Include="ExampleAPI.cs" />
     <Compile Include="Franchise\Components\Event Board.cs" />
     <Compile Include="Franchise\Components\Tape Handling.cs" />
     <Compile Include="Franchise\GDOs\Mod Room\VHSTape.cs" />

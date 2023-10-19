@@ -13,7 +13,7 @@ namespace KitchenHQ.Utility
 
         internal static void SetupDishes(GameData gameData)
         {
-            foreach (var dish in gameData.Get<Dish>().Where(dish => dish.IsUnlockable && dish.IconPrefab != null && dish.Type == DishType.Base))
+            foreach (var dish in gameData.Get<Dish>().Where(dish => dish.IsUnlockable && dish.Type == DishType.Base))
             {
                 if (AllDishes.ContainsKey(dish.ID))
                     break;
