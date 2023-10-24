@@ -3,13 +3,11 @@ global using static KitchenLib.Utils.GDOUtils;
 global using static KitchenLib.Utils.LocalisationUtils;
 using Kitchen;
 using KitchenData;
-using KitchenHQ.API;
 using KitchenHQ.Franchise;
 using KitchenHQ.Utility;
 using KitchenLib;
 using KitchenLib.Customs;
 using KitchenLib.Event;
-using KitchenLib.References;
 using KitchenLib.Utils;
 using KitchenMods;
 using PreferenceSystem;
@@ -26,7 +24,7 @@ namespace KitchenHQ
     {
         public const string NAME = "Integrated HQ";
         public const string GUID = "nova.integrated-hq";
-        public const string VERSION = "1.0.1";
+        public const string VERSION = "1.0.3";
 
         public Main() : base(GUID, NAME, "Zoey Davis", VERSION, ">=1.0.0", Assembly.GetExecutingAssembly()) { }
 
@@ -51,12 +49,12 @@ namespace KitchenHQ
             GDOContainer.SetupDishes(gameData);
         }
 
-        #region Material
         public void AddMaterials()
         {
             Bundle.LoadAllAssets<Texture2D>();
             Bundle.LoadAllAssets<Sprite>();
 
+            #region Rug - Vine
             var tex = GetAsset<Texture2D>("VineTex");
             var mat = MaterialUtils.CreateFlat("Rug - Vine", 0xA86025, overlayScale: 1f);
             mat.SetTexture("_Overlay", tex);
@@ -69,8 +67,8 @@ namespace KitchenHQ
             mat.SetFloat("_OverlayMax", 1f);
             mat.SetFloat("_OverlayMin", 1f);
             AddMaterial(mat);
+            #endregion
         }
-        #endregion
 
         #region Menu
         private void SetupMenu()

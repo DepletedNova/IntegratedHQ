@@ -68,6 +68,8 @@ namespace KitchenHQ.Franchise
             {
                 SteamFriends.OpenWebOverlay(Items[Index].Url, false);
                 OpenedBy = Data.PlayerID;
+                Data.PlayerID = 0;
+                Data.Interacted = false;
             }
         }
 
@@ -180,7 +182,7 @@ namespace KitchenHQ.Franchise
 
             public IUpdatableObject GetRelevantSubview(IObjectView view) => view.GetSubView<TelevisionView>();
 
-            public bool IsChangedFrom(ViewData check) => !Tape.Equals(check.Tape) || Active != check.Active || PlayerID != check.PlayerID || Interacted;
+            public bool IsChangedFrom(ViewData check) => !Tape.Equals(check.Tape) || Active != check.Active || PlayerID != check.PlayerID || Interacted != check.Interacted;
         }
 
         private class UpdateView : IncrementalViewSystemBase<ViewData>
@@ -209,15 +211,14 @@ namespace KitchenHQ.Franchise
 
                 if (Require(television, out STelevision.STriggerInteraction interaction))
                 {
+                    EntityManager.RemoveComponent<STelevision.STriggerInteraction>(television);
                     if (interaction.PlayerID != 0)
                     {
                         data.Interacted = true;
                         data.PlayerID = interaction.PlayerID;
                     }
-                    EntityManager.RemoveComponent<STelevision.STriggerInteraction>(television);
                 }
                 
-
                 SendUpdate(cView, data, MessageType.SpecificViewUpdate);
             }
         }
