@@ -28,7 +28,7 @@ namespace KitchenHQ.API
         // Creates an Appliance within an ECB
         public Entity Create(int id, Vector3 location, Vector3 facing)
         {
-            var pos = ModFranchise.ModRoomAnchor + new Vector3(Mathf.Clamp(location.x, -2f, 2f), 0f, Mathf.Clamp(location.z, -3f, 2f));
+            var pos = ModdedLobbyPositionAnchors.ModRoomAnchor + new Vector3(Mathf.Clamp(location.x, -2f, 2f), 0f, Mathf.Clamp(location.z, -3f, 2f));
             var roundedPos = pos.Rounded();
 
             Entity entity = ECB.CreateEntity();

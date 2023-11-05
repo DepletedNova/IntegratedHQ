@@ -12,7 +12,7 @@ namespace KitchenHQ.Franchise
     {
         protected override void Build()
         {
-            var garage = LobbyPositionAnchors.Garage;
+            var garage = ModdedLobbyPositionAnchors.Garage;
 
             LogDebug("[BUILD] Garage");
 

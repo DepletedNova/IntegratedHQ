@@ -16,13 +16,36 @@ using WebUtility = KitchenHQ.Utility.WebUtility;
 
 namespace KitchenHQ.Franchise
 {
-    // Headquarter modifications
-    public static class ModFranchise
+    public static class ModdedLobbyPositionAnchors
     {
         public static readonly Vector3 ModRoomAnchor = new(-1f, 0f, 6f);
 
+        public static readonly Vector3 Office = new(-1f, 0f, -3f);
 
+        public static readonly Vector3 Kitchen = new(6f, 0f, 2f);
 
+        public static readonly Vector3 Contracts = new(-7f, 0f, 3f);
+
+        public static readonly Vector3 Garage = new(-13f, 0f, -9f);
+
+        public static readonly Vector3 Workshop = new(-13f, 0, -3f);
+
+        public static readonly Vector3 StartMarker = new(-10.5f, 0f, -8.5f);
+
+        public static readonly Vector3 Stats = new(9f, 0f, -4f);
+
+        public static readonly List<Vector3> Bedrooms = new List<Vector3>
+        {
+            new(10.5f, 0f, 7f),
+            new(3.5f, 0f, 7f),
+            new(10.5f, 0f, 4f),
+            new(3.5f, 0f, 4f)
+        };
+    }
+
+    // Headquarter modifications
+    public static class ModFranchise
+    {
         #region Setup Layout
         // Setup Anchors & Layout
         internal static void SetupLayout(GameData gameData)
@@ -39,19 +62,18 @@ namespace KitchenHQ.Franchise
             }
 
             // Update layout anchors
-            LobbyPositionAnchors.Workshop = new Vector3(-13f, 0, -3f);
-            LobbyPositionAnchors.Garage = new Vector3(-13f, 0f, -9f);
-            LobbyPositionAnchors.StartMarker = new Vector3(-10.5f, 0f, -8.5f);
+            LobbyPositionAnchors.Office = new(-1f, 0f, -3f);
+            LobbyPositionAnchors.Kitchen = new(6f, 0f, -1f);
+            LobbyPositionAnchors.Contracts = new(-5f, 0f, 6f);
+            LobbyPositionAnchors.Garage = new(-11f, 0f, -2f);
+            LobbyPositionAnchors.Workshop = new(-8f, 0, 5f);
+            LobbyPositionAnchors.StartMarker = new(-10.5f, 0f, -8.5f);
+            LobbyPositionAnchors.Stats = new(9f, 0f, -4f);
 
-            LobbyPositionAnchors.Kitchen = new Vector3(6f, 0f, 2f);
-            LobbyPositionAnchors.Office = new Vector3(-1f, 0f, -3f);
-            LobbyPositionAnchors.Stats = new Vector3(9f, 0f, -4f);
-            LobbyPositionAnchors.Contracts = new Vector3(-7f, 0f, 3f);
-
-            LobbyPositionAnchors.Bedrooms[0] = new Vector3(10.5f, 0f, 7f);
-            LobbyPositionAnchors.Bedrooms[1] = new Vector3(3.5f, 0f, 7f);
-            LobbyPositionAnchors.Bedrooms[2] = new Vector3(10.5f, 0f, 4f);
-            LobbyPositionAnchors.Bedrooms[3] = new Vector3(3.5f, 0f, 4f);
+            LobbyPositionAnchors.Bedrooms[0] = new(12f, 0f, 7f);
+            LobbyPositionAnchors.Bedrooms[1] = new(5f, 0f, 7f);
+            LobbyPositionAnchors.Bedrooms[2] = new(12f, 0f, 4f);
+            LobbyPositionAnchors.Bedrooms[3] = new(5f, 0f, 4f);
         }
 
         // Update room tex & colour maps
@@ -193,6 +215,7 @@ namespace KitchenHQ.Franchise
         public const int RoomSwapper = -1366052815;
         public const int ApplianceSwapper = 1637849031;
         public const int DebugMarker = -1909067557;
+        public const int ModDebugMarker = -413176971;
     }
     #endregion
 

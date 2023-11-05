@@ -12,7 +12,7 @@ namespace KitchenHQ.Franchise
     {
         protected override void Build()
         {
-            var anchor = LobbyPositionAnchors.Kitchen;
+            var anchor = ModdedLobbyPositionAnchors.Kitchen;
 
             LogDebug("[BUILD] Kitchen");
 

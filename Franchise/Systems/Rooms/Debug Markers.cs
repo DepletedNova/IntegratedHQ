@@ -36,14 +36,28 @@ namespace KitchenHQ.Franchise
             foreach (var bed in LobbyPositionAnchors.Bedrooms)
                 CreateMarker(bed);
 
-            if (ReplaceHQ)
-                CreateMarker(ModFranchise.ModRoomAnchor);
+            if (!ReplaceHQ)
+                return;
+
+            CreateMarker(ModdedLobbyPositionAnchors.ModRoomAnchor, true);
+
+            CreateMarker(ModdedLobbyPositionAnchors.Workshop, true);
+            CreateMarker(ModdedLobbyPositionAnchors.Garage, true);
+            CreateMarker(ModdedLobbyPositionAnchors.StartMarker, true);
+
+            CreateMarker(ModdedLobbyPositionAnchors.Kitchen, true);
+            CreateMarker(ModdedLobbyPositionAnchors.Office, true);
+            CreateMarker(ModdedLobbyPositionAnchors.Stats, true);
+            CreateMarker(ModdedLobbyPositionAnchors.Contracts, true);
+
+            foreach (var bed in ModdedLobbyPositionAnchors.Bedrooms)
+                CreateMarker(bed, true);
         }
 
-        private void CreateMarker(Vector3 position)
+        private void CreateMarker(Vector3 position, bool NHQ = false)
         {
             Entity entity = EntityManager.CreateEntity(typeof(CCreateAppliance), typeof(CPosition));
-            EntityManager.SetComponentData(entity, new CCreateAppliance { ID = FranchiseReferences.DebugMarker });
+            EntityManager.SetComponentData(entity, new CCreateAppliance { ID = NHQ ? FranchiseReferences.ModDebugMarker : FranchiseReferences.DebugMarker });
             EntityManager.SetComponentData(entity, new CPosition(position, quaternion.LookRotation(Vector3.forward, new float3(0f, 1f, 0f))));
             SetOccupant(position, entity, OccupancyLayer.Ceiling);
         }

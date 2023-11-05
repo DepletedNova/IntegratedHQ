@@ -21,7 +21,7 @@ namespace KitchenHQ.Franchise
 
         protected override void Build()
         {
-            var office = LobbyPositionAnchors.Office;
+            var office = ModdedLobbyPositionAnchors.Office;
 
             // Slot count
             int slots = ExtraLayouts.CalculateEntityCount();

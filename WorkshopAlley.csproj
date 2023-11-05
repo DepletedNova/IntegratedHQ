@@ -149,6 +149,7 @@
     <Compile Include="ExampleAPI.cs" />
     <Compile Include="Franchise\Components\Event Board.cs" />
     <Compile Include="Franchise\Components\Tape Handling.cs" />
+    <Compile Include="Franchise\GDOs\ModDebugMarker.cs" />
     <Compile Include="Franchise\GDOs\Mod Room\VHSTape.cs" />
     <Compile Include="Franchise\GDOs\Mod Room\ModRoomTable.cs" />
     <Compile Include="Franchise\GDOs\Mod Room\VHSPlayer.cs" />

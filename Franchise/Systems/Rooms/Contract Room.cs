@@ -20,7 +20,7 @@ namespace KitchenHQ.Franchise
 
         protected override void Build()
         {
-            var anchor = LobbyPositionAnchors.Contracts;
+            var anchor = ModdedLobbyPositionAnchors.Contracts;
 
             if (Franchises.IsEmpty)
             {

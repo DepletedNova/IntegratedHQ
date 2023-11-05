@@ -17,7 +17,7 @@ namespace KitchenHQ.Franchise
     {
         protected override void Build()
         {
-            var stats = LobbyPositionAnchors.Stats;
+            var stats = ModdedLobbyPositionAnchors.Stats;
 
             LogDebug("[BUILD] Stats room");
 
@@ -57,7 +57,7 @@ namespace KitchenHQ.Franchise
         {
             LogDebug("[BUILD] Custom upgrade view");
 
-            var pos = LobbyPositionAnchors.Stats + new Vector3(2f, 0f, -4f);
+            var pos = ModdedLobbyPositionAnchors.Stats + new Vector3(2f, 0f, -4f);
 
             var table = Create(FranchiseReferences.ModdedUpgradesView, pos, Vector3.forward);
             EntityManager.AddComponentData(table, new CModdedUpgradeView
@@ -101,7 +101,7 @@ namespace KitchenHQ.Franchise
                       select x).ToList()).ID;
             }
 
-            var stats = LobbyPositionAnchors.Stats;
+            var stats = ModdedLobbyPositionAnchors.Stats;
 
             EntityManager.AddComponent<CSpeedrunBoard>(Create(AssetReference.SpeedrunBoardVisual, stats + new Vector3(-2f, 0f, 0f), Vector3.forward));
             var pedestal = Create(AssetReference.FixedRunPedestal, stats + new Vector3(-2.5f, 0f, 0f), Vector3.forward);

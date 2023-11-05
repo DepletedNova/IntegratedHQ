@@ -21,7 +21,7 @@ namespace KitchenHQ.Franchise
         protected override void Build()
         {
             var playerEntities = Players.ToEntityArray(Allocator.Temp);
-            var bedrooms = LobbyPositionAnchors.Bedrooms;
+            var bedrooms = ModdedLobbyPositionAnchors.Bedrooms;
 
             for (int i = 0; i < bedrooms.Count; i++)
             {

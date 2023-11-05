@@ -51,7 +51,7 @@ namespace KitchenHQ.API
             Register(Create(id, LegacyPosition, LegacyRotation), Create(id, ModPosition, ModRotation), Action);
 
         /// <param name="ID">The ID of the appliance that will be placed</param>
-        /// <param name="Position">The position of the appliance (Highly suggest using <c>Kitchen.LobbyPositionAnchors</c> and offsetting those)</param>
+        /// <param name="Position">The position of the appliance (Highly suggest using <c>Kitchen.LobbyPositionAnchors</c> or <c>KitchenHQ.Franchise.ModdedLobbyPositionAnchors</c> and offsetting those)</param>
         /// <param name="Rotation">The direction the appliance will face</param>
         /// <returns></returns>
         public static FranchiseAppliance Create(int ID, Vector3 Position, Vector3 Rotation)
@@ -64,7 +64,7 @@ namespace KitchenHQ.API
         }
 
         /// <typeparam name="T">The CustomAppliance that is to be placed</typeparam>
-        /// <param name="Position">The position of the appliance (Highly suggest using <c>Kitchen.LobbyPositionAnchors</c> and offsetting those)</param>
+        /// <param name="Position">The position of the appliance (Highly suggest using <c>Kitchen.LobbyPositionAnchors</c> or <c>KitchenHQ.Franchise.ModdedLobbyPositionAnchors</c> and offsetting those)</param>
         /// <param name="Rotation">The direction the appliance will face</param>
         /// <returns></returns>
         public static FranchiseAppliance Create<T>(Vector3 Position, Vector3 Rotation) where T : CustomAppliance =>

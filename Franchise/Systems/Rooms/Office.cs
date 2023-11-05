@@ -12,7 +12,7 @@ namespace KitchenHQ.Franchise
     {
         protected override void Build()
         {
-            var office = LobbyPositionAnchors.Office;
+            var office = ModdedLobbyPositionAnchors.Office;
 
             LogDebug("[BUILD] Office room");
 

@@ -16,7 +16,7 @@ namespace KitchenHQ.Franchise
             Set<SRebuildModRoom>();
 
             if (ModRoom.Rooms.Count > 1)
-                Create(FranchiseReferences.RoomSwapper, ModFranchise.ModRoomAnchor + new Vector3(-2.9f, 0, -3), Vector3.forward);
+                Create(FranchiseReferences.RoomSwapper, ModdedLobbyPositionAnchors.ModRoomAnchor + new Vector3(-2.9f, 0, -3), Vector3.forward);
         }
     }
 }

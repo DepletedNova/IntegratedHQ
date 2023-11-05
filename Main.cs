@@ -24,7 +24,7 @@ namespace KitchenHQ
     {
         public const string NAME = "Integrated HQ";
         public const string GUID = "nova.integrated-hq";
-        public const string VERSION = "1.0.3";
+        public const string VERSION = "1.0.4";
 
         public Main() : base(GUID, NAME, "Zoey Davis", VERSION, ">=1.0.0", Assembly.GetExecutingAssembly()) { }
 
@@ -88,6 +88,7 @@ namespace KitchenHQ
                     .AddOption("DeveloperMode", false, new bool[] { false, true }, new string[] { "Disabled", "Enabled" })
                     .AddLabel("Show room anchors")
                     .AddOption("ShowRoomAnchors", false, new bool[] { false, true }, new string[] { "Disabled", "Enabled" })
+                    .AddInfo("Red: LobbyPositionAnchors\nBlue: ModdedLobbyPositionAnchors")
                     .AddLabel("Add Example Appliances")
                     .AddOption("ShowExampleAppRoom", false, new bool[] { false, true }, new string[] { "Disabled", "Enabled" })
                 .SubmenuDone()
@@ -95,7 +96,7 @@ namespace KitchenHQ
                     .AddLabel("Enable Seasonal Decorations")
                     .AddOption("AllowSeasonalDeco", true, new bool[] { false, true }, new string[] { "Disabled", "Enabled" }, true)
                     .AddLabel($"<size=80%>Current:</size> <color=#878787>{SeasonalToString(CurrentSeasonal())}</color>")
-                    .AddConditionalBlocker(() => !PrefManager.Get<bool>("AllowSeasonalDeco") || true) // Revert whenever you release more seasonals
+                    .AddConditionalBlocker(() => !PrefManager.Get<bool>("AllowSeasonalDeco"))
                         .AddLabel("Force Seasonal Decorations")
                         .AddOption("ForceSeasonalDeco", false, new bool[] { false, true }, new string[] { "Disabled", "Enabled" }, true)
                     .ConditionalBlockerDone()

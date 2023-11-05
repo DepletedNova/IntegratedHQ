@@ -18,7 +18,7 @@ namespace KitchenHQ.Franchise
 
         protected override void Build()
         {
-            var workshop = LobbyPositionAnchors.Workshop;
+            var workshop = ModdedLobbyPositionAnchors.Workshop;
 
             // Decorations
 

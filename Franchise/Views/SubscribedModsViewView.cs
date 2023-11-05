@@ -22,6 +22,7 @@ namespace KitchenHQ.Franchise
         private ViewData Data;
         private int TotalMods = 0;
 
+
         protected override void UpdateData(ViewData data)
         {
             if (!data.IsChangedFrom(Data))

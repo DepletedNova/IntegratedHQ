@@ -16,7 +16,7 @@ namespace KitchenHQ.Franchise
     {
         protected override void Build()
         {
-            var office = LobbyPositionAnchors.Office;
+            var office = ModdedLobbyPositionAnchors.Office;
 
             if (!Require(out SPlayerLevel sLevel) || sLevel.Level < 5)
             {
