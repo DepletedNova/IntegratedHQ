@@ -43,10 +43,13 @@ namespace KitchenHQ.Franchise
 
                 PlaceSpawnMarker(i, bedrooms[i]);
 
-                if (playerEntities.Length - 1 < i)
-                    continue;
-
-                EntityManager.SetComponentData(playerEntities[i], new CPosition(bedrooms[i]));
+                foreach (var entity in playerEntities)
+                {
+                    if (i == GetComponent<CPlayer>(entity).Index)
+                    {
+                        Set<CPosition>(playerEntities[i], bedrooms[i]);
+                    }
+                }
             }
 
             playerEntities.Dispose();

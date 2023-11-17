@@ -24,7 +24,7 @@ namespace KitchenHQ
     {
         public const string NAME = "Integrated HQ";
         public const string GUID = "nova.integrated-hq";
-        public const string VERSION = "1.0.4";
+        public const string VERSION = "1.0.6";
 
         public Main() : base(GUID, NAME, "Zoey Davis", VERSION, ">=1.0.0", Assembly.GetExecutingAssembly()) { }
 

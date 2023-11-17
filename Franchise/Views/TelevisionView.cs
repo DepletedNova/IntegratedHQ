@@ -63,14 +63,14 @@ namespace KitchenHQ.Franchise
                 return;
             }
 
-            LogDebug("[APPLIANCE] [Television] Calling overlay");
+            /*LogDebug("[APPLIANCE] [Television] Calling overlay");
             if (Players.Main.Get(Data.PlayerID).IsLocalUser)
             {
                 SteamFriends.OpenWebOverlay(Items[Index].Url, false);
                 OpenedBy = Data.PlayerID;
                 Data.PlayerID = 0;
                 Data.Interacted = false;
-            }
+            }*/
         }
 
         private float CycleDuration = MaxCycleDuration;

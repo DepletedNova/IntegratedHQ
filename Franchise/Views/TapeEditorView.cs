@@ -253,8 +253,6 @@ namespace KitchenHQ.Franchise
             [Key(1)] public bool DoNotSet;
             [Key(2)] public bool IsComplete;
             [Key(3)] public TapeValues Data;
-
-            public bool IsChangedFrom(ResponseData check) => IsComplete != check.IsComplete;
         }
         #endregion
     }
